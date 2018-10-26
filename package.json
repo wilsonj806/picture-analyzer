@@ -1,0 +1,16 @@
+{
+  "name": "picture-analyzer",
+  "version": "1.0.0",
+  "description": "- Picture analyzer\r     - use https://www.npmjs.com/package/face-recognition npm plugin\r     - use https://www.npmjs.com/package/rgb2hex other npm plugin\r     - use https://www.npmjs.com/package/rgb-cmyk next npm plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository":{
+    "type":"git",
+    "url":"url here"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
