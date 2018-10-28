@@ -1,16 +1,25 @@
 {
   "name": "picture-analyzer",
-  "version": "1.0.0",
-  "description": "- Picture analyzer\r     - use https://www.npmjs.com/package/face-recognition npm plugin\r     - use https://www.npmjs.com/package/rgb2hex other npm plugin\r     - use https://www.npmjs.com/package/rgb-cmyk next npm plugin",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "This is a picture-analyzer that is meant to be a small app to run in your browser. Functionally it's supposed to take in user-uploaded pictures, parse it and send some very simplistic properties back.",
+  "main": "index.html",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository":{
-    "type":"git",
-    "url":"url here"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wilsonj806/picture-analyzer.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "color-convert": "^1.9.3"
+  },
+  "devDependencies": {
+    "jasmine-core": "^3.3.0",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  }
 }

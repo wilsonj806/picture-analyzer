@@ -1,0 +1,22 @@
+.drop__target{
+  width:200px;
+  height:200px;
+  border: 3px dashed grey;
+}
+
+.upload__row{
+  display:flex;
+  flex-flow:column nowrap;
+}
+.upload__label{
+  display:block;
+}
+
+.button--upload{
+  display:block;
+}
+
+
+.strip{
+  list-style: none;
+}

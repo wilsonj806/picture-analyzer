@@ -1,0 +1,9 @@
+# testing related files
+
+/example/*
+
+/node_modules/*
+
+!/node_modules/color-convert
+!/node_modules/color-name
+

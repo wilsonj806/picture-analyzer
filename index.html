@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--suppress XmlInvalidId -->
+<html lang=en>
+<head>
+  <title>Picture Analyzer</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css">
+  <script src="scripts/index.js" async></script>
+
+</head>
+<body>
+<main>
+<section class="upload">
+  <div class="drop-ctr">
+      <div class="drop__target"></div>
+      <p class="prgh prgh--short">Drop files here</p>
+  </div>
+
+  <form class="upload__row">
+    <label name="upload-img" class="upload__label">Upload manually</label>
+    <input type="file" name="upload-img" class="button--upload"> <!-- the value att can't be used with inputs -->
+  </form>
+</section>
+
+<section class="img-ctr">
+  <canvas class="canvas" id="canvas"></canvas>
+  <div class="img-ctr__data">
+
+  </div>
+
+  <ul class="strip">
+  </ul>
+</section>
+
+</main>
+
+
+</body>
+
+</html>
