@@ -5,13 +5,6 @@
 
 This is a picture-analyzer that is meant to be a small app to run in your browser. Functionally it's supposed to take in user-uploaded pictures, parse it and send some very simplistic properties back.
 
-## Installation
-
-To install with npm, use the following CLI line:
-
-```npm
-npm i picture-analyzer
-```
 
 ## Dependencies
 
