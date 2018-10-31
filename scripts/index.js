@@ -38,7 +38,7 @@ function handleFile(files){
     return;
   }
 
-  // check file size
+  // check file size (10 Mb maximum)
   if (selectedFile.size > 10000000){
     fileWarn('wrongSize');
     return;
@@ -79,7 +79,7 @@ function fileWarn(string = ''){
       warnUpload.innerText = 'Warning\, you are trying to upload an unrecognized image file type. Accepted file types are (.png,.jpg,.bmp,.tiff,.svg, etc)';
       break;
     case 'wrongSize':
-      warnUpload.innerText = 'Warning\, image too big. Please limit file size to less than 10mb';
+      warnUpload.innerText = 'Warning\, image too big. Please limit file size to less than 10 Mb';
       break;
     case 'tooMany':
       warnUpload.innerText = 'Warning\, you are trying to upload more than one file. The app does not process more than one image at a time.';

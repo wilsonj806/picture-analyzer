@@ -1,3 +1,18 @@
+main{
+  display:grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-rows: 3fr 2fr 3fr;
+  grid-template-areas:
+    "intro canvas canvas"
+    "intro canvas canvas"
+    "anc anc anc";
+  height:100vh;
+}
+
+.intro{
+  grid-area: intro;
+}
+
 .drop__target{
   width:200px;
   height:200px;
@@ -19,4 +34,28 @@
 
 .strip{
   list-style: none;
+}
+
+.canvas-wrapper{
+  grid-area: canvas;
+}
+
+.ancillary{
+  grid-area: anc;
+}
+
+
+.strip{
+  grid-area: strip;
+  list-style:none;
+  padding:0;
+}
+
+.strip__item{
+  display:inline-block;
+}
+
+.strip__img{
+  max-width:20vh;
+  height:auto;
 }
