@@ -2,10 +2,10 @@
   "name": "picture-analyzer",
   "version": "0.1.0",
   "description": "This is a picture-analyzer that is meant to be a small app to run in your browser. Functionally it's supposed to take in user-uploaded pictures, parse it and send some very simplistic properties back.",
-  "main": "index.html",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --server --files \"*.css, *.html, *.js\""
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
     "color-convert": "^1.9.3"
   },
   "devDependencies": {
+    "browser-sync": "^2.26.3",
     "jasmine-core": "^3.3.0",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2"

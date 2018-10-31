@@ -1,15 +1,17 @@
+//const convert = require('color-convert');
+
 // DOM element selection
 const
   dropzone = document.querySelector('.drop__target'),
   strip = document.querySelector('.strip'),
   btnUpload = document.querySelector('[type="file"]'),
   canvas = document.getElementById('canvas'),
-  ctx = canvas.getContext('2d'),
-  uploadBar = document.getElementById('upload-bar')
+  ctx = canvas.getContext('2d')
 ;
 
-// first need to handle upload
 // then handle how to present the picture
+  // get size of the user's screen
+  // get aspect ratio of the picture
 // then handle data analysis
 
 // drag https://developer.mozilla.org/en-US/docs/Web/API/DragEvent
@@ -29,6 +31,7 @@ function handleDrop(e){
 
 function handleFile(files){
   const selectedFile = files[0];
+  fileWarn('empty');
   // check file type
   if (!selectedFile.type.startsWith('image')){
     fileWarn('wrongType');
@@ -51,13 +54,13 @@ function handleFile(files){
   const li = document.createElement('li');
   img.src = window.URL.createObjectURL(selectedFile);
   btnUpload.value = '';
-  li.classList.add('strip__ctr');
+  li.classList.add('strip__item');
   img.classList.add('strip__img');
   li.dataset.index = strip.childElementCount + 1;
   li.dataset.name = selectedFile.name;
   img.onload = function(){
-    const width = img.naturalWidth; // naturalHeight and width are analogous to videoHeight and width
-    const height = img.naturalHeight;
+    const width = img.naturalWidth * .5; // naturalHeight and width are analogous to videoHeight and width
+    const height = img.naturalHeight * .5;
     canvas.width = width;
     canvas.height = height;
     ctx.drawImage(img,0,0, width, height);
@@ -70,6 +73,7 @@ function handleFile(files){
 function fileWarn(string = ''){
   const intro = document.querySelector('.intro');
   const warnUpload = document.createElement('p');
+  warnUpload.classList.add('js-popup');
   switch(string){
     case 'wrongType':
       warnUpload.innerText = 'Warning\, you are trying to upload an unrecognized image file type. Accepted file types are (.png,.jpg,.bmp,.tiff,.svg, etc)';
@@ -80,10 +84,26 @@ function fileWarn(string = ''){
     case 'tooMany':
       warnUpload.innerText = 'Warning\, you are trying to upload more than one file. The app does not process more than one image at a time.';
       break;
+    case 'empty':
+      intro.childNodes.forEach(node=>{
+        if(node.nodeType !== 1){
+          return;
+        }
+        if (node.classList.contains('js-popup') === true){
+          intro.removeChild(node);
+          return;
+        }
+      });
+      break;
     default:
       console.warn('function expects "wrongType", "wrongSize", or "tooMany" as inputs');
   }
+
+  if (!warnUpload.innerText){
+    return;
+  }
   intro.appendChild(warnUpload);
+
 }
 
 // event listeners
@@ -99,4 +119,3 @@ dropzone.addEventListener('dragover', e=>{
 dropzone.addEventListener('drop', handleDrop);
 
 btnUpload.addEventListener('change',handleBtnUpload);
-

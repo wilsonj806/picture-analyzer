@@ -14,6 +14,7 @@ Runtime Dependencies
 Development Dependencies
 - [Jasmine](https://jasmine.github.io/)
 - [WebPack](https://webpack.js.org/)
+- [Browser Sync(might be redundant)](https://browsersync.io/)
 
 # License
 
