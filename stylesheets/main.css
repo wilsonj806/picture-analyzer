@@ -1,3 +1,21 @@
+main {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2fr 2fr;
+      grid-template-columns: 1fr 2fr 2fr;
+  -ms-grid-rows: 3fr 2fr 3fr;
+      grid-template-rows: 3fr 2fr 3fr;
+      grid-template-areas: "intro canvas canvas" "intro canvas canvas" "anc anc anc";
+  height: 100vh;
+}
+
+.intro {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: intro;
+}
+
 .drop__target {
   width: 200px;
   height: 200px;
@@ -24,5 +42,35 @@
 
 .strip {
   list-style: none;
+}
+
+.canvas-wrapper {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
+  grid-area: canvas;
+}
+
+.ancillary {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: anc;
+}
+
+.strip {
+  grid-area: strip;
+  list-style: none;
+  padding: 0;
+}
+
+.strip__item {
+  display: inline-block;
+}
+
+.strip__img {
+  max-width: 20vh;
+  height: auto;
 }
 /*# sourceMappingURL=main.css.map */
