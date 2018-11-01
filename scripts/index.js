@@ -59,11 +59,14 @@ function handleFile(files){
   li.dataset.index = strip.childElementCount + 1;
   li.dataset.name = selectedFile.name;
   img.onload = function(){
-    const width = img.naturalWidth * .5; // naturalHeight and width are analogous to videoHeight and width
-    const height = img.naturalHeight * .5;
-    canvas.width = width;
-    canvas.height = height;
-    ctx.drawImage(img,0,0, width, height);
+    const wrapper = document.querySelector('.canvas-wrapper');
+    const wrapperWidth = wrapper.clientWidth;
+    const scaleFactor = (wrapperWidth / img.naturalWidth) * .9;
+    const newWidth = img.naturalWidth * scaleFactor;
+    const newHeight = img.naturalHeight * scaleFactor;
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+    ctx.drawImage(img,0,0, newWidth, newHeight);
     li.appendChild(img);
     strip.appendChild(li);
     window.URL.revokeObjectURL(this.src);
