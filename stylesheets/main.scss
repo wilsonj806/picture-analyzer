@@ -13,6 +13,13 @@ main{
   grid-area: intro;
 }
 
+.js-danger-popup{
+  padding:10px;
+  color:white;
+  background:red;
+  font-weight:bold;
+}
+
 .drop__target{
   width:200px;
   height:200px;
@@ -30,7 +37,6 @@ main{
 .button--upload{
   display:block;
 }
-
 
 .strip{
   list-style: none;

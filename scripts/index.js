@@ -1,4 +1,4 @@
-//const convert = require('color-convert');
+const convert = require('color-convert');
 
 // DOM element selection
 const
@@ -9,43 +9,40 @@ const
   ctx = canvas.getContext('2d')
 ;
 
-// then handle how to present the picture
-  // get size of the user's screen
-  // get aspect ratio of the picture
 // then handle data analysis
 
 // drag https://developer.mozilla.org/en-US/docs/Web/API/DragEvent
 // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications
 
-function handleBtnUpload(e){
+function handleBtnUpload(e) {
   const uploadedFile = e.target.files;
   handleFile(uploadedFile);
 }
 
-function handleDrop(e){
+function handleDrop(e) {
   e.stopPropagation();
   e.preventDefault();
   const draggedFile = e.dataTransfer.files; // only works in mozilla
   handleFile(draggedFile);
 }
 
-function handleFile(files){
+function handleFile(files) {
   const selectedFile = files[0];
   fileWarn('empty');
   // check file type
-  if (!selectedFile.type.startsWith('image')){
+  if (!selectedFile.type.startsWith('image')) {
     fileWarn('wrongType');
     return;
   }
 
   // check file size (10 Mb maximum)
-  if (selectedFile.size > 10000000){
+  if (selectedFile.size > 10000000) {
     fileWarn('wrongSize');
     return;
   }
 
   // check number of files
-  if (files.length > 1){
+  if (files.length > 1) {
     fileWarn('tooMany');
     return;
   }
@@ -54,14 +51,16 @@ function handleFile(files){
   const li = document.createElement('li');
   img.src = window.URL.createObjectURL(selectedFile);
   btnUpload.value = '';
+
   li.classList.add('strip__item');
   img.classList.add('strip__img');
   li.dataset.index = strip.childElementCount + 1;
   li.dataset.name = selectedFile.name;
-  img.onload = function(){
+
+  img.onload = function() {
     const wrapper = document.querySelector('.canvas-wrapper');
-    const wrapperWidth = wrapper.clientWidth;
-    const scaleFactor = (wrapperWidth / img.naturalWidth) * .9;
+    const wrapperHeight = wrapper.clientHeight;
+    const scaleFactor = (wrapperHeight / img.naturalHeight) * .9;
     const newWidth = img.naturalWidth * scaleFactor;
     const newHeight = img.naturalHeight * scaleFactor;
     canvas.width = newWidth;
@@ -73,10 +72,10 @@ function handleFile(files){
   }
 }
 
-function fileWarn(string = ''){
+function fileWarn(string = '') {
   const intro = document.querySelector('.intro');
   const warnUpload = document.createElement('p');
-  warnUpload.classList.add('js-popup');
+  warnUpload.classList.add('js-danger-popup');
   switch(string){
     case 'wrongType':
       warnUpload.innerText = 'Warning\, you are trying to upload an unrecognized image file type. Accepted file types are (.png,.jpg,.bmp,.tiff,.svg, etc)';
@@ -89,10 +88,10 @@ function fileWarn(string = ''){
       break;
     case 'empty':
       intro.childNodes.forEach(node=>{
-        if(node.nodeType !== 1){
+        if(node.nodeType !== 1) {
           return;
         }
-        if (node.classList.contains('js-popup') === true){
+        if (node.classList.contains('js-danger-popup') === true) {
           intro.removeChild(node);
           return;
         }
@@ -102,7 +101,7 @@ function fileWarn(string = ''){
       console.warn('function expects "wrongType", "wrongSize", or "tooMany" as inputs');
   }
 
-  if (!warnUpload.innerText){
+  if (!warnUpload.innerText) {
     return;
   }
   intro.appendChild(warnUpload);
@@ -111,11 +110,11 @@ function fileWarn(string = ''){
 
 // event listeners
 
-dropzone.addEventListener('dragenter', e=>{
+dropzone.addEventListener('dragenter', e=> {
   e.stopPropagation();
   e.preventDefault();
 });
-dropzone.addEventListener('dragover', e=>{
+dropzone.addEventListener('dragover', e=> {
   e.stopPropagation();
   e.preventDefault();
 });
