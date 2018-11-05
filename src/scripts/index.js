@@ -1,4 +1,5 @@
 const convert = require('color-convert');
+// use webpack for the above
 
 // DOM element selection
 const
@@ -11,9 +12,6 @@ const
 
 // then handle data analysis
 
-// drag https://developer.mozilla.org/en-US/docs/Web/API/DragEvent
-// https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications
-
 function handleBtnUpload(e) {
   const uploadedFile = e.target.files;
   handleFile(uploadedFile);
@@ -22,7 +20,7 @@ function handleBtnUpload(e) {
 function handleDrop(e) {
   e.stopPropagation();
   e.preventDefault();
-  const draggedFile = e.dataTransfer.files; // only works in mozilla
+  const draggedFile = e.dataTransfer.files;
   handleFile(draggedFile);
 }
 
@@ -59,10 +57,12 @@ function handleFile(files) {
 
   img.onload = function() {
     const wrapper = document.querySelector('.canvas-wrapper');
+
     const wrapperHeight = wrapper.clientHeight;
     const scaleFactor = (wrapperHeight / img.naturalHeight) * .9;
     const newWidth = img.naturalWidth * scaleFactor;
     const newHeight = img.naturalHeight * scaleFactor;
+
     canvas.width = newWidth;
     canvas.height = newHeight;
     ctx.drawImage(img,0,0, newWidth, newHeight);
@@ -80,12 +80,15 @@ function fileWarn(string = '') {
     case 'wrongType':
       warnUpload.innerText = 'Warning\, you are trying to upload an unrecognized image file type. Accepted file types are (.png,.jpg,.bmp,.tiff,.svg, etc)';
       break;
+
     case 'wrongSize':
       warnUpload.innerText = 'Warning\, image too big. Please limit file size to less than 10 Mb';
       break;
+
     case 'tooMany':
       warnUpload.innerText = 'Warning\, you are trying to upload more than one file. The app does not process more than one image at a time.';
       break;
+
     case 'empty':
       intro.childNodes.forEach(node=>{
         if(node.nodeType !== 1) {

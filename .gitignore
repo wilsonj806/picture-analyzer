@@ -2,8 +2,13 @@
 
 /example/*
 
+# npm modules
+
 /node_modules/*
 
 !/node_modules/color-convert
 !/node_modules/color-name
 
+# other
+
+resource.md
