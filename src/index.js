@@ -1,4 +1,4 @@
-const convert = require('color-convert');
+import convert from '../node_modules/@csstools/convert-colors/index.js';
 // use webpack for the above
 
 // DOM element selection

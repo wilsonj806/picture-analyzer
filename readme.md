@@ -9,7 +9,8 @@ This is a picture-analyzer that is meant to be a small app to run in your browse
 ## Dependencies
 
 Runtime Dependencies
-- [Color Converter](https://www.npmjs.com/package/color-convert)
+- ~~[Color Converter](https://www.npmjs.com/package/color-convert)~~
+- [Convert Colors](https://www.npmjs.com/package/@csstools/convert-colors)
 
 Development Dependencies
 - [Jasmine](https://jasmine.github.io/)
