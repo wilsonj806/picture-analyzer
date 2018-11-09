@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--suppress XmlInvalidId -->
+<html lang=en>
+<head>
+  <title>Picture Analyzer</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <!-- Minimized bundles should be injected here at some point-->
+
+
+<link href="main.css" rel="stylesheet"></head>
+<body>
+<main>
+  <section class="intro">
+      <p>Note: Only accepts one image at a time</p>
+  <div class="drop-ctr">
+      <div class="drop__target"></div>
+      <p class="prgh prgh--short">Drop image here</p>
+  </div>
+
+  <form class="upload__row">
+    <label name="upload-img" class="upload__label">Upload manually</label>
+    <input type="file" name="upload-img" class="button--upload"> <!-- the value att can't be used with inputs -->
+  </form>
+</section>
+<section class="img-handling">
+<div class="canvas-wrapper">
+  <canvas class="canvas" id="canvas"></canvas>
+</div>
+<div class="data">
+  <h2 class="heading--md">Data Analysis</h2>
+  <div class="button-group">
+    <button class="color">most frequent color</button>
+    <button class="clipping">clipping</button>
+    <button class="reset">reset</button>
+  </div>
+</div>
+</section>
+
+<ul class="strip">
+</ul>
+
+
+</main>
+
+
+<script type="text/javascript" src="index.js"></script></body>
+
+</html>
