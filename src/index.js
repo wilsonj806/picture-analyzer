@@ -6,5 +6,8 @@ import './scripts/Upload';
 // SCSS
 
 import './stylesheets/main.scss';
+
+// package validation
+
 console.log(convert.rgb2hsl(100, 100, 100));
-// DOM element selection
+

@@ -1,11 +1,11 @@
 main{
   display:grid;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: 1fr 2fr 2fr 2fr;
   grid-template-rows: 3fr 2fr 3fr;
   grid-template-areas:
-    "intro canvas canvas"
-    "intro canvas canvas"
-    "anc anc anc";
+    "intro img img img"
+    "intro img img img"
+    "strip strip strip strip";
   height:100vh;
 }
 
@@ -38,8 +38,14 @@ main{
   display:block;
 }
 
-.strip{
-  list-style: none;
+.img-handling{
+  grid-area: img;
+  display:grid;
+  grid-template-columns: 1fr 1fr .75fr;
+  grid-template-areas:"canvas canvas data";
+  margin:10px;
+  border:1px solid black;
+
 }
 
 .canvas-wrapper{
@@ -49,10 +55,9 @@ main{
   justify-content: center;
 }
 
-.ancillary{
-  grid-area: anc;
+.data{
+  grid-area:data;
 }
-
 
 .strip{
   grid-area: strip;
@@ -68,3 +73,4 @@ main{
   max-width:20vh;
   height:auto;
 }
+
