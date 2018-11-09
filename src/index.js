@@ -1,6 +1,6 @@
 import convert from '../node_modules/@csstools/convert-colors/index.js';
-// use webpack for the above
-
+import './stylesheets/main.scss';
+console.log(convert.rgb2hsl(100, 100, 100));
 // DOM element selection
 const
   dropzone = document.querySelector('.drop__target'),

@@ -1,10 +1,13 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
+  entry:{
+    index:'./src/index.js'
+  },
   resolve: {
     alias: {
-        'node_modules': path.join(__dirname, 'node_modules'),
+        Convert: path.resolve(__dirname, '../node_modules/@csstools/convert-color'), // doesn't resolve when you use webpack-dev-server
     }
   },
   devServer: {
@@ -23,15 +26,28 @@ module.exports = {
     open: true, // Open the page in browser
     overlay: true, // error reporting
   },
-
+  module:{
+    rules:[
+        {
+        test: /\.scss$/,
+        use:[
+          {
+            loader:'style-loader'
+          },
+          {
+            loader:'css-loader',
+          },
+          {
+            loader:'sass-loader'
+          }
+        ],
+      }
+    ]
+  },
   plugins: [
-    new HtmlWebpackPlugin({ // FIGURE OUT IF YOU NEED THIS BEFORE RUNNING WEBPACK
-      title: "Picture Analyzer",
-      meta: {
-        viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
-      },
-
-    }),
+    new HtmlWebpackPlugin({
+      template: 'index.html'
+    })
   ],
 };
 
