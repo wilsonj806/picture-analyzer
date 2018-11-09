@@ -1,5 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
+
+let pathsToClean = [
+  './dist/*'
+];
 
 module.exports = {
   entry:{
@@ -31,9 +37,7 @@ module.exports = {
         {
         test: /\.scss$/,
         use:[
-          {
-            loader:'style-loader'
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader:'css-loader',
           },
@@ -46,7 +50,17 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: 'index.html',
+    }),
+    new CleanWebpackPlugin(
+      pathsToClean,
+      {
+        root:path.resolve('./config/..'), // path.resolve() is a Node.js method that resolves a relative path as an absolute path
+        exclude:['index.html']
+      }
+    ),
+    new MiniCssExtractPlugin({
+      filename: "main.css"
     })
   ],
 };
