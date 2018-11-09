@@ -4,9 +4,8 @@
 <head>
   <title>Picture Analyzer</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="stylesheets/main.css" type="text/css">
-  <script src="scripts/index.js" async></script>
+  <!-- Minimized bundles should be injected here at some point-->
+
 
 </head>
 <body>
@@ -23,19 +22,22 @@
     <input type="file" name="upload-img" class="button--upload"> <!-- the value att can't be used with inputs -->
   </form>
 </section>
-
-<section class="canvas-wrapper">
+<section class="img-handling">
+<div class="canvas-wrapper">
   <canvas class="canvas" id="canvas"></canvas>
-</section>
-
-<section class="ancillary">
-  <div class="data">
-
+</div>
+<div class="data">
+  <h2 class="heading--md">Data Analysis</h2>
+  <div class="button-group">
+    <button class="color"></button>
+    <button class="clipping"></button>
+    <button class="reset"></button>
   </div>
-
-  <ul class="strip">
-  </ul>
+</div>
 </section>
+
+<ul class="strip">
+</ul>
 
 
 </main>
