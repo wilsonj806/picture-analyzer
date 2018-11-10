@@ -27,7 +27,17 @@ module.exports = {
     overlay: true, // error reporting
   },
   module:{
-    rules:[
+    rules:[/*
+        {
+          test:/\.js$/,
+          exclude: path.resolve('../node_modules/'),
+          enforce:'pre',
+          use:[
+            {
+              loader:'eslint-loader',
+            }
+          ]
+        },*/
         {
         test: /\.scss$/,
         use:[
