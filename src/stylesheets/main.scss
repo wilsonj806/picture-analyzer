@@ -1,12 +1,12 @@
 main{
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 2fr 2fr 2fr;
   grid-template-rows: 3fr 2fr 3fr;
   grid-template-areas:
     "intro img img img"
     "intro img img img"
     "strip strip strip strip";
-  height:100vh;
+  min-height: 100vh;
 }
 
 .intro{
@@ -14,63 +14,67 @@ main{
 }
 
 .js-danger-popup{
-  padding:10px;
+  padding: 10px;
   color:white;
   background:red;
   font-weight:bold;
 }
 
 .drop__target{
-  width:200px;
-  height:200px;
+  width: 200px;
+  height: 200px;
   border: 3px dashed grey;
 }
 
 .upload__row{
-  display:flex;
-  flex-flow:column nowrap;
+  display: flex;
+  flex-flow: column nowrap;
 }
 .upload__label{
-  display:block;
+  display: block;
 }
 
 .button--upload{
-  display:block;
+  display: block;
 }
 
 .img-handling{
   grid-area: img;
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 1fr .75fr;
-  grid-template-areas:"canvas canvas data";
-  margin:10px;
-  border:1px solid black;
+  grid-template-areas: "canvas canvas data";
+  margin: 10px;
+  border: 1px solid black;
 
 }
 
 .canvas-wrapper{
   grid-area: canvas;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .data{
-  grid-area:data;
+  grid-area: data;
 }
 
 .strip{
   grid-area: strip;
-  list-style:none;
-  padding:0;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 .strip__item{
-  display:inline-block;
+  display: inline-block;
+  margin-left :10px;
+  margin-right: 10px;
 }
 
 .strip__img{
-  max-width:20vh;
-  height:auto;
+  max-height: 13rem;
+  width: auto;
 }
 

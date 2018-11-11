@@ -1,6 +1,6 @@
 {
   "name": "picture-analyzer",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "This is a picture-analyzer that is meant to be a small app to run in your browser. Functionally it's supposed to take in user-uploaded pictures, parse it and send some very simplistic properties back.",
   "private": true,
   "scripts": {
@@ -23,7 +23,6 @@
     "@csstools/convert-colors": "^1.4.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.3",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.1",
     "eslint": "^5.3.0",
