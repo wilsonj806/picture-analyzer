@@ -24,6 +24,7 @@ My goal for this project was to develop something that required some complex Jav
 
 **Currently implemented features**
 - File upload system
+- Image analysis *partial implementation*
 
 ### Bonus features
 
