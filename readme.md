@@ -4,6 +4,7 @@
 
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/wilsonj806/picture-analyzer.svg)](https://github.com/wilsonj806/picture-analyzer)
 [![devDependencies Status](https://david-dm.org/wilsonj806/picture-analyzer/dev-status.svg)](https://david-dm.org/wilsonj806/picture-analyzer?type=dev)
+[Live Site](https://wilsonj806.github.io/picture-analyzer/)
 
 ## Description
 
@@ -30,8 +31,9 @@ My goal for this project was to develop something that required some complex Jav
 
 The below features are more intended to be extra features to be implemented after v1.0.0
 - Use D3.js for data visualization
-  - Hard mode: figure out how to use pure JS to make charts for Lightness in an image
+  - Hard mode: figure out how to use pure JS to make charts for Lightness in an image before using D3.js
 - Make the page fully responsive
+- Learn Node.js and implement image analysis there?
 
 ## Dependencies
 
