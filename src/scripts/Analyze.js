@@ -96,11 +96,11 @@ class ImageData {
       /* eslint-enable no-param-reassign */
     }, {});
     const lightArr = Object.entries(light);
-    // console.dir(lightArr);
-    this.convertCSV(lightArr);
+    console.dir(lightArr);
+    // this.convertCSV(lightArr);
     return this;
   }
-  /*
+
   convertCSV(arr) {
     let csv = 'Lightness \n';
     csv += 'light val, count \n';
@@ -114,7 +114,7 @@ class ImageData {
     newEle.download = 'data.csv';
     newEle.click();
     return this;
-  } */
+  }
 }
 
 export default ImageData;
