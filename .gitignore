@@ -1,8 +1,8 @@
-# testing related files
-
 /extra/*
 
 /dist/
+
+/src/scripts/drafts/*
 
 # npm modules
 

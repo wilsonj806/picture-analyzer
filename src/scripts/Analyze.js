@@ -1,42 +1,42 @@
 // analyze pictures
 import convert from '../../node_modules/@csstools/convert-colors';
 
-const colorStats = document.querySelector('.btn--color-stats');
-const clipping = document.querySelector('.btn--clipping');
-
-// Should assign properties with prototype instead?
 // TODO: Optimize image data sorting for performance
 // TODO: Set a time out for array processing operations
 // TODO: Set up the popular colors finder as an array with about 10 values or colors
 // FIXME: Implement a rate limiter so that you can't just spam the buttons and soft-crash everything
-// FIXME: Use constructors instead so you can use this instead of retyping Analyzer every time
 
-const Analyzer = {
-  imgPx: '',
-  lastImg: '',
-  rgbArr: [],
-  sortedRGB: [],
-  hslArr: [],
+class ImageData {
+  constructor() {
+    this.pixelData = [];
+    this.rgbArr = [];
+    this.sortedRGB = [];
+    this.hslArr = [];
+    /*
+    this.width = undefined;
+    this.height = undefined;
+    */
+  }
 
-  setPixels: (context, width, height) => {
-    Analyzer.imgPx = context.getImageData(0, 0, width, height);
-  },
-  parsePixels: () => {
-    const pixels = Analyzer.imgPx;
+  setPixels(context, width, height) {
+    this.pixelData = context.getImageData(0, 0, width, height);
+  }
+
+  parsePixels() {
+    const pixels = this.pixelData;
     for (let i = 0; i < pixels.data.length; i += 4) {
       const red = pixels.data[i + 0];
       const green = pixels.data[i + 1];
       const blue = pixels.data[i + 2];
-      const entry = [];
-      entry.push(red);
-      entry.push(green);
-      entry.push(blue);
-      Analyzer.rgbArr.push(entry);
+      const entry = [].concat(red, green, blue);
+      this.rgbArr.push(entry);
     }
-  },
-  // TODO: refactor so that it accepts any input array and outputs the corresponding sorted around
-  sortRGB: () => {
-    const sort = Analyzer.rgbArr.reduce((obj, item) => {
+    // console.log(this.rgbArr);
+    return this;
+  }
+
+  sortRGB() {
+    const sort = this.rgbArr.reduce((obj, item) => {
       /* eslint-disable no-param-reassign */
       if (!obj[item]) {
         obj[item] = 0;
@@ -46,15 +46,17 @@ const Analyzer = {
       /* eslint-enable no-param-reassign */
     }, {});
     const sortArr = Object.entries(sort); // Objects not meant to hold large amounts of data
-    Analyzer.sortedRGB = sortArr;
-  },
-  findMost: () => { // determine way to compare with the rest of the accumulator
-    const rgb = Analyzer.sortedRGB;
+    this.sortedRGB = sortArr;
+    return this;
+  }
+
+  findMost() { // determine way to compare with the rest of the accumulator
+    const rgb = this.sortedRGB;
     function hasLowIndex(row) {
       return row[1] < this[1];
     }
-    const most = rgb.reduce((acc, item, i) => {
-      if (i < 10) console.log(acc.some(hasLowIndex, item));
+    const most = rgb.reduce((acc, item) => {
+      // if (i < 10) console.log(acc.some(hasLowIndex, item));
       if (acc.length < 3) {
         acc.push(item);
       } else if (acc.some(hasLowIndex, item)) {
@@ -64,9 +66,11 @@ const Analyzer = {
       return acc;
     }, []);
     console.dir(most);
-  },
-  rgb2Hsl: () => {
-    const pixels = Analyzer.imgPx;
+    return this;
+  }
+
+  rgb2Hsl() {
+    const pixels = this.pixelData;
     for (let i = 0; i < pixels.data.length; i += 4) {
       const red = pixels.data[i + 0];
       const green = pixels.data[i + 1];
@@ -75,11 +79,13 @@ const Analyzer = {
         const roundedVal = Math.round(val);
         return roundedVal;
       });
-      Analyzer.hslArr.push(converted);
+      this.hslArr.push(converted);
     }
-  },
-  getLightness: () => {
-    const hsl = Analyzer.hslArr;
+    return this;
+  }
+
+  getLightness() {
+    const hsl = this.hslArr;
     const light = hsl.reduce((obj, item) => {
       /* eslint-disable no-param-reassign */
       if (!obj[item[2]]) {
@@ -91,9 +97,11 @@ const Analyzer = {
     }, {});
     const lightArr = Object.entries(light);
     // console.dir(lightArr);
-    Analyzer.convertCSV(lightArr);
-  },
-  convertCSV: (arr) => {
+    this.convertCSV(lightArr);
+    return this;
+  }
+  /*
+  convertCSV(arr) {
     let csv = 'Lightness \n';
     csv += 'light val, count \n';
     arr.forEach((row) => {
@@ -105,25 +113,8 @@ const Analyzer = {
     newEle.target = '_blank';
     newEle.download = 'data.csv';
     newEle.click();
-  },
-};
+    return this;
+  } */
+}
 
-// Event Listeners
-
-colorStats.addEventListener('click', () => {
-  Analyzer.parsePixels();
-  Analyzer.sortRGB();
-  Analyzer.findMost();
-});
-
-clipping.addEventListener('click', () => {
-  Analyzer.rgb2Hsl();
-  Analyzer.getLightness();
-});
-
-export default Analyzer;
-
-/* package validation
-console.log(convert.rgb2hsl(255, 255, 255));
-
-*/
+export default ImageData;
