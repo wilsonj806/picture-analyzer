@@ -27,6 +27,14 @@ module.exports = {
             loader:'css-loader',
           },
           {
+            loader: "postcss-loader", // used to add vendor prefixes to stuff, investigate other uses
+            options: {
+              plugins: () => ([
+                require("autoprefixer"),
+              ]),
+            },
+          },
+          {
             loader:'sass-loader'
           }
         ],

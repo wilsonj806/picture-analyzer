@@ -1,3 +1,5 @@
+// FIXME: Turn this into an exportable class
+// FIXME: Uncouple Analyzer.js from Upload.js
 
 import Analyzer from './Analyze';
 
