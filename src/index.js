@@ -1,6 +1,5 @@
-// JS Modules
-import './scripts/Upload';
-import './scripts/Analyze';
+// App
+import './App';
 
 // SCSS
 

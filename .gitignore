@@ -1,8 +1,8 @@
-# testing related files
-
-/example/*
+/extra/*
 
 /dist/
+
+/src/scripts/drafts/*
 
 # npm modules
 
@@ -11,3 +11,5 @@
 # other
 
 resource.md
+
+/doc/*
