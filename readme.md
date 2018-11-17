@@ -5,6 +5,8 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/wilsonj806/picture-analyzer.svg)](https://github.com/wilsonj806/picture-analyzer)
 [![devDependencies Status](https://david-dm.org/wilsonj806/picture-analyzer/dev-status.svg)](https://david-dm.org/wilsonj806/picture-analyzer?type=dev)
 
+- [**Live Site**](https://wilsonj806.github.io/picture-analyzer/)
+
 ## Description
 
 This is a picture-analyzer that is meant to be a small app/ page to run in a web browser. It's supposed to take in user-uploaded pictures, parse it and send some very simplistic properties back. Functionally, the app is a very stripped down version of how Adobe Lightroom or even Adobe Photoshop presents image information.
@@ -32,6 +34,7 @@ The below features are more intended to be extra features to be implemented afte
 - Use D3.js for data visualization
   - Hard mode: figure out how to use pure JS to make charts for Lightness in an image
 - Make the page fully responsive
+- Use web components/ templates/ shadow DOM for displaying data
 
 ## Dependencies
 

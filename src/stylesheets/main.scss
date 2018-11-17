@@ -44,8 +44,8 @@ main{
   grid-template-columns: 1fr 1fr .75fr;
   grid-template-areas: "canvas canvas data";
   margin: 10px;
-  border: 1px solid black;
-
+  border-radius: 15px;
+  border: .75px solid black;
 }
 
 .canvas-wrapper{

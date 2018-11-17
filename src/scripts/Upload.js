@@ -17,7 +17,7 @@ function fileWarn(string = '') {
       break;
 
     case 'wrongSize':
-      warnUpload.innerText = 'Warning, image too big. Please limit file size to less than 10 Mb';
+      warnUpload.innerText = 'Warning, image too big. Please limit file size to less than 2 Mb';
       break;
 
     case 'tooMany':
@@ -54,8 +54,8 @@ function handleFile(files) {
     return;
   }
 
-  // check file size (10 Mb maximum)
-  if (selectedFile.size > 10000000) {
+  // check file size (2 Mb maximum)
+  if (selectedFile.size > 2000000) {
     fileWarn('wrongSize');
     return;
   }

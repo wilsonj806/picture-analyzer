@@ -1,6 +1,6 @@
 # testing related files
 
-/example/*
+/extra/*
 
 /dist/
 
@@ -11,3 +11,5 @@
 # other
 
 resource.md
+
+/doc/*

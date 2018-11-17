@@ -6,7 +6,11 @@ const clipping = document.querySelector('.btn--clipping');
 
 // Should assign properties with prototype instead?
 // TODO: Optimize image data sorting for performance
-// FIXME: Implement a reset so that data gets updated.
+// TODO: Set a time out for array processing operations
+// TODO: Set up the popular colors finder as an array with about 10 values or colors
+// FIXME: Implement a rate limiter so that you can't just spam the buttons and soft-crash everything
+// FIXME: Use constructors instead so you can use this instead of retyping Analyzer every time
+
 const Analyzer = {
   imgPx: '',
   lastImg: '',
@@ -32,8 +36,7 @@ const Analyzer = {
   },
   // TODO: refactor so that it accepts any input array and outputs the corresponding sorted around
   sortRGB: () => {
-    const rgb = Analyzer.rgbArr;
-    Analyzer.sortedRGB = rgb.reduce((obj, item) => {
+    const sort = Analyzer.rgbArr.reduce((obj, item) => {
       /* eslint-disable no-param-reassign */
       if (!obj[item]) {
         obj[item] = 0;
@@ -42,6 +45,25 @@ const Analyzer = {
       return obj;
       /* eslint-enable no-param-reassign */
     }, {});
+    const sortArr = Object.entries(sort); // Objects not meant to hold large amounts of data
+    Analyzer.sortedRGB = sortArr;
+  },
+  findMost: () => { // determine way to compare with the rest of the accumulator
+    const rgb = Analyzer.sortedRGB;
+    function hasLowIndex(row) {
+      return row[1] < this[1];
+    }
+    const most = rgb.reduce((acc, item, i) => {
+      if (i < 10) console.log(acc.some(hasLowIndex, item));
+      if (acc.length < 3) {
+        acc.push(item);
+      } else if (acc.some(hasLowIndex, item)) {
+        acc.pop(); // pop out last value
+        acc.push(item); // push new value
+      }
+      return acc;
+    }, []);
+    console.dir(most);
   },
   rgb2Hsl: () => {
     const pixels = Analyzer.imgPx;
@@ -49,13 +71,10 @@ const Analyzer = {
       const red = pixels.data[i + 0];
       const green = pixels.data[i + 1];
       const blue = pixels.data[i + 2];
-      /* eslint-disable no-param-reassign, no-unused-vars */
       const converted = convert.rgb2hsl(red, green, blue).map((val) => {
-        val = Math.round(val);
-        return val;
+        const roundedVal = Math.round(val);
+        return roundedVal;
       });
-
-      /* eslint-enable no-param-reassign, no-unused-vars */
       Analyzer.hslArr.push(converted);
     }
   },
@@ -70,17 +89,14 @@ const Analyzer = {
       return obj;
       /* eslint-enable no-param-reassign */
     }, {});
-    Analyzer.convertCSV(light);
-    // TODO: Sort the new array, and download it
+    const lightArr = Object.entries(light);
+    // console.dir(lightArr);
+    Analyzer.convertCSV(lightArr);
   },
-  convertCSV: (obj) => {
-    let csv = 'light val, count \n';
-    const objArr = Object.keys(obj).map((key) => {
-      const num = Number(key);
-      const val = obj[key];
-      return [num, val];
-    });
-    objArr.forEach((row) => {
+  convertCSV: (arr) => {
+    let csv = 'Lightness \n';
+    csv += 'light val, count \n';
+    arr.forEach((row) => {
       csv += row.join(',');
       csv += '\n';
     });
@@ -97,6 +113,7 @@ const Analyzer = {
 colorStats.addEventListener('click', () => {
   Analyzer.parsePixels();
   Analyzer.sortRGB();
+  Analyzer.findMost();
 });
 
 clipping.addEventListener('click', () => {
