@@ -1,12 +1,12 @@
 import Uploader from './scripts/Upload';
-import ImageData from './scripts/Analyze';
+import AnalyzeImg from './scripts/Analyze';
 
 // TODO: port this to image handler at some point
 const colorStats = document.querySelector('.btn--color-stats');
 const clipping = document.querySelector('.btn--clipping');
 
 const uploader = new Uploader('.intro', '#canvas', '.strip', '[type="file"]', '.drop__target');
-const imgHandler = new ImageData();
+const imgHandler = new AnalyzeImg();
 
 
 const {

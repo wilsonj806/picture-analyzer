@@ -61,20 +61,26 @@ main{
 
 .strip{
   grid-area: strip;
-  list-style: none;
   padding: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  list-style: none;
   display: flex;
   align-items: center;
 }
 
 .strip__item{
-  display: inline-block;
-  margin-left :10px;
+  padding: 5px;
+  margin-left: 10px;
   margin-right: 10px;
+  border: 1px solid grey;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .strip__img{
-  max-height: 13rem;
+  max-height: 7.5rem;
   width: auto;
 }
 

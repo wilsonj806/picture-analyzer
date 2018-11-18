@@ -5,33 +5,37 @@ import convert from '../../node_modules/@csstools/convert-colors';
 // TODO: Set a time out for array processing operations
 // TODO: Set up the popular colors finder as an array with about 10 values or colors
 // FIXME: Implement a rate limiter so that you can't just spam the buttons and soft-crash everything
+// FIXME: Set up a reset for when you have new images uploaded
 
-class ImageData {
+class AnalyzeImg {
   constructor() {
     this.pixelData = [];
     this.rgbArr = [];
     this.sortedRGB = [];
     this.hslArr = [];
-    /*
-    this.width = undefined;
-    this.height = undefined;
-    */
+  }
+
+  resetArr() {
+    this.pixelData = [];
+    this.rgbArr.splice(0, this.rgbArr.length);
   }
 
   setPixels(context, width, height) {
+    if (this.pixelData.width > 2) this.resetArr();
     this.pixelData = context.getImageData(0, 0, width, height);
   }
 
   parsePixels() {
     const pixels = this.pixelData;
-    for (let i = 0; i < pixels.data.length; i += 4) {
+    const l = pixels.data.length;
+    for (let i = 0; i < l; i += 4) {
       const red = pixels.data[i + 0];
       const green = pixels.data[i + 1];
       const blue = pixels.data[i + 2];
-      const entry = [].concat(red, green, blue);
+      const entry = [].concat(red, green, blue); // can technically turn this into one line
       this.rgbArr.push(entry);
     }
-    // console.log(this.rgbArr);
+    console.dir(this.rgbArr);
     return this;
   }
 
@@ -117,4 +121,4 @@ class ImageData {
   }
 }
 
-export default ImageData;
+export default AnalyzeImg;

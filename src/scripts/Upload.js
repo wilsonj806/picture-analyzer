@@ -20,7 +20,7 @@ class Uploader {
         break;
 
       case 'wrongSize':
-        warnUpload.innerText = 'Warning, image too big. Please limit file size to less than 2 Mb';
+        warnUpload.innerText = 'Warning, image too big. Please limit file size to less than 1 Mb';
         break;
 
       case 'tooMany':
@@ -56,8 +56,8 @@ class Uploader {
       return;
     }
 
-    // check file size (2 Mb maximum)
-    if (selectedFile.size > 2000000) {
+    // check file size (1 Mb maximum)
+    if (selectedFile.size > 1000000) {
       this.fileWarn('wrongSize');
       return;
     }
