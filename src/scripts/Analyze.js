@@ -4,15 +4,15 @@ import convert from '../../node_modules/@csstools/convert-colors';
 // TODO: Optimize image data sorting for performance
 // TODO: Set a time out for array processing operations
 // TODO: Set up the popular colors finder as an array with about 10 values or colors
-// FIXME: Implement a rate limiter so that you can't just spam the buttons and soft-crash everything
-// FIXME: Set up a reset for when you have new images uploaded
 
 class AnalyzeImg {
   constructor() {
     this.pixelData = [];
     this.rgbArr = [];
-    this.sortedRGB = [];
+    this.sortedRgb = [];
     this.hslArr = [];
+    this.lightnessQty = [];
+    this.pixelCount = undefined;
   }
 
   resetArr() {
@@ -23,6 +23,7 @@ class AnalyzeImg {
   setPixels(context, width, height) {
     if (this.pixelData.width > 2) this.resetArr();
     this.pixelData = context.getImageData(0, 0, width, height);
+    return this;
   }
 
   parsePixels() {
@@ -35,11 +36,12 @@ class AnalyzeImg {
       const entry = [].concat(red, green, blue); // can technically turn this into one line
       this.rgbArr.push(entry);
     }
-    console.dir(this.rgbArr);
+    this.pixelCount = this.rgbArr.length;
+    console.log(this.pixelCount);
     return this;
   }
 
-  sortRGB() {
+  sortRgb() {
     const sort = this.rgbArr.reduce((obj, item) => {
       /* eslint-disable no-param-reassign */
       if (!obj[item]) {
@@ -50,27 +52,29 @@ class AnalyzeImg {
       /* eslint-enable no-param-reassign */
     }, {});
     const sortArr = Object.entries(sort); // Objects not meant to hold large amounts of data
-    this.sortedRGB = sortArr;
+    this.sortedRgb = sortArr;
     return this;
   }
 
-  findMost() { // determine way to compare with the rest of the accumulator
-    const rgb = this.sortedRGB;
+  // TODO: Implement the reduceer in a way so that you end up with 6 entries and the incoming
+  // entry is compared against each existing entry before determining if something should be removed
+  findMost() {
+    const rgb = this.sortedRgb;
     function hasLowIndex(row) {
       return row[1] < this[1];
     }
     const most = rgb.reduce((acc, item) => {
       // if (i < 10) console.log(acc.some(hasLowIndex, item));
       if (acc.length < 3) {
-        acc.push(item);
+        acc.push(item[0]);
       } else if (acc.some(hasLowIndex, item)) {
         acc.pop(); // pop out last value
-        acc.push(item); // push new value
+        acc.push(item[0]); // push new rgb value
       }
       return acc;
     }, []);
     console.dir(most);
-    return this;
+    return most;
   }
 
   rgb2Hsl() {
@@ -100,24 +104,8 @@ class AnalyzeImg {
       /* eslint-enable no-param-reassign */
     }, {});
     const lightArr = Object.entries(light);
-    console.dir(lightArr);
-    // this.convertCSV(lightArr);
-    return this;
-  }
-
-  convertCSV(arr) {
-    let csv = 'Lightness \n';
-    csv += 'light val, count \n';
-    arr.forEach((row) => {
-      csv += row.join(',');
-      csv += '\n';
-    });
-    const newEle = document.createElement('a');
-    newEle.href = `data:text/csv;charset=utf-8, ${encodeURI(csv)}`;
-    newEle.target = '_blank';
-    newEle.download = 'data.csv';
-    newEle.click();
-    return this;
+    this.lightnessQty = lightArr;
+    return lightArr;
   }
 }
 

@@ -98,7 +98,8 @@ class Uploader {
       li.appendChild(img);
       strip.appendChild(li);
       window.URL.revokeObjectURL(img.src);
-      analysisSuite.setPixels(ctx, canvas.width, canvas.height);
+      // TODO: have catch for not having the module
+      analysisSuite.setPixels(ctx, canvas.width, canvas.height).parsePixels();
     };
   }
 
