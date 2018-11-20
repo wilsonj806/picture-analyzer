@@ -1,15 +1,16 @@
-// analyze pictures
+// TODO: import RGB2HSL ONLY from convert colors
 import convert from '../../node_modules/@csstools/convert-colors';
 
 // TODO: Optimize image data sorting for performance
 // TODO: Set a time out for array processing operations
+// TODO: Model dynamic range by getting the mode of rgbArr and approximating a range???
 // TODO: Set up the popular colors finder as an array with about 10 values or colors
 
 class AnalyzeImg {
   constructor() {
     this.pixelData = [];
     this.rgbArr = [];
-    this.sortedRgb = [];
+    this.rgbCount = [];
     this.hslArr = [];
     this.lightnessQty = [];
     this.pixelCount = undefined;
@@ -37,11 +38,10 @@ class AnalyzeImg {
       this.rgbArr.push(entry);
     }
     this.pixelCount = this.rgbArr.length;
-    console.log(this.pixelCount);
     return this;
   }
 
-  sortRgb() {
+  rgbFreq() {
     const sort = this.rgbArr.reduce((obj, item) => {
       /* eslint-disable no-param-reassign */
       if (!obj[item]) {
@@ -52,18 +52,24 @@ class AnalyzeImg {
       /* eslint-enable no-param-reassign */
     }, {});
     const sortArr = Object.entries(sort); // Objects not meant to hold large amounts of data
-    this.sortedRgb = sortArr;
+    this.rgbCount = sortArr;
     return this;
   }
 
-  // TODO: Implement the reduceer in a way so that you end up with 6 entries and the incoming
+  // TODO: Implement the reducer in a way so that you end up with 6 entries and the incoming
   // entry is compared against each existing entry before determining if something should be removed
+  /*
+    * Alternative to modeling the dynamic range of an image:
+      * Sort the array by frequency
+      * Pick 15 of the most frequent
+      * Narrow it down to 6 based on if there are colors that are very close to each other
+  */
   findMost() {
-    const rgb = this.sortedRgb;
+    const rgb = this.rgbCount;
     function hasLowIndex(row) {
       return row[1] < this[1];
     }
-    const most = rgb.reduce((acc, item) => {
+    const mostFrequent = rgb.reduce((acc, item) => {
       // if (i < 10) console.log(acc.some(hasLowIndex, item));
       if (acc.length < 3) {
         acc.push(item[0]);
@@ -73,8 +79,7 @@ class AnalyzeImg {
       }
       return acc;
     }, []);
-    console.dir(most);
-    return most;
+    return mostFrequent;
   }
 
   rgb2Hsl() {

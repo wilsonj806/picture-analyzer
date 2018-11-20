@@ -36,6 +36,7 @@ My goal for this project was to develop something that required some complex Jav
 ### Post v1.0.0 support
 
 The below features are more intended to be extra features to be implemented **after v1.0.0**
+- Port this to React
 - Use D3.js for data visualization
   - Hard mode: figure out how to use pure JS to make charts for Lightness in an image
 - Make the page fully responsive

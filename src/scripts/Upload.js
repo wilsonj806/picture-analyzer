@@ -1,4 +1,5 @@
 class Uploader {
+  // TODO: Add dropeffect to the drag and drop
   // FIXME: Having this many input args in a function isn't great
   constructor(intro, canvas, strip, btnUpload, dropzone) {
     this.intro = document.querySelector(intro);

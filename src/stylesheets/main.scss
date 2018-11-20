@@ -1,10 +1,11 @@
 main{
   display: grid;
   grid-template-columns: 1fr 2fr 2fr 2fr;
-  grid-template-rows: 3fr 2fr 3fr;
+  grid-template-rows: 3fr 2fr 1.5rem 3fr;
   grid-template-areas:
     "intro img img img"
     "intro img img img"
+    ". button button button"
     "strip strip strip strip";
   min-height: 100vh;
 }
@@ -34,7 +35,7 @@ main{
   display: block;
 }
 
-.button--upload{
+.btn--upload{
   display: block;
 }
 
@@ -42,11 +43,13 @@ main{
   grid-area: img;
   display: grid;
   grid-template-columns: 1fr 1fr .75fr;
-  grid-template-areas: "canvas canvas data";
+  grid-template-areas:
+    "canvas canvas data";
   margin: 10px;
   border-radius: 15px;
-  border: .75px solid black;
+  border: 0.75px solid black;
 }
+
 
 .canvas-wrapper{
   grid-area: canvas;
@@ -59,13 +62,44 @@ main{
   grid-area: data;
 }
 
+.heading--md{
+  text-align: center;
+  margin-bottom: 50px;
+}
+
 .display{
   margin: 20px 0;
-  width: 75%;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.display__entry{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items:center;
+}
+
+.display__card{
+  border: 1px solid black;
+}
+
+.button-group{
+  grid-area: button;
+  margin-left: 15px;
+  margin-right: 20px;
+}
+
+.btn{
+  background-color: #007bff;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  &:hover {
+    background-color: darken(#007bff, 15%);
+  }
 }
 
 .strip{

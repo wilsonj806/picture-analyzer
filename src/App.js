@@ -2,12 +2,22 @@ import Uploader from './scripts/Upload';
 import AnalyzeImg from './scripts/Analyze';
 import Controller from './scripts/Controller';
 
-// TODO: port this to image handler at some point
 // TODO: make sure there's a handler for checking input types for constructors
 
-const uploader = new Uploader('.intro', '#canvas', '.strip', '[type="file"]', '.drop__target');
+const uploader = new Uploader(
+  '.intro',
+  '#canvas',
+  '.strip',
+  '[type="file"]',
+  '.drop__target',
+);
 const imgHandler = new AnalyzeImg();
-const displayControl = new Controller('.display', '.btn--color', '.btn--clip');
+const displayControl = new Controller(
+  '.display',
+  '.btn--color',
+  '.btn--clip',
+  'display__entry',
+);
 
 // Destructuring for convenience
 
@@ -42,7 +52,7 @@ btnUpload.addEventListener('change', (e) => {
 // For analysis
 
 color.addEventListener('click', () => {
-  imgHandler.sortRgb();
+  imgHandler.rgbFreq();
   const arr = imgHandler.findMost();
   displayControl.dumpContents(arr);
 });

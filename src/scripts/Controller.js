@@ -1,17 +1,19 @@
-// dump data into custom DOM elements here
-
 // TODO: Implement a rate limiter for button presses
 
 class Controller {
-  constructor(displayTgt, btn1, btn2) {
+  constructor(displayTgt, color, clipping, entryClass) {
     this.target = document.querySelector(displayTgt);
-    this.color = document.querySelector(btn1);
-    this.clipping = document.querySelector(btn2);
-    this.entryClass = '.display__entry';
+    this.color = document.querySelector(color);
+    this.clipping = document.querySelector(clipping);
+    this.entryClass = entryClass;
   }
 
   dumpContents(arr) {
-    console.log(arr);
+    if (this.target.childElementCount > 0) {
+      Array.from(this.target.children).forEach((node) => {
+        this.target.removeChild(node);
+      });
+    }
     this.makeTable(arr);
     return this;
   }
@@ -36,12 +38,13 @@ class Controller {
     arr.forEach((val) => {
       const entry = document.createElement('div');
       const card = document.createElement('div');
-      const label = document.createElement('h5');
+      const label = document.createElement('p');
       entry.classList.add('display__entry');
 
-      card.style.height = '40px';
-      card.style.width = '40px';
+      card.style.height = '50px';
+      card.style.width = '50px';
       card.style.backgroundColor = `rgb(${val})`;
+      card.classList.add('display__card');
 
       label.innerText = `rgb(${val})`;
       label.classList.add('display__label');
