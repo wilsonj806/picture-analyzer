@@ -87,6 +87,7 @@ class Uploader {
     li.dataset.name = selectedFile.name;
 
     img.onload = () => {
+      // console.log(selectedFile);
       const wrapper = document.querySelector('.canvas-wrapper');
       const wrapperHeight = wrapper.clientHeight;
       const scaleFactor = (wrapperHeight / img.naturalHeight) * 0.9;

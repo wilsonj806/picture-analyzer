@@ -23,7 +23,7 @@ class Controller {
     `;
     csv += 'val, count \n';
     arr.forEach((row) => {
-      csv += row.join(',');
+      csv += row.join(';');
       csv += '\n';
     });
     const newEle = document.createElement('a');

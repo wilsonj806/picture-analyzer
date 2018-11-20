@@ -42,16 +42,34 @@ class AnalyzeImg {
   }
 
   rgbFreq() {
-    const sort = this.rgbArr.reduce((obj, item) => {
-      /* eslint-disable no-param-reassign */
-      if (!obj[item]) {
-        obj[item] = 0;
+    /* eslint-disable no-param-reassign */
+    const sortArr = this.rgbArr.reduce((arr2, item, i) => {
+      if (i < 3) { console.dir(arr2); }
+      if (arr2.length === 0) {
+        arr2.push([item, 0]); // this needs to be more complex, should be [item, val];
+      } else {
+        let currSum = item.reduce((acc, item2) => {
+          acc = item2 + acc;
+          return acc;
+        });
+        let lastSum = arr2[arr2.length - 1][0].reduce((acc2, itm2) => {
+          acc2 = itm2 + acc2;
+          return acc2;
+        });
+        if (currSum === 0) { currSum = 1; }
+        if (lastSum === 0) { lastSum = 1; }
+
+        if ((((currSum / lastSum) < 1.25) && ((currSum / lastSum) > 0.75))
+            || (currSum === lastSum)) {
+          arr2[arr2.length - 1][1] += 1;
+        } else {
+          arr2.push([item, 1]);
+        }
       }
-      obj[item] += 1;
-      return obj;
-      /* eslint-enable no-param-reassign */
-    }, {});
-    const sortArr = Object.entries(sort); // Objects not meant to hold large amounts of data
+      return arr2;
+    }, []);
+    /* eslint-enable no-param-reassign */
+    console.log(sortArr);
     this.rgbCount = sortArr;
     return this;
   }
@@ -63,22 +81,48 @@ class AnalyzeImg {
       * Sort the array by frequency
       * Pick 15 of the most frequent
       * Narrow it down to 6 based on if there are colors that are very close to each other
+      *
+      * Or:
+      * Split the array in two
+      * Get the first 20 colors that are most frequent in both
+      * Reduce the sample down to 6 from there
   */
   findMost() {
     const rgb = this.rgbCount;
-    function hasLowIndex(row) {
+    function hasLowIndex(row) { // this is callback fn for Array.prototype.sort()
       return row[1] < this[1];
     }
     const mostFrequent = rgb.reduce((acc, item) => {
       // if (i < 10) console.log(acc.some(hasLowIndex, item));
       if (acc.length < 3) {
-        acc.push(item[0]);
+        acc.push([item[0], item[1]]);
       } else if (acc.some(hasLowIndex, item)) {
-        acc.pop(); // pop out last value
-        acc.push(item[0]); // push new rgb value
+        const toPop = acc.findIndex((val) => {
+          /* eslint-disable no-param-reassign */
+          let currSum = item.reduce((tot, item2) => {
+            tot = item2 + tot;
+            return tot;
+          });
+          let lastSum = val[0].reduce((acc2, itm2) => {
+            acc2 = itm2 + acc2;
+            return acc2;
+          });
+          if (currSum === 0) { currSum = 1; }
+          if (lastSum === 0) { lastSum = 1; }
+
+          return ((((currSum / lastSum) < 1.25) && ((currSum / lastSum) > 0.75))
+                  || (currSum === lastSum)) && (item[1] > val[1]);
+          /* eslint-enable no-param-reassign */
+        });
+        acc.splice(toPop, 1);
+        acc.push([item[0], item[1]]); // push new rgb value
       }
       return acc;
     }, []);
+    mostFrequent.forEach((entry) => {
+      entry.pop(entry[1]);
+    });
+    console.log(mostFrequent);
     return mostFrequent;
   }
 

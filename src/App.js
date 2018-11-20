@@ -55,6 +55,7 @@ color.addEventListener('click', () => {
   imgHandler.rgbFreq();
   const arr = imgHandler.findMost();
   displayControl.dumpContents(arr);
+  //  .downloadCSV('rgb', imgHandler.rgbCount);
 });
 
 clipping.addEventListener('click', () => {
