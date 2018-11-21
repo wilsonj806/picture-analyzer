@@ -1,4 +1,5 @@
 class Uploader {
+  // TODO: Add dropeffect to the drag and drop
   // FIXME: Having this many input args in a function isn't great
   constructor(intro, canvas, strip, btnUpload, dropzone) {
     this.intro = document.querySelector(intro);
@@ -20,7 +21,7 @@ class Uploader {
         break;
 
       case 'wrongSize':
-        warnUpload.innerText = 'Warning, image too big. Please limit file size to less than 2 Mb';
+        warnUpload.innerText = 'Warning, image too big. Please limit file size to less than 1 Mb';
         break;
 
       case 'tooMany':
@@ -56,8 +57,8 @@ class Uploader {
       return;
     }
 
-    // check file size (2 Mb maximum)
-    if (selectedFile.size > 2000000) {
+    // check file size (1 Mb maximum)
+    if (selectedFile.size > 1000000) {
       this.fileWarn('wrongSize');
       return;
     }
@@ -86,6 +87,7 @@ class Uploader {
     li.dataset.name = selectedFile.name;
 
     img.onload = () => {
+      // console.log(selectedFile);
       const wrapper = document.querySelector('.canvas-wrapper');
       const wrapperHeight = wrapper.clientHeight;
       const scaleFactor = (wrapperHeight / img.naturalHeight) * 0.9;
@@ -98,7 +100,8 @@ class Uploader {
       li.appendChild(img);
       strip.appendChild(li);
       window.URL.revokeObjectURL(img.src);
-      analysisSuite.setPixels(ctx, canvas.width, canvas.height);
+      // TODO: have catch for not having the module
+      analysisSuite.setPixels(ctx, canvas.width, canvas.height).parsePixels();
     };
   }
 

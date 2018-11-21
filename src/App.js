@@ -1,18 +1,35 @@
 import Uploader from './scripts/Upload';
-import ImageData from './scripts/Analyze';
+import AnalyzeImg from './scripts/Analyze';
+import Controller from './scripts/Controller';
 
-// TODO: port this to image handler at some point
-const colorStats = document.querySelector('.btn--color-stats');
-const clipping = document.querySelector('.btn--clipping');
+// TODO: make sure there's a handler for checking input types for constructors
 
-const uploader = new Uploader('.intro', '#canvas', '.strip', '[type="file"]', '.drop__target');
-const imgHandler = new ImageData();
+const uploader = new Uploader(
+  '.intro',
+  '#canvas',
+  '.strip',
+  '[type="file"]',
+  '.drop__target',
+);
+const imgHandler = new AnalyzeImg();
+const displayControl = new Controller(
+  '.display',
+  '.btn--color',
+  '.btn--clip',
+  'display__entry',
+);
 
+// Destructuring for convenience
 
 const {
   dropzone,
   btnUpload,
 } = uploader;
+
+const {
+  color,
+  clipping,
+} = displayControl;
 
 // For uploads
 
@@ -34,13 +51,15 @@ btnUpload.addEventListener('change', (e) => {
 
 // For analysis
 
-colorStats.addEventListener('click', () => {
-  imgHandler.parsePixels();
-  imgHandler.sortRGB();
-  imgHandler.findMost();
+color.addEventListener('click', () => {
+  imgHandler.rgbFreq();
+  const arr = imgHandler.findMost();
+  displayControl.dumpContents(arr);
+  //  .downloadCSV('rgb', imgHandler.rgbCount);
 });
 
 clipping.addEventListener('click', () => {
   imgHandler.rgb2Hsl();
-  imgHandler.getLightness();
+  const clip = imgHandler.getLightness();
+  displayControl.downloadCSV('clipping', clip);
 });
