@@ -21,7 +21,7 @@ class Controller {
   downloadCSV(name, arr) {
     let csv = `${name}
     `;
-    csv += 'val, count \n';
+    csv += 'val; count \n';
     arr.forEach((row) => {
       csv += row.join(';');
       csv += '\n';

@@ -1,5 +1,9 @@
 import Uploader from './scripts/Upload';
-import AnalyzeImg from './scripts/Analyze';
+import PixelData from './scripts/Data';
+import {
+  rgbFreq,
+  findMost,
+} from './scripts/Data.analysis';
 import Controller from './scripts/Controller';
 
 // TODO: make sure there's a handler for checking input types for constructors
@@ -11,7 +15,7 @@ const uploader = new Uploader(
   '[type="file"]',
   '.drop__target',
 );
-const imgHandler = new AnalyzeImg();
+const imgHandler = new PixelData();
 const displayControl = new Controller(
   '.display',
   '.btn--color',
@@ -52,8 +56,9 @@ btnUpload.addEventListener('change', (e) => {
 // For analysis
 
 color.addEventListener('click', () => {
-  imgHandler.rgbFreq();
-  const arr = imgHandler.findMost();
+  imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
+  const arr = findMost(imgHandler.rgbCount);
+  // popLastUtil(arr);
   displayControl.dumpContents(arr);
   //  .downloadCSV('rgb', imgHandler.rgbCount);
 });
