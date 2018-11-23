@@ -43,7 +43,7 @@ class Controller {
 
       card.style.height = '50px';
       card.style.width = '50px';
-      card.style.backgroundColor = `rgb(${val})`;
+      card.style.backgroundColor = `rgb(${val[0]})`;
       card.classList.add('display__card');
 
       label.innerText = `rgb(${val})`;
