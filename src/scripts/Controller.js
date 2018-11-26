@@ -1,11 +1,13 @@
 // TODO: Implement a rate limiter for button presses
+// TODO: Remove certain DOM element selectors and replace with DomHelper
+
 
 class Controller {
-  constructor(displayTgt, color, clipping, entryClass) {
-    this.target = document.querySelector(displayTgt);
-    this.color = document.querySelector(color);
-    this.clipping = document.querySelector(clipping);
-    this.entryClass = entryClass;
+  constructor(displayTgt, btnColor, btnClipping, entryClass) {
+    this.target = document.querySelector(displayTgt); // removable;
+    this.btnColor = document.querySelector(btnColor); // probably removable
+    this.btnClipping = document.querySelector(btnClipping); // probably removable
+    this.entryClass = entryClass; // probably removable
   }
 
   dumpContents(arr) {

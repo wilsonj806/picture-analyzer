@@ -3,8 +3,6 @@ import convert from '@csstools/convert-colors';
 
 // TODO: Optimize image data sorting for performance
 // TODO: Set a time out for array processing operations
-// TODO: Model dynamic range by getting the mode of rgbArr and approximating a range???
-// TODO: Set up the popular colors finder as an array with about 10 values or colors
 // TODO: Set array values using setters and getters
 
 class PixelData {
@@ -25,7 +23,7 @@ class PixelData {
   }
 
   setPixels(context, width, height) {
-    if (this.pixelData.width > 2) this.disposeArr();
+    if (this.pixelData.width) { this.disposeArr(); console.log('disposing'); }
     this.pixelData = context.getImageData(0, 0, width, height);
     return this;
   }
