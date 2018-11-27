@@ -74,3 +74,4 @@ This is a list of things learned throughout the project. Every entry is liable t
   ```
   - keeping entrypoints vague makes the module reusuable/ less brittle
   - its also clearer that Engine is an external module
+- Prefer returning values in functions when manipulating them

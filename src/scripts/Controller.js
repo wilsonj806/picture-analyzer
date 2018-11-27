@@ -1,10 +1,11 @@
 // TODO: Implement a rate limiter for button presses
+// TODO: Remove certain DOM element selectors and replace with DomHelper
 
 class Controller {
-  constructor(displayTgt, color, clipping, entryClass) {
-    this.target = document.querySelector(displayTgt);
-    this.color = document.querySelector(color);
-    this.clipping = document.querySelector(clipping);
+  constructor(displayTgt, btnColor, btnClipping, entryClass) {
+    this.target = document.querySelector(displayTgt); // removable;
+    this.btnColor = document.querySelector(btnColor); // probably removable
+    this.btnClipping = document.querySelector(btnClipping); // probably removable
     this.entryClass = entryClass;
   }
 
@@ -21,7 +22,7 @@ class Controller {
   downloadCSV(name, arr) {
     let csv = `${name}
     `;
-    csv += 'val, count \n';
+    csv += 'val; count \n';
     arr.forEach((row) => {
       csv += row.join(';');
       csv += '\n';
@@ -43,16 +44,38 @@ class Controller {
 
       card.style.height = '50px';
       card.style.width = '50px';
-      card.style.backgroundColor = `rgb(${val})`;
-      card.classList.add('display__card');
+      card.style.backgroundColor = `rgb(${val[0]})`;
+      card.classList.add('card', 'card--color');
 
-      label.innerText = `rgb(${val})`;
+      label.innerText = `rgb(${val[0]})`;
       label.classList.add('display__label');
 
       entry.appendChild(card);
       entry.appendChild(label);
       this.target.appendChild(entry);
     });
+    return this;
+  }
+
+  presentStrings(arr) {
+    if (this.target.childElementCount > 0) {
+      Array.from(this.target.children).forEach((node) => {
+        this.target.removeChild(node);
+      });
+    }
+    const card = document.createElement('div');
+    const p1 = document.createElement('p');
+    const p2 = document.createElement('p');
+    card.classList.add('card', 'card--text');
+    p1.classList.add('display__text');
+    p2.classList.add('display__text');
+
+
+    [p1.innerText, p2.innerText] = arr;
+
+    card.appendChild(p1);
+    card.appendChild(p2);
+    this.target.appendChild(card);
     return this;
   }
 }

@@ -4,7 +4,6 @@
 
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/wilsonj806/picture-analyzer.svg)](https://github.com/wilsonj806/picture-analyzer)
 [![devDependencies Status](https://david-dm.org/wilsonj806/picture-analyzer/dev-status.svg)](https://david-dm.org/wilsonj806/picture-analyzer?type=dev)
-[Live Site](https://wilsonj806.github.io/picture-analyzer/)
 
 - [**Live Site**](https://wilsonj806.github.io/picture-analyzer/)
 
@@ -20,8 +19,14 @@ My goal for this project was to develop something that required some complex Jav
 
 **Currently implemented features**
 - File upload system
-- Image analysis *partial implementation*
-- Multi-image display
+- Image analysis
+  - a greedy algorithm for finding the most frequent color
+    - its not super optimal, as it converges extremely quickly
+  - a simplistic algorithm for finding highlight and shadow clipping
+- Data display system
+  - displays most frequent colors
+  - displays clipping as a percentage
+- Bare minimum UI
 
 **Version 0.75.0 should have the following done**
 - File uploading system via drag and drop or with a button
@@ -33,6 +38,7 @@ My goal for this project was to develop something that required some complex Jav
 **Version 1.0.0 should have the following done**
 - Tests for every component
 - Any necessary refactoring
+- Make the page fully responsive
 
 ### Post v1.0.0 support
 
@@ -40,7 +46,6 @@ The below features are more intended to be extra features to be implemented **af
 - Port this to React
 - Use D3.js for data visualization
   - Hard mode: figure out how to use pure JS to make charts for Lightness in an image before using D3.js
-- Make the page fully responsive
 - Use web components/ templates/ shadow DOM for displaying data
 - Uploaded images should be accessible via a image strip
   - if the uploaded images cannot be displayed all at once in the strip, provide a carousel to scroll through
@@ -59,6 +64,19 @@ Development Dependencies:
 - [Webpack](https://webpack.js.org/)
 - [ES Lint](https://eslint.org/)
 - [Jasmine](https://jasmine.github.io/)
+
+## Cloning instructions
+
+You'll need to have some version of Node.js(and subsequently npm, which is included) installed.
+
+Clone the repo with your favorite SCM or manually download it
+```
+git clone https://github.com/wilsonj806/picture-analyzer.git
+```
+
+Change your working directory to the folder of the newly cloned repo and run ```npm install``` in your command line interface.
+
+
 
 ## License
 

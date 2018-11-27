@@ -1,17 +1,22 @@
 import Uploader from './scripts/Upload';
-import AnalyzeImg from './scripts/Analyze';
+import PixelData from './scripts/Data';
+// TODO: move the below import into .scripts/Data and make getter/ setter functions
+import {
+  rgbFreq,
+  findMost,
+  findClipping,
+} from './scripts/Data.analysis';
 import Controller from './scripts/Controller';
 
 // TODO: make sure there's a handler for checking input types for constructors
+// TODO: move DOM handling to Dom.helper.js
 
 const uploader = new Uploader(
-  '.intro',
   '#canvas',
-  '.strip',
   '[type="file"]',
   '.drop__target',
 );
-const imgHandler = new AnalyzeImg();
+const imgHandler = new PixelData();
 const displayControl = new Controller(
   '.display',
   '.btn--color',
@@ -27,8 +32,8 @@ const {
 } = uploader;
 
 const {
-  color,
-  clipping,
+  btnColor,
+  btnClipping,
 } = displayControl;
 
 // For uploads
@@ -51,15 +56,15 @@ btnUpload.addEventListener('change', (e) => {
 
 // For analysis
 
-color.addEventListener('click', () => {
-  imgHandler.rgbFreq();
-  const arr = imgHandler.findMost();
+btnColor.addEventListener('click', () => {
+  imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
+  const arr = findMost(imgHandler.rgbCount);
   displayControl.dumpContents(arr);
-  //  .downloadCSV('rgb', imgHandler.rgbCount);
 });
 
-clipping.addEventListener('click', () => {
+btnClipping.addEventListener('click', () => {
   imgHandler.rgb2Hsl();
   const clip = imgHandler.getLightness();
-  displayControl.downloadCSV('clipping', clip);
+  const strings = findClipping(clip, imgHandler.pixelCount);
+  displayControl.presentStrings(strings);
 });

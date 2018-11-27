@@ -1,18 +1,16 @@
+import DomHelper from './DomHelper';
+
 class Uploader {
   // TODO: Add dropeffect to the drag and drop
-  // FIXME: Having this many input args in a function isn't great
-  constructor(intro, canvas, strip, btnUpload, dropzone) {
-    this.intro = document.querySelector(intro);
+  constructor(canvas, btnUpload, dropzone) {
     this.canvas = document.querySelector(canvas);
-    this.strip = document.querySelector(strip);
-    // uploaders
-    this.btnUpload = document.querySelector(btnUpload);
+    this.btnUpload = document.querySelector(btnUpload); // probably removable
     this.dropzone = document.querySelector(dropzone);
     this.ctx = this.canvas.getContext('2d');
   }
 
   fileWarn(string = '') {
-    const { intro } = this;
+    const intro = DomHelper.setEle('.intro');
     const warnUpload = document.createElement('p');
     warnUpload.classList.add('js-danger-popup');
     switch (string) {
@@ -43,9 +41,10 @@ class Uploader {
     }
 
     if (!warnUpload.innerText) {
-      return;
+      return this;
     }
     intro.appendChild(warnUpload);
+    return this;
   }
 
   handleFile(files, analysisSuite) {
@@ -71,23 +70,23 @@ class Uploader {
     // Destructuring for convenience
     const {
       canvas,
-      strip,
       ctx,
       btnUpload,
     } = this;
+    const strip = DomHelper.setEle('.strip');
 
     const img = document.createElement('img');
     const li = document.createElement('li');
-    img.src = window.URL.createObjectURL(selectedFile);
     btnUpload.value = '';
+    img.src = window.URL.createObjectURL(selectedFile);
 
-    li.classList.add('strip__item');
     img.classList.add('strip__img');
+    li.classList.add('strip__item');
     li.dataset.index = strip.childElementCount + 1;
     li.dataset.name = selectedFile.name;
 
     img.onload = () => {
-      // console.log(selectedFile);
+      // console.dir(img);
       const wrapper = document.querySelector('.canvas-wrapper');
       const wrapperHeight = wrapper.clientHeight;
       const scaleFactor = (wrapperHeight / img.naturalHeight) * 0.9;
