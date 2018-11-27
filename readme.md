@@ -4,7 +4,6 @@
 
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/wilsonj806/picture-analyzer.svg)](https://github.com/wilsonj806/picture-analyzer)
 [![devDependencies Status](https://david-dm.org/wilsonj806/picture-analyzer/dev-status.svg)](https://david-dm.org/wilsonj806/picture-analyzer?type=dev)
-[Live Site](https://wilsonj806.github.io/picture-analyzer/)
 
 - [**Live Site**](https://wilsonj806.github.io/picture-analyzer/)
 
