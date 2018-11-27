@@ -4,6 +4,7 @@ import PixelData from './scripts/Data';
 import {
   rgbFreq,
   findMost,
+  findClipping,
 } from './scripts/Data.analysis';
 import Controller from './scripts/Controller';
 
@@ -59,11 +60,11 @@ btnColor.addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   const arr = findMost(imgHandler.rgbCount);
   displayControl.dumpContents(arr);
-  //  .downloadCSV('rgb', imgHandler.rgbCount);
 });
 
 btnClipping.addEventListener('click', () => {
   imgHandler.rgb2Hsl();
   const clip = imgHandler.getLightness();
-  displayControl.downloadCSV('clipping', clip);
+  const strings = findClipping(clip, imgHandler.pixelCount);
+  displayControl.presentStrings(strings);
 });

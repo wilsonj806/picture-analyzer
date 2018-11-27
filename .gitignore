@@ -15,3 +15,5 @@ resource.md
 /doc/script-flow.md
 
 /doc/img/*
+
+.vscode/*

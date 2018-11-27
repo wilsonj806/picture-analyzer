@@ -2,7 +2,6 @@ import DomHelper from './DomHelper';
 
 class Uploader {
   // TODO: Add dropeffect to the drag and drop
-  // FIXME: Having this many input args in a function isn't great
   constructor(canvas, btnUpload, dropzone) {
     this.canvas = document.querySelector(canvas);
     this.btnUpload = document.querySelector(btnUpload); // probably removable

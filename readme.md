@@ -20,7 +20,14 @@ My goal for this project was to develop something that required some complex Jav
 
 **Currently implemented features**
 - File upload system
-- Image analysis *partial implementation*
+- Image analysis
+  - a greedy algorithm for finding the most frequent color
+    - its not super optimal, as it converges extremely quickly
+  - a simplistic algorithm for finding highlight and shadow clipping
+- Data display system
+  - displays most frequent colors
+  - displays clipping as a percentage
+- Bare minimum UI
 
 **Version 0.75.0 should have the following done**
 - File uploading system via drag and drop or with a button
