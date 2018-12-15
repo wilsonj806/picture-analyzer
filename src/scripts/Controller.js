@@ -2,10 +2,8 @@
 // TODO: Remove certain DOM element selectors and replace with DomHelper
 
 class Controller {
-  constructor(displayTgt, btnColor, btnClipping, entryClass) {
-    this.target = document.querySelector(displayTgt); // removable;
-    this.btnColor = document.querySelector(btnColor); // probably removable
-    this.btnClipping = document.querySelector(btnClipping); // probably removable
+  constructor(displayTgt, entryClass) {
+    this.target = document.querySelector(displayTgt);
     this.entryClass = entryClass;
   }
 
@@ -64,9 +62,10 @@ class Controller {
       });
     }
     const card = document.createElement('div');
+    card.classList.add('card', 'card--text');
+
     const p1 = document.createElement('p');
     const p2 = document.createElement('p');
-    card.classList.add('card', 'card--text');
     p1.classList.add('display__text');
     p2.classList.add('display__text');
 

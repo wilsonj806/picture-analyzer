@@ -7,62 +7,46 @@ import {
   findClipping,
 } from './scripts/Data.analysis';
 import Controller from './scripts/Controller';
+import DomHelper from './scripts/DomHelper';
 
 // TODO: make sure there's a handler for checking input types for constructors
-// TODO: move DOM handling to Dom.helper.js
 
 const uploader = new Uploader(
   '#canvas',
-  '[type="file"]',
-  '.drop__target',
 );
 const imgHandler = new PixelData();
 const displayControl = new Controller(
   '.display',
-  '.btn--color',
-  '.btn--clip',
   'display__entry',
 );
 
-// Destructuring for convenience
-
-const {
-  dropzone,
-  btnUpload,
-} = uploader;
-
-const {
-  btnColor,
-  btnClipping,
-} = displayControl;
-
 // For uploads
 
-dropzone.addEventListener('dragenter', (e) => {
+DomHelper.setEle('.drop__target').addEventListener('dragenter', (e) => {
   e.stopPropagation();
   e.preventDefault();
 });
-dropzone.addEventListener('dragover', (e) => {
+DomHelper.setEle('.drop__target').addEventListener('dragover', (e) => {
   e.stopPropagation();
   e.preventDefault();
 });
-dropzone.addEventListener('drop', (e) => {
+DomHelper.setEle('.drop__target').addEventListener('drop', (e) => {
   uploader.handleDrop(e, imgHandler);
 });
 
-btnUpload.addEventListener('change', (e) => {
+DomHelper.setEle('[type="file"]').addEventListener('change', (e) => {
   uploader.handleBtnUpload(e, imgHandler);
 });
 
 // For analysis
 
-btnColor.addEventListener('click', () => {
+DomHelper.setEle('.btn--color').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   const arr = findMost(imgHandler.rgbCount);
   displayControl.dumpContents(arr);
 });
 
-btnClipping.addEventListener('click', () => {
+DomHelper.setEle('.btn--clip').addEventListener('click', () => {
   imgHandler.rgb2Hsl();
   const clip = imgHandler.getLightness();
   const strings = findClipping(clip, imgHandler.pixelCount);

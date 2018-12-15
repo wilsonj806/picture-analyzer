@@ -27,17 +27,20 @@ module.exports = {
     overlay: true, // error reporting
   },
   module:{
-    rules:[/*
+    rules:[
         {
           test:/\.js$/,
           exclude: path.resolve('../node_modules/'),
           enforce:'pre',
           use:[
             {
-              loader:'eslint-loader',
+              loader:'babel-loader',
+              options:{
+                presets: ['@babel/preset-env']
+              }
             }
           ]
-        },*/
+        },
         {
         test: /\.scss$/,
         use:[

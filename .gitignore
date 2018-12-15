@@ -17,3 +17,11 @@ resource.md
 /doc/img/*
 
 .vscode/*
+
+# jasmine examples
+
+/spec/jasmine_examples/*
+
+/spec/helpers/jasmine_examples/*
+
+/lib/*
