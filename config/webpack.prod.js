@@ -20,6 +20,19 @@ module.exports = {
   module:{
     rules:[
         {
+          test:/\.js$/,
+          exclude: path.resolve('../node_modules/'),
+          enforce:'pre',
+          use:[
+            {
+              loader:'babel-loader',
+              options:{
+                presets: ['@babel/preset-env'],
+              }
+            }
+          ]
+        },
+        {
         test: /\.scss$/,
         use:[
           MiniCssExtractPlugin.loader,

@@ -2,10 +2,8 @@ import DomHelper from './DomHelper';
 
 class Uploader {
   // TODO: Add dropeffect to the drag and drop
-  constructor(canvas, btnUpload, dropzone) {
+  constructor(canvas) {
     this.canvas = document.querySelector(canvas);
-    this.btnUpload = document.querySelector(btnUpload); // probably removable
-    this.dropzone = document.querySelector(dropzone);
     this.ctx = this.canvas.getContext('2d');
   }
 
@@ -37,7 +35,13 @@ class Uploader {
         });
         break;
       default:
-        break;
+        throw new Error(`
+        Expecting one of the following string values(case-sensitive):
+        "wrongType",
+        "wrongSize",
+        "tooMany",
+        "empty"
+      `);
     }
 
     if (!warnUpload.innerText) {
@@ -67,13 +71,13 @@ class Uploader {
       this.fileWarn('tooMany');
       return;
     }
-    // Destructuring for convenience
+
     const {
       canvas,
       ctx,
-      btnUpload,
     } = this;
     const strip = DomHelper.setEle('.strip');
+    const btnUpload = DomHelper.setEle('[type="file"]');
 
     const img = document.createElement('img');
     const li = document.createElement('li');
@@ -87,9 +91,15 @@ class Uploader {
 
     img.onload = () => {
       // console.dir(img);
+      let pct;
+      if (window.innerWidth <= 1280) {
+        pct = 0.6;
+      } else {
+        pct = 0.9;
+      }
       const wrapper = document.querySelector('.canvas-wrapper');
       const wrapperHeight = wrapper.clientHeight;
-      const scaleFactor = (wrapperHeight / img.naturalHeight) * 0.9;
+      const scaleFactor = (wrapperHeight / img.naturalHeight) * pct;
       const newWidth = img.naturalWidth * scaleFactor;
       const newHeight = img.naturalHeight * scaleFactor;
 

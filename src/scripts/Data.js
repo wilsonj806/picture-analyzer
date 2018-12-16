@@ -62,13 +62,11 @@ class PixelData {
   getLightness() {
     const hsl = this.hslArr;
     const light = hsl.reduce((obj, item) => {
-      /* eslint-disable no-param-reassign */
       if (!obj[item]) {
         obj[item] = 0;
       }
       obj[item] += 1;
       return obj;
-      /* eslint-enable no-param-reassign */
     }, {});
     const lightArr = Object.entries(light);
     this.lightnessQty = lightArr;

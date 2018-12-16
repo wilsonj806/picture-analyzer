@@ -1,6 +1,6 @@
 main{
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
   grid-template-rows: 3fr 2fr 1.5rem 3fr;
   grid-template-areas:
     "intro img img img"
@@ -40,14 +40,16 @@ main{
 }
 
 .img-handling{
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  border: 1px solid #f7f7f7;
   grid-area: img;
   display: grid;
   grid-template-columns: 1fr 1fr .75fr;
   grid-template-areas:
     "canvas canvas data";
-  margin: 10px;
-  border-radius: 15px;
-  border: 0.75px solid black;
 }
 
 
@@ -60,11 +62,16 @@ main{
 
 .data{
   grid-area: data;
+  border-left: 1px solid #f7f7f7;
 }
 
 .heading--md{
-  text-align: center;
+  margin-top: 0;
   margin-bottom: 50px;
+  padding: 20px 0;
+  text-align: center;
+  background-color: #e8e8e8;
+  border-radius: 0px 15px 0px 0px;
 }
 
 .display{
@@ -84,6 +91,7 @@ main{
 
 .card{
   border: 1px solid black;
+  padding: 5px;
 }
 
 .button-group{
@@ -93,10 +101,12 @@ main{
 }
 
 .btn{
+  padding: 5px 8px;
+  margin: 0px 5px;
+  border-radius: 5px;
+  border: 1px solid transparent;
   background-color: #007bff;
   color: white;
-  border: 1px solid transparent;
-  border-radius: 3px;
   &:hover {
     background-color: darken(#007bff, 15%);
   }
@@ -127,3 +137,14 @@ main{
   width: auto;
 }
 
+@media (min-width: 1024px) {
+  main{
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+  }
+}
+
+@media (min-width: 1440px) {
+  main{
+    grid-template-columns: 1fr 2fr 2fr 2fr;
+  }
+}

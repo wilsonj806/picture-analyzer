@@ -30,7 +30,6 @@ function sliceUtil(replacementArr, target, isOld = false, i = 0) {
   return reinit;
 }
 
-/* eslint-disable no-param-reassign */
 function colorReduceUtil(arr, isNested = false, i = 0) {
   // ONLY WORKS ON SINGLE LAYER ARRAYS OR AT MOST 2 LAYERS(i.e [1,2,3,4] or [[1,2], [3,4]])
   if (isNested === true) {
@@ -53,7 +52,6 @@ function colorReduceUtil(arr, isNested = false, i = 0) {
   if (average < 15) { average = 15; }
   return average;
 }
-/* eslint-enable no-param-reassign */
 
 function pctDiffUtil(valA, valB) {
   const pctDiff = Math.abs((valA - valB) / valB);
@@ -64,7 +62,6 @@ function pctDiffUtil(valA, valB) {
 }
 
 function rgbFreq(rgbArr) {
-  /* eslint-disable no-param-reassign */
   const rgbFreqArr = rgbArr.reduce((arr2, item) => {
     if (arr2.length === 0) {
       arr2.push([item, 0]);
@@ -82,13 +79,11 @@ function rgbFreq(rgbArr) {
     }
     return arr2;
   }, []);
-  /* eslint-enable no-param-reassign */
   return rgbFreqArr;
 }
 
 function initReduceRgbFreq(acc, item) {
   // for use with Array.prototype.reduce()
-  /* eslint-disable no-param-reassign */
   if (acc.length === 0) {
     acc = sliceUtil(item, acc);
   }
@@ -103,7 +98,6 @@ function initReduceRgbFreq(acc, item) {
     } else {
       acc = sliceUtil(item, acc);
     }
-    /* eslint-enable no-param-reassign */
   }
   return acc;
 }
@@ -120,7 +114,7 @@ function findMost(rgbSorted) {
 
   const mostFrequent = rgb.reduce((acc, item, i) => {
     initReduceRgbFreq(acc, item);
-    /* eslint-disable no-param-reassign */
+
     const currAvg = colorReduceUtil(item[0]);
 
     const isSimilar = acc.some((arr) => {
@@ -177,7 +171,7 @@ function findMost(rgbSorted) {
         acc.shift();
       }
     }
-    /* eslint-enable no-param-reassign */
+
     return acc;
   }, []);
 
@@ -224,6 +218,7 @@ function findClipping(arr, length) {
     return check;
   });
 
+  // FIXME: return as a number not a string
   const blkClipSum = colorReduceUtil(blkClip, true, 2);
   const whtClipSum = colorReduceUtil(whtClip, true, 2);
   const blkClipStr = `This is percent of black clipping: ${((1 - ((length - blkClipSum) / length)) * 100).toFixed(2)} %`;
