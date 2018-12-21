@@ -20,8 +20,8 @@ resource.md
 
 # jasmine examples
 
-/spec/jasmine_examples/*
+/jasmine-examples/*
 
-/spec/helpers/jasmine_examples/*
+# temporary
 
-/lib/*
+/config/decomp/*

@@ -1,9 +1,25 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const _ = require('lodash');
 
-module.exports = {
+// config isn't defined because the way that the example config works, they didn't declare one singular module.export
+// instead they've defined several variables as config pieces and put them together later in the module.export
+
+// Input output paths
+const inputPath = path.join(__dirname, 'src');
+const outputPath = path.join(__dirname, 'dist');
+
+
+const config = {
+  mode: 'development',
   entry:{
     index:'./src/index.js'
+  },
+  output: {
+    path: outputPath,
+    publicPath: '/', // check this
+    filename: '[name].js', // checks name of input file
+    chunkFilename: '[name].[id].js' // overkill?
   },
   resolve: {
     alias: {
@@ -28,6 +44,27 @@ module.exports = {
   },
   module:{
     rules:[
+        {
+          test: function() {
+            return {
+              entry: 'webpack.tests.js',
+              output: _.assign({}, outputPath, {
+                // client assets are output to dist/test/
+                path: path.join(outputPath, 'test'),
+                publicPath: undefined // no assets CDN
+              }),
+              devtool: 'inline-source-map', // sourcemap support
+              /*
+              // check what the below does
+              plugins: [
+                new webpack.DefinePlugin({
+                  'typeof window': JSON.stringify("object")
+                })
+              ]
+              */
+            };
+          },
+        },
         {
           test:/\.js$/,
           exclude: path.resolve('../node_modules/'),
@@ -72,7 +109,7 @@ module.exports = {
   ],
 };
 
-
+module.exports = config;
 
 /*
 Docs for plugins
