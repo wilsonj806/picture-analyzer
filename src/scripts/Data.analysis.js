@@ -1,3 +1,5 @@
+// FIXME: fix how export is done
+
 function getNthLength(arr, n) {
   const nthLength = Math.round(arr.length * n);
   return nthLength;
@@ -227,6 +229,9 @@ function findClipping(arr, length) {
 }
 
 export {
+  getNthLength,
+  pctDiffUtil,
+  colorReduceUtil,
   rgbFreq,
   findMost,
   findClipping,

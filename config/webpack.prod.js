@@ -7,7 +7,12 @@ let pathsToClean = [
   './dist/*'
 ];
 
+let cleanOptions = {
+  exclude: []
+}
+
 module.exports = {
+  mode: 'production',
   entry:{
     index:'./src/index.js'
   },
