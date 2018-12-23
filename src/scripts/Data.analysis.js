@@ -1,4 +1,5 @@
-// FIXME: fix how export is done
+// FIXME: fix how sliceUtil determines how it navigates through a complex array structure
+// or how it chooses which array to slice/ copy
 
 function getNthLength(arr, n) {
   const nthLength = Math.round(arr.length * n);
@@ -84,38 +85,33 @@ function rgbFreq(rgbArr) {
   return rgbFreqArr;
 }
 
-function initReduceRgbFreq(acc, item) {
-  // for use with Array.prototype.reduce()
-  if (acc.length === 0) {
-    acc = sliceUtil(item, acc);
-  }
-  if (acc.length === 1) {
-    const currAvg = colorReduceUtil(item[0]);
-    const lastAvg = colorReduceUtil(acc[0]);
-
-    const checkPct = pctDiffUtil(currAvg, lastAvg);
-
-    if (checkPct === true) {
-      acc = sliceUtil(item, acc, true);
-    } else {
-      acc = sliceUtil(item, acc);
-    }
-  }
-  return acc;
-}
-
 // TODO: check to make sure that the function is updating the end array
 // refactor so that the function finds the most frequent colors, AFTER data reduction? (slower)
 
 function findMost(rgbSorted) {
   const rgb = rgbSorted;
-  // console.log(rgb);
   const quarterLength = getNthLength(rgb, 0.25);
   const halfLength = getNthLength(rgb, 0.5);
   const three4Length = getNthLength(rgb, 0.75);
 
   const mostFrequent = rgb.reduce((acc, item, i) => {
-    initReduceRgbFreq(acc, item);
+    if (acc.length === 0) {
+      acc = sliceUtil(item, acc);
+      return acc;
+    }
+    if (acc.length === 1) {
+      const currAvg = colorReduceUtil(item[0]);
+      const lastAvg = colorReduceUtil(acc[0]);
+
+      const checkPct = pctDiffUtil(currAvg, lastAvg);
+
+      if (checkPct === true) {
+        acc = sliceUtil(item, acc, true);
+      } else {
+        acc = sliceUtil(item, acc);
+      }
+      return acc;
+    }
 
     const currAvg = colorReduceUtil(item[0]);
 
@@ -123,21 +119,9 @@ function findMost(rgbSorted) {
       const eleAvg = colorReduceUtil(arr[0]);
 
       const checkPct = pctDiffUtil(currAvg, eleAvg);
-      /*
-      if (i < 30) {
-        console.log(`
-        this is accRgb ${acc[0]}
-        this is currRgb ${item[0]}
-        this is eleAvg ${eleAvg}
-        this is currAvg: ${currAvg}
-        `);
-      }
-      */
       return checkPct;
     });
-    /*
-    if (i < 30) { console.log(`this is isSimilar: ${isSimilar}`); }
-    */
+
 
     if ((acc.length < 6) && (isSimilar === false)) {
       acc = sliceUtil(item, acc);
@@ -220,17 +204,15 @@ function findClipping(arr, length) {
     return check;
   });
 
-  // FIXME: return as a number not a string
   const blkClipSum = colorReduceUtil(blkClip, true, 2);
   const whtClipSum = colorReduceUtil(whtClip, true, 2);
-  const blkClipStr = `This is percent of black clipping: ${((1 - ((length - blkClipSum) / length)) * 100).toFixed(2)} %`;
-  const whtClipStr = `This is percent of white clipping: ${((1 - ((length - whtClipSum) / length)) * 100).toFixed(2)} %`;
-  return [blkClipStr, whtClipStr];
+  const blkClipPct = ((1 - ((length - blkClipSum) / length)) * 100).toFixed(2);
+  const whtClipPct = ((1 - ((length - whtClipSum) / length)) * 100).toFixed(2);
+  return [blkClipPct, whtClipPct];
 }
 
 export {
   getNthLength,
-  pctDiffUtil,
   colorReduceUtil,
   rgbFreq,
   findMost,
