@@ -165,9 +165,7 @@ function findMost(rgbSorted) {
   return mostFrequent;
 }
 
-// FIXME: make the function compute the length from the input array
-
-function findClipping(arr, length) {
+function findClipping(arr) {
   const isWrongFormat = arr.some((val) => {
     if ((typeof val[0] !== 'string') || (Number.isInteger(val[1]) === false)) {
       return true;
@@ -181,6 +179,10 @@ function findClipping(arr, length) {
     `);
   }
   const reinit = [...arr];
+  const length = arr.reduce((acc, item) => {
+    acc += item[1];
+    return acc;
+  }, 0);
 
   const quarterLength = getNthLength(reinit, 0.25);
   const three4Length = getNthLength(reinit, 0.75);

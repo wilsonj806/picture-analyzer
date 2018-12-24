@@ -44,7 +44,7 @@ DomHelper.setEle('[type="file"]').addEventListener('change', (e) => {
 
 DomHelper.setEle('.btn--color').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
-  console.log(imgHandler.rgbCount);
+  // console.log(imgHandler.rgbCount);
   const arr = findMost(imgHandler.rgbCount);
   displayControl.dumpContents(arr);
 });
@@ -52,8 +52,7 @@ DomHelper.setEle('.btn--color').addEventListener('click', () => {
 DomHelper.setEle('.btn--clip').addEventListener('click', () => {
   imgHandler.rgb2Hsl();
   const lightness = imgHandler.getLightness();
-  console.log(lightness);
-  const clip = findClipping(lightness, imgHandler.pixelCount);
+  const clip = findClipping(lightness);
   const clipAsStrings = clip.map((val, i) => {
     let choice;
     if (i === 0) {

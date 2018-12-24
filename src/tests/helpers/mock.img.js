@@ -1,4 +1,7 @@
-const mockLightness = [
+// Above mocks were made when running the pictuer analyzer on MacOS with the Color LCD color profile
+// ideally use a third party site to generate a mock
+
+const mockLightnessLCD = [
   ["0", 267],
   ["1", 229],
   ["2", 150],
@@ -256,7 +259,7 @@ const mockLightness = [
   ["254", 1646],
 ];
 
-const mockWHlightClip = [
+const mockHLLCD = [
   ["0", 1893],
   ["1", 2404],
   ["2", 1128],
@@ -514,4 +517,4 @@ const mockWHlightClip = [
   ["254", 17],
 ]
 
-export { mockLightness , mockWHlightClip};
+export { mockLightnessLCD , mockHLLCD};

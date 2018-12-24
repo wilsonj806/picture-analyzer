@@ -7,8 +7,8 @@ import {
 
 // Mock imports
 import {
-  mockLightness,
-  mockWHlightClip,
+  mockLightnessLCD,
+  mockHLLCD,
 } from './helpers/mock.img.js';
 
 // don't need this test, this function's fairly simple
@@ -44,27 +44,45 @@ describe('A function for finding clipping', function() {
   const correctFormat = [['1', 2], ['3', 4]];
 
 
-  it('should throw an error if the input is like so [["string", "string"]]', function() {
+  it('should throw an error when the input is like so [["string", "string"]]', function() {
     expect(() => {findClipping(wrongFormat, wrongFormat.length)}).toThrow();
   });
-  it('should throw an error if the input is like this {0: 1, 1: 2}', function() {
+  xit('should throw an error when the input is like this {0: 1, 1: 2}', function() {
     expect(() => {findClipping(wrongFormat2, wrongFormat2.length)}).toThrow();
   });
-  it('should continue running if the input is like this [["num string", num]]', function() {
+  it('should continue running when the input is like this [["num string", num]]', function() {
     expect(() => {findClipping(correctFormat, correctFormat.length)}).toBeTruthy();
   });
 
-  it('should return an array of length 2', function() {
-    const result = findClipping(mockLightness, mockLightness.length);
+  it('should return an array of length 2 when I call it', function() {
+    const result = findClipping(mockLightnessLCD);
     expect(result.length).toEqual(2);
   });
 
-  xit('should return floats with two decimal places', function() {
-    /*
-    Number.toString();
-    String.split('.');
-    String.length of the other half(should equal 2)
-    */
-    expect().toBe()
-  })
+  it('should return two numbers when I call it with a known mock', function() {
+    const result = findClipping(mockHLLCD);
+    const firstResult = parseFloat(result[0]);
+    const secondResult = parseFloat(result[1]);
+
+    expect(firstResult).not.toBeNaN();
+    expect(secondResult).not.toBeNaN();
+    expect(typeof firstResult).toEqual('number');
+    expect(typeof secondResult).toEqual('number');
+  });
+
+  it('should return floats with two decimal places when I call it with a known mock', function() {
+
+    const result = findClipping(mockLightnessLCD);
+    const firstResult = parseFloat(result[0]);
+    const secondResult = parseFloat(result[1]);
+    const firstSplit = result[0].split('.');
+    const secondSplit = result[1].split('.');
+
+
+   expect(typeof firstResult).toEqual('number');
+   expect(typeof secondResult).toEqual('number');
+   expect(firstSplit[1].length).toEqual(2);
+   expect(secondSplit[1].length).toEqual(2);
+  });
+
 });
