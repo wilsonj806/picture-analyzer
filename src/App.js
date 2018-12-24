@@ -40,6 +40,8 @@ DomHelper.setEle('[type="file"]').addEventListener('change', (e) => {
 
 // For analysis
 
+// FIXME: make sure values are reset if you click the button again
+
 DomHelper.setEle('.btn--color').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   console.log(imgHandler.rgbCount);
@@ -50,6 +52,7 @@ DomHelper.setEle('.btn--color').addEventListener('click', () => {
 DomHelper.setEle('.btn--clip').addEventListener('click', () => {
   imgHandler.rgb2Hsl();
   const lightness = imgHandler.getLightness();
+  console.log(lightness);
   const clip = findClipping(lightness, imgHandler.pixelCount);
   const clipAsStrings = clip.map((val, i) => {
     let choice;
@@ -62,4 +65,5 @@ DomHelper.setEle('.btn--clip').addEventListener('click', () => {
     return string;
   });
   displayControl.presentStrings(clipAsStrings);
+  // displayControl.downloadArr('lightness', lightness);
 });

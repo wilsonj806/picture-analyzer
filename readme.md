@@ -52,6 +52,13 @@ The below features are more intended to be extra features to be implemented **af
 - Model dynamic range of an image with a polynomial instead of using array methods
 - Implement the data-analysis in Node instead
 
+## Known Issues
+
+- Some functionality isn't performing as expected on Macs
+  - probably a colorspace profile issue
+  - need to check the [Canvas/ Rendering Context docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  - also should look into the ImageBitmap API
+
 ## Dependencies
 
 SCM:

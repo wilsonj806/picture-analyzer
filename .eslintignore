@@ -4,3 +4,4 @@
 /jasmine-examples/*
 /spec/*
 *.test.js
+mock.*.js

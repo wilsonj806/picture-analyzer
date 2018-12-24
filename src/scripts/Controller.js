@@ -33,6 +33,22 @@ class Controller {
     return this;
   }
 
+  downloadArr(name, arr) {
+    let csv = `[
+    `;
+    arr.forEach((row) => {
+      csv += `["${row[0]}", ${row[1]}],`;
+      csv += '\n';
+    });
+    csv += ']';
+    const newEle = document.createElement('a');
+    newEle.href = `data:text/csv;charset=utf-8, ${encodeURI(csv)}`;
+    newEle.target = '_blank';
+    newEle.download = `${name}.csv`;
+    newEle.click();
+    return this;
+  }
+
   makeTable(arr) {
     arr.forEach((val) => {
       const entry = document.createElement('div');
