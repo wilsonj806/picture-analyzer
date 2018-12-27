@@ -55,9 +55,10 @@ The below features are more intended to be extra features to be implemented **af
 ## Known Issues
 
 - Some functionality isn't performing as expected on Macs
-  - probably a colorspace profile issue
+  - probably a color profile issue
   - need to check the [Canvas/ Rendering Context docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
-  - also should look into the ImageBitmap API
+  - also should look into the ImageBitmap API/ `self.createImageBitmap()
+    - [Applicable Can I Use for the above](https://caniuse.com/#search=createImageBitmap)
 
 ## Dependencies
 

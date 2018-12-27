@@ -3,6 +3,7 @@ import {
   getNthLength,
   findMost,
   findClipping,
+  checkIfSimUtil,
 } from '../scripts/Data.analysis';
 
 // Mock imports
@@ -12,7 +13,7 @@ import {
 } from './helpers/mock.img.js';
 
 // don't need this test, this function's fairly simple
-describe('A function that gets n% of length of an array', function() {
+describe('A utility function that gets n% of length of an array', function() {
   const arr = [1,2,3,4];
   const fracN = 0.39761155133;
 
@@ -21,6 +22,26 @@ describe('A function that gets n% of length of an array', function() {
   });
 
 });
+
+describe('A utility function that determines if two values are similar', function() {
+  it('should return a boolean when called', function() {
+    const result = checkIfSimUtil(160,120);
+    console.log(result);
+
+    expect((typeof result)).toEqual('boolean');
+  });
+  it('should return false when called with 2 equal values', function() {
+    const result = checkIfSimUtil(3,3);
+    expect(result).toBe(false);
+  })
+})
+
+describe(' A utility function that returns an average value', function() {
+
+  xit('should return a valid number ', function() {
+    expect().nothing();
+  })
+})
 
 describe('A function for finding the most frequent colors', function() {
 

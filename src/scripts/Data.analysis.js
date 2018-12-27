@@ -56,12 +56,12 @@ function colorReduceUtil(arr, isNested = false, i = 0) {
   return average;
 }
 
-function pctDiffUtil(valA, valB) {
+// FIXME: rename this since it returns a boolean
+function checkIfSimUtil(valA, valB) {
   const pctDiff = Math.abs((valA - valB) / valB);
-  const isGreater = (pctDiff <= 1.2) && (pctDiff > 1.00);
-  const isLower = (pctDiff <= 0.2);
-  const checkSimilar = (isGreater || isLower);
-  return checkSimilar;
+  // check if its returning a float and is spazzing out cuz of it
+  const isInRange = (pctDiff <= 0.3) && (pctDiff >= 0);
+  return isInRange;
 }
 
 function rgbFreq(rgbArr) {
@@ -72,7 +72,7 @@ function rgbFreq(rgbArr) {
       const currAvg = colorReduceUtil(item);
       const lastAvg = colorReduceUtil(arr2[arr2.length - 1]);
 
-      const checkPct = pctDiffUtil(currAvg, lastAvg);
+      const checkPct = checkIfSimUtil(currAvg, lastAvg);
 
       if (checkPct === true) {
         arr2[arr2.length - 1][1] += 1;
@@ -90,11 +90,9 @@ function rgbFreq(rgbArr) {
 
 function findMost(rgbSorted) {
   const rgb = rgbSorted;
-  const quarterLength = getNthLength(rgb, 0.25);
-  const halfLength = getNthLength(rgb, 0.5);
-  const three4Length = getNthLength(rgb, 0.75);
 
-  const mostFrequent = rgb.reduce((acc, item, i) => {
+  // FIXME: break up the reduce callback into smaller functions
+  const mostFrequent = rgb.reduce((acc, item) => {
     if (acc.length === 0) {
       acc = sliceUtil(item, acc);
       return acc;
@@ -103,7 +101,7 @@ function findMost(rgbSorted) {
       const currAvg = colorReduceUtil(item[0]);
       const lastAvg = colorReduceUtil(acc[0]);
 
-      const checkPct = pctDiffUtil(currAvg, lastAvg);
+      const checkPct = checkIfSimUtil(currAvg, lastAvg);
 
       if (checkPct === true) {
         acc = sliceUtil(item, acc, true);
@@ -118,20 +116,21 @@ function findMost(rgbSorted) {
     const isSimilar = acc.some((arr) => {
       const eleAvg = colorReduceUtil(arr[0]);
 
-      const checkPct = pctDiffUtil(currAvg, eleAvg);
+      const checkPct = checkIfSimUtil(currAvg, eleAvg);
       return checkPct;
     });
 
 
     if ((acc.length < 6) && (isSimilar === false)) {
       acc = sliceUtil(item, acc);
-    } else if ((acc.length === 6) || (i === halfLength)) {
+    } else if (acc.length === 6) {
       for (let j = 0; j === acc.length; j += 1) {
         const jAvg = colorReduceUtil(acc[j][0]);
-        const toMerge = acc.findIndex((ele) => {
+        const toMerge = acc.findIndex((ele, k) => {
+          if (j === k) { return false; }
           const eleAvg = colorReduceUtil(ele[0]);
 
-          const checkPct = pctDiffUtil(eleAvg, jAvg);
+          const checkPct = checkIfSimUtil(eleAvg, jAvg);
           return checkPct;
         });
         acc = sliceUtil(acc[j], acc, true, toMerge);
@@ -142,22 +141,12 @@ function findMost(rgbSorted) {
       const toPop = acc.findIndex((val) => {
         const lastAvg = colorReduceUtil(val[0]);
 
-        const checkPct = pctDiffUtil(currAvg, lastAvg);
+        const checkPct = checkIfSimUtil(currAvg, lastAvg);
         return checkPct;
       });
       acc = sliceUtil(item, acc, true, toPop);
       return acc;
-    } else if ((i === halfLength) || (i === quarterLength) || (i === three4Length)) {
-      acc.sort((a, b) => {
-        if (a[1] < b[1]) { return 1; }
-        if (a[1] > b[1]) { return -1; }
-        return 0;
-      });
-      if (acc[0][1] <= 1) {
-        acc.shift();
-      }
     }
-
     return acc;
   }, []);
 
@@ -178,17 +167,16 @@ function findClipping(arr) {
       ["number string", number]
     `);
   }
-  const reinit = [...arr];
   const length = arr.reduce((acc, item) => {
     acc += item[1];
     return acc;
   }, 0);
 
-  const quarterLength = getNthLength(reinit, 0.25);
-  const three4Length = getNthLength(reinit, 0.75);
+  const quarterLength = getNthLength(arr, 0.25);
+  const three4Length = getNthLength(arr, 0.75);
 
-  const firstQuarter = reinit.slice(0, quarterLength - 1);
-  const lastQuarter = reinit.slice(three4Length - 1, reinit.length - 1);
+  const firstQuarter = arr.slice(0, quarterLength - 1);
+  const lastQuarter = arr.slice(three4Length - 1, arr.length - 1);
 
   const firstDiffs = firstQuarter.map((val, i) => {
     if (i === (firstQuarter.length - 1)) { return null; }
@@ -219,9 +207,6 @@ function findClipping(arr) {
     const check = val[2] > (lastAvg * 2);
     return check;
   });
-  console.log(lastDiffs);
-  console.log(lastAvg);
-  console.log(firstAvg);
 
   const blkClipSum = colorReduceUtil(blkClip, true, 2);
   const whtClipSum = colorReduceUtil(whtClip, true, 2);
@@ -236,4 +221,5 @@ export {
   rgbFreq,
   findMost,
   findClipping,
+  checkIfSimUtil,
 };
