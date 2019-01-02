@@ -18,6 +18,7 @@ const imgHandler = new PixelData();
 const displayControl = new Controller(
   '.display',
   'display__entry',
+  // '#canvas',
 );
 
 // For uploads
@@ -35,7 +36,9 @@ DomHelper.setEle('.drop__target').addEventListener('drop', (e) => {
 });
 
 DomHelper.setEle('[type="file"]').addEventListener('change', (e) => {
+  // const upload =
   uploader.handleBtnUpload(e, imgHandler);
+  // const url = displayControl.addImage(upload);
 });
 
 // For analysis
@@ -46,6 +49,7 @@ DomHelper.setEle('.btn--color').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   // console.log(imgHandler.rgbCount);
   const arr = findMost(imgHandler.rgbCount);
+  // TODO: stick the array into Local Storage at some point for later downloading
   displayControl.dumpContents(arr);
 });
 
@@ -65,4 +69,11 @@ DomHelper.setEle('.btn--clip').addEventListener('click', () => {
   });
   displayControl.presentStrings(clipAsStrings);
   // displayControl.downloadArr('lightness', lightness);
+});
+
+DomHelper.setEle('.btn--dl-arr').addEventListener('click', () => {
+  imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
+  // console.log(imgHandler.rgbCount);
+  const arr = findMost(imgHandler.rgbCount);
+  displayControl.downloadArr('color-1', arr);
 });

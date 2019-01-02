@@ -57,19 +57,19 @@ class Uploader {
     // check file type
     if (!selectedFile.type.startsWith('image')) {
       this.fileWarn('wrongType');
-      return;
+      return null;
     }
 
     // check file size (1 Mb maximum)
     if (selectedFile.size > 1000000) {
       this.fileWarn('wrongSize');
-      return;
+      return null;
     }
 
     // check number of files
     if (files.length > 1) {
       this.fileWarn('tooMany');
-      return;
+      return null;
     }
 
     const {
@@ -90,6 +90,7 @@ class Uploader {
     li.dataset.name = selectedFile.name;
 
     img.onload = () => {
+      console.dir(selectedFile);
       // console.dir(img);
       let pct;
       if (window.innerWidth <= 1280) {

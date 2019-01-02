@@ -59,6 +59,7 @@ The below features are more intended to be extra features to be implemented **af
   - need to check the [Canvas/ Rendering Context docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
   - also should look into the ImageBitmap API/ `self.createImageBitmap()
     - [Applicable Can I Use for the above](https://caniuse.com/#search=createImageBitmap)
+- Data reduction algorithm is flawed, it stops once it has its 6 values and more or less doesn't bother updating them
 
 ## Dependencies
 

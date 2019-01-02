@@ -1,5 +1,6 @@
 // Import of functions to test
 import {
+  sliceUtil,
   getNthLength,
   findMost,
   findClipping,
@@ -12,6 +13,8 @@ import {
   mockHLLCD,
 } from './helpers/mock.img.js';
 
+import * as mockSlice from './helpers/mock.slice';
+
 // don't need this test, this function's fairly simple
 describe('A utility function that gets n% of length of an array', function() {
   const arr = [1,2,3,4];
@@ -20,7 +23,6 @@ describe('A utility function that gets n% of length of an array', function() {
   it('should return an integer', function() {
     expect(Number.isInteger(getNthLength(arr, fracN))).toBe(true);
   });
-
 });
 
 describe('A utility function that determines if two values are similar', function() {
@@ -36,12 +38,24 @@ describe('A utility function that determines if two values are similar', functio
   })
 })
 
-describe(' A utility function that returns an average value', function() {
-
-  xit('should return a valid number ', function() {
+describe('A utility function that returns an average value', function() {
+  // NOTE for colorReduceUtil
+  xit('should return an integer when called', function() {
     expect().nothing();
   })
 })
+
+describe('A utility function for changing parts of a array with a replacement', function() {
+  // NOTE for sliceUtil
+
+  xit('should return an array of equal length to the input when called', function() {
+    // NOTE  should share setup with the below spec
+  });
+  xit('should return an array that isn\'t equal to the input array when called', function() {
+    // NOTE should share setup with the above spec
+  });
+
+});
 
 describe('A function for finding the most frequent colors', function() {
 

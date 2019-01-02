@@ -7,6 +7,7 @@ function getNthLength(arr, n) {
 }
 
 function sliceUtil(replacementArr, target, isOld = false, i = 0) {
+  // FIXME: just make it increment the old entry up by one
   if ((isOld === true) && (target.length === 1)) {
     const reinit = [...target];
     const old = reinit.splice(0);
@@ -17,6 +18,8 @@ function sliceUtil(replacementArr, target, isOld = false, i = 0) {
     reinit.push(copy);
     return reinit;
   }
+  // FIXME: just do a one line Array.splice() instead
+  // FIXME: also make it increment the old entry instead
   if (isOld === true) {
     const reinit = [...target];
     const old = reinit.splice(i, 1);
@@ -56,14 +59,13 @@ function colorReduceUtil(arr, isNested = false, i = 0) {
   return average;
 }
 
-// FIXME: rename this since it returns a boolean
 function checkIfSimUtil(valA, valB) {
   const pctDiff = Math.abs((valA - valB) / valB);
-  // check if its returning a float and is spazzing out cuz of it
-  const isInRange = (pctDiff <= 0.3) && (pctDiff >= 0);
+  const isInRange = (pctDiff <= 0.5) && (pctDiff >= 0);
   return isInRange;
 }
 
+// FIXME: do all the data reduction here instead and with asynchronous functions
 function rgbFreq(rgbArr) {
   const rgbFreqArr = rgbArr.reduce((arr2, item) => {
     if (arr2.length === 0) {
@@ -86,13 +88,15 @@ function rgbFreq(rgbArr) {
 }
 
 // TODO: check to make sure that the function is updating the end array
-// refactor so that the function finds the most frequent colors, AFTER data reduction? (slower)
+// FIXME: refactor so that the function finds most frequent colors, AFTER data reduction? (slower)
+// OR alternatively, refactor so that we get a general top 100 colors and then reduce it from there
 
 function findMost(rgbSorted) {
   const rgb = rgbSorted;
 
   // FIXME: break up the reduce callback into smaller functions
   const mostFrequent = rgb.reduce((acc, item) => {
+  // let mostFrequent = rgb.reduce((acc, item, i) => {
     if (acc.length === 0) {
       acc = sliceUtil(item, acc);
       return acc;
@@ -121,9 +125,9 @@ function findMost(rgbSorted) {
     });
 
 
-    if ((acc.length < 6) && (isSimilar === false)) {
+    if ((acc.length < 200) && (isSimilar === false)) {
       acc = sliceUtil(item, acc);
-    } else if (acc.length === 6) {
+    } else if (acc.length === 200) {
       for (let j = 0; j === acc.length; j += 1) {
         const jAvg = colorReduceUtil(acc[j][0]);
         const toMerge = acc.findIndex((ele, k) => {
@@ -149,8 +153,27 @@ function findMost(rgbSorted) {
     }
     return acc;
   }, []);
+  /*
+  // FIXME: below isn't reducing
+  let h = 0;
+  while ((mostFrequent.length !== 6) && (h < 10)) {
+    const arrLength = mostFrequent.length;
+    for (let i = 0; i < arrLength; i += 1) {
+      const current = mostFrequent[i];
+      const currentAvg = colorReduceUtil(current[0]);
+      const toMerge = mostFrequent.findIndex((ele, j) => {
+        if (i === j) { return false; }
+        const eleAvg = colorReduceUtil(ele[0]);
 
-  // console.log(mostFrequent);
+        const checkPct = checkIfSimUtil(eleAvg, currentAvg);
+        return checkPct;
+      });
+      mostFrequent = [...sliceUtil(current, mostFrequent, true, toMerge)];
+    }
+    h += 1;
+  }
+  */
+  console.log(mostFrequent);
   return mostFrequent;
 }
 
