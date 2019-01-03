@@ -2,10 +2,6 @@ import DomHelper from './DomHelper';
 
 class Uploader {
   // TODO: Add dropeffect to the drag and drop
-  constructor(canvas) {
-    this.canvas = document.querySelector(canvas);
-    this.ctx = this.canvas.getContext('2d');
-  }
 
   fileWarn(string = '') {
     const intro = DomHelper.setEle('.intro');
@@ -51,7 +47,7 @@ class Uploader {
     return this;
   }
 
-  handleFile(event, analysisSuite) {
+  handleFile(event, imageEle) {
     function checkFile(e) {
       if (e.type === 'drop') {
         e.stopPropagation();
@@ -65,8 +61,10 @@ class Uploader {
     }
     const uploadedFile = checkFile(event);
     const selectedFile = uploadedFile[0];
+    const img = imageEle;
     this.fileWarn('empty');
     // check file type
+    // FIXME: move this to Controller.js
     if (!selectedFile.type.startsWith('image')) {
       this.fileWarn('wrongType');
       return;
@@ -87,59 +85,10 @@ class Uploader {
       // return null;
     }
 
-    // NOTE file uploads should be done asynchronously
-    // fix that when decoupling all of this DOM manipulation
-
-    const {
-      canvas,
-      ctx,
-    } = this;
-    const strip = DomHelper.setEle('.strip');
     const btnUpload = DomHelper.setEle('[type="file"]');
-
-    const img = document.createElement('img');
-    const li = document.createElement('li');
     btnUpload.value = '';
+    img.dataset.name = selectedFile.name;
     img.src = window.URL.createObjectURL(selectedFile);
-
-    img.classList.add('strip__img');
-    li.classList.add('strip__item');
-    li.dataset.index = strip.childElementCount + 1;
-    li.dataset.name = selectedFile.name;
-
-    // return new Promise((resolve, reject) => {
-    //   console.log('hi I\'m working');
-    //   img.onload = () => { resolve(img); };
-    //   img.onerror = (e) => { reject(e); };
-    // }).then((val) => {
-    //   console.log('done');
-    //   return val;
-    // }); // return a promise???
-
-    img.onload = () => {
-      // console.dir(selectedFile);
-      // console.dir(img);
-      let pct;
-      if (window.innerWidth <= 1280) {
-        pct = 0.6;
-      } else {
-        pct = 0.9;
-      }
-      const wrapper = document.querySelector('.canvas-wrapper');
-      const wrapperHeight = wrapper.clientHeight;
-      const scaleFactor = (wrapperHeight / img.naturalHeight) * pct;
-      const newWidth = img.naturalWidth * scaleFactor;
-      const newHeight = img.naturalHeight * scaleFactor;
-
-      canvas.width = newWidth;
-      canvas.height = newHeight;
-      ctx.drawImage(img, 0, 0, newWidth, newHeight);
-      li.appendChild(img);
-      strip.appendChild(li);
-      window.URL.revokeObjectURL(img.src);
-      // TODO: have catch for not having the module
-      analysisSuite.setPixels(ctx, canvas.width, canvas.height).parsePixels();
-    };
   }
 }
 

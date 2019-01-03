@@ -1,12 +1,51 @@
 // TODO: Implement a rate limiter for button presses
 // TODO: Remove certain DOM element selectors and replace with DomHelper
 
-// import DomHelper from './DomHelper';
+import DomHelper from './DomHelper';
 
 class Controller {
-  constructor(displayTgt, entryClass) {
+  constructor(displayTgt, entryClass, canvas) {
     this.target = document.querySelector(displayTgt);
     this.entryClass = entryClass;
+    this.canvas = document.querySelector(canvas);
+    this.ctx = this.canvas.getContext('2d');
+  }
+
+  populateComponents(imageEle) {
+    const {
+      canvas,
+      ctx,
+    } = this;
+
+    // Populate strip
+    const strip = DomHelper.setEle('.strip');
+    const li = document.createElement('li');
+
+    imageEle.classList.add('strip__img');
+    li.classList.add('strip__item');
+    li.dataset.index = strip.childElementCount + 1;
+    imageEle.classList.add('strip__img');
+    li.classList.add('strip__item');
+    li.dataset.index = strip.childElementCount + 1;
+    li.appendChild(imageEle);
+    strip.appendChild(li);
+
+    // Populate canvas
+    let pct;
+    if (window.innerWidth <= 1280) {
+      pct = 0.6;
+    } else {
+      pct = 0.9;
+    }
+    const wrapper = document.querySelector('.canvas-wrapper');
+    const wrapperHeight = wrapper.clientHeight;
+    const scaleFactor = (wrapperHeight / imageEle.naturalHeight) * pct;
+    const newWidth = imageEle.naturalWidth * scaleFactor;
+    const newHeight = imageEle.naturalHeight * scaleFactor;
+
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+    ctx.drawImage(imageEle, 0, 0, newWidth, newHeight);
   }
 
   dumpContents(arr) {

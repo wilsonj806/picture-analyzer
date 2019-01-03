@@ -13,17 +13,36 @@ require('@babel/polyfill');
 
 // TODO: make sure there's a handler for checking input types for constructors
 
-const uploader = new Uploader(
-  '#canvas',
-);
+const uploader = new Uploader();
 const imgHandler = new PixelData();
 const displayControl = new Controller(
   '.display',
   'display__entry',
-  // '#canvas',
+  '#canvas',
 );
 
 // For uploads
+
+function asyncUpload(e) {
+  return new Promise((resolve, reject) => {
+    const imgEle = document.createElement('img');
+    // TODO: make uploader return a string to pass into controller if it fails???
+    uploader.handleFile(e, imgEle);
+    imgEle.onload = () => {
+      resolve(imgEle);
+    };
+    imgEle.onerror = (err) => { reject(err); };
+  });
+}
+
+async function uploadHandler(e) {
+  const canvas = DomHelper.setEle('#canvas');
+  const ctx = canvas.getContext('2d');
+  const imgEle = await asyncUpload(e).then(val => val);
+  // console.dir(imgEle);
+  displayControl.populateComponents(imgEle);
+  imgHandler.setPixels(ctx, canvas.width, canvas.height).parsePixels();
+}
 
 DomHelper.setEle('.drop__target').addEventListener('dragenter', (e) => {
   e.stopPropagation();
@@ -33,29 +52,9 @@ DomHelper.setEle('.drop__target').addEventListener('dragover', (e) => {
   e.stopPropagation();
   e.preventDefault();
 });
-DomHelper.setEle('.drop__target').addEventListener('drop', (e) => {
-  uploader.handleFile(e, imgHandler);
-});
+DomHelper.setEle('.drop__target').addEventListener('drop', uploadHandler);
 
-// NOTE
-// initiate an image element inside the callback function in the event listener
-// then pass that into the uploader and when it loads in the new image in let it do stuff???
-
-// function asyncUpload(e) {
-//   return new Promise((resolve, reject) => {
-//     const imgEle = document.createElement('img');
-//     uploader.handleBtnUpload(e, imgEle);
-//     img.onload = () => { resolve(img); };
-//     img.onerror = (e) => { reject(e); };
-//   });
-// }
-
-// const img = asyncUpload(e).then(val => val);
-
-DomHelper.setEle('[type="file"]').addEventListener('change', (e) => {
-  // const upload = asyncUpload(e);
-  uploader.handleFile(e, imgHandler);
-});
+DomHelper.setEle('[type="file"]').addEventListener('change', uploadHandler);
 
 // For analysis
 
