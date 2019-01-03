@@ -4,7 +4,7 @@
 // import DomHelper from './DomHelper';
 
 class Controller {
-  constructor(displayTgt, entryClass, canvasEle) {
+  constructor(displayTgt, entryClass) {
     this.target = document.querySelector(displayTgt);
     this.entryClass = entryClass;
   }
@@ -52,7 +52,8 @@ class Controller {
   }
 
   makeTable(arr) {
-    arr.forEach((val) => {
+    arr.forEach((val, i) => {
+      if (i > 6) return;
       const entry = document.createElement('div');
       const card = document.createElement('div');
       const label = document.createElement('p');

@@ -51,26 +51,44 @@ class Uploader {
     return this;
   }
 
-  handleFile(files, analysisSuite) {
-    const selectedFile = files[0];
+  handleFile(event, analysisSuite) {
+    function checkFile(e) {
+      if (e.type === 'drop') {
+        e.stopPropagation();
+        e.preventDefault();
+        return e.dataTransfer.files;
+      }
+      if (e.type === 'change') {
+        return e.target.files;
+      }
+      return null;
+    }
+    const uploadedFile = checkFile(event);
+    const selectedFile = uploadedFile[0];
     this.fileWarn('empty');
     // check file type
     if (!selectedFile.type.startsWith('image')) {
       this.fileWarn('wrongType');
-      return null;
+      return;
+      // return null;
     }
 
     // check file size (1 Mb maximum)
     if (selectedFile.size > 1000000) {
       this.fileWarn('wrongSize');
-      return null;
+      return;
+      // return null;
     }
 
     // check number of files
-    if (files.length > 1) {
+    if (uploadedFile.length > 1) {
       this.fileWarn('tooMany');
-      return null;
+      return;
+      // return null;
     }
+
+    // NOTE file uploads should be done asynchronously
+    // fix that when decoupling all of this DOM manipulation
 
     const {
       canvas,
@@ -89,8 +107,17 @@ class Uploader {
     li.dataset.index = strip.childElementCount + 1;
     li.dataset.name = selectedFile.name;
 
+    // return new Promise((resolve, reject) => {
+    //   console.log('hi I\'m working');
+    //   img.onload = () => { resolve(img); };
+    //   img.onerror = (e) => { reject(e); };
+    // }).then((val) => {
+    //   console.log('done');
+    //   return val;
+    // }); // return a promise???
+
     img.onload = () => {
-      console.dir(selectedFile);
+      // console.dir(selectedFile);
       // console.dir(img);
       let pct;
       if (window.innerWidth <= 1280) {
@@ -113,18 +140,6 @@ class Uploader {
       // TODO: have catch for not having the module
       analysisSuite.setPixels(ctx, canvas.width, canvas.height).parsePixels();
     };
-  }
-
-  handleBtnUpload(e, analysisSuite) {
-    const uploadedFile = e.target.files;
-    this.handleFile(uploadedFile, analysisSuite);
-  }
-
-  handleDrop(e, analysisSuite) {
-    e.stopPropagation();
-    e.preventDefault();
-    const draggedFile = e.dataTransfer.files;
-    this.handleFile(draggedFile, analysisSuite);
   }
 }
 

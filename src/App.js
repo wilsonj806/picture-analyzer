@@ -9,6 +9,8 @@ import {
 import Controller from './scripts/Controller';
 import DomHelper from './scripts/DomHelper';
 
+require('@babel/polyfill');
+
 // TODO: make sure there's a handler for checking input types for constructors
 
 const uploader = new Uploader(
@@ -32,13 +34,27 @@ DomHelper.setEle('.drop__target').addEventListener('dragover', (e) => {
   e.preventDefault();
 });
 DomHelper.setEle('.drop__target').addEventListener('drop', (e) => {
-  uploader.handleDrop(e, imgHandler);
+  uploader.handleFile(e, imgHandler);
 });
 
+// NOTE
+// initiate an image element inside the callback function in the event listener
+// then pass that into the uploader and when it loads in the new image in let it do stuff???
+
+// function asyncUpload(e) {
+//   return new Promise((resolve, reject) => {
+//     const imgEle = document.createElement('img');
+//     uploader.handleBtnUpload(e, imgEle);
+//     img.onload = () => { resolve(img); };
+//     img.onerror = (e) => { reject(e); };
+//   });
+// }
+
+// const img = asyncUpload(e).then(val => val);
+
 DomHelper.setEle('[type="file"]').addEventListener('change', (e) => {
-  // const upload =
-  uploader.handleBtnUpload(e, imgHandler);
-  // const url = displayControl.addImage(upload);
+  // const upload = asyncUpload(e);
+  uploader.handleFile(e, imgHandler);
 });
 
 // For analysis
