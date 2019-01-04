@@ -1,13 +1,10 @@
-// FIXME: fix how sliceUtil determines how it navigates through a complex array structure
-// or how it chooses which array to slice/ copy
-
 function getNthLength(arr, n) {
   const nthLength = Math.round(arr.length * n);
   return nthLength;
 }
 
-function sliceUtil(replacementArr, target, isOld = false, i = 0) {
-  // FIXME: just make it increment the old entry up by one
+// TODO: Rename this, its not a great name
+function spliceUtil(replacementArr, target, isOld = false, i = 0) {
   if ((isOld === true) && (target.length === 1)) {
     const reinit = [...target];
     const old = reinit.splice(0);
@@ -39,16 +36,16 @@ function sliceUtil(replacementArr, target, isOld = false, i = 0) {
 }
 
 function colorReduceUtil(arr, isNested = false, nestedLayers = 0) {
-  // ONLY WORKS ON SINGLE LAYER ARRAYS OR AT MOST 2 LAYERS(i.e [1,2,3,4] or like the below array:
-  /* Target array is nested 2 layers deep
+/* NOTE ONLY WORKS ON SINGLE LAYER ARRAYS OR AT MOST 2 LAYERS(i.e [1,2,3,4] or like the below:
+  Target array is nested 2 layers deep
     [
       [
         [1,6], // TARGET ARRAY
         2
       ],
       [[3,2],4]
-    ]
-  */
+    ] */
+
   if (isNested === true) {
     const sum = arr.reduce((acc, item) => {
       if (item === null) {
@@ -71,26 +68,24 @@ function colorReduceUtil(arr, isNested = false, nestedLayers = 0) {
   return average;
 }
 
-// FIXME: needs more ranges
-function checkIfSimUtil(valA, valB) {
+function checkIfSimUtil(valA, valB, range = 0.5) {
   const pctDiff = Math.abs((valA - valB) / valB);
-  const isInRange = (pctDiff <= 0.5) && (pctDiff >= 0);
+  const isInRange = (pctDiff <= range) && (pctDiff >= 0);
   return isInRange;
 }
 
-// FIXME: do all the data reduction here instead and with asynchronous functions
-// FIXME: need a catch for if (currAvg === lastAvg)
+/* FIXME: need to have a catch for both averages being equal
+Also, the reduction converges at some point and stops reducing when it shouldn't be */
 function rgbFreq(rgbArr) {
   const { length } = rgbArr;
   const rgbFreqArr = rgbArr.reduce((arr2, item, i) => {
     if (arr2.length === 0) {
-      arr2.push([item, 0]);
+      arr2.push([item, 1]);
     }
     if (i < length) {
       // if (i === 10) console.log(arr2);
       const currAvg = colorReduceUtil(item);
       const lastAvg = colorReduceUtil(arr2[arr2.length - 1][0]);
-
       const checkPct = checkIfSimUtil(currAvg, lastAvg);
 
       if (checkPct === true) {
@@ -100,103 +95,57 @@ function rgbFreq(rgbArr) {
       }
       return arr2;
     }
-    let h = 0;
-    const fracLength = 0.45 * length;
-    while ((h > fracLength) || (h < 1000000)) {
-      const arrLength = arr2.length;
-      for (let j = 0; j < arrLength; j += 1) {
-        const current = arr2[j];
-        const currentAvg = colorReduceUtil(current[0]);
-        const toMerge = arr2.findIndex((ele, k) => {
-          if (j === k) { return false; }
-          const eleAvg = colorReduceUtil(ele[0]);
+    if (i === length) {
+      let h = 0;
+      const fracLength = 0.05 * length;
+      const breakpoint = 0.35 * length;
+      while ((h > fracLength) || (h < 100000000)) {
+        const arrLength = arr2.length;
+        if (h < breakpoint) {
+          for (let j = 0; j < arrLength; j += 1) {
+            const current = arr2[j];
+            const currentAvg = colorReduceUtil(current[0]);
+            const toMerge = arr2.findIndex((ele, k) => {
+              if (j === k) { return false; }
+              const eleAvg = colorReduceUtil(ele[0]);
 
-          const checkPct = checkIfSimUtil(eleAvg, currentAvg);
-          return checkPct;
-        });
-        arr2 = [...sliceUtil(current, arr2, true, toMerge)];
+              const checkPct = checkIfSimUtil(eleAvg, currentAvg, 0.5);
+              return checkPct;
+            });
+            arr2 = [...spliceUtil(current, arr2, true, toMerge)];
+          }
+        } else {
+          for (let j = 0; j < arrLength; j += 1) {
+            const current = arr2[j];
+            const currentAvg = colorReduceUtil(current[0]);
+            const toMerge = arr2.findIndex((ele, k) => {
+              if (j === k) { return false; }
+              const eleAvg = colorReduceUtil(ele[0]);
+
+              const checkPct = checkIfSimUtil(eleAvg, currentAvg);
+              return checkPct;
+            });
+            arr2 = [...spliceUtil(current, arr2, true, toMerge)];
+          }
+        }
+        h += 1;
       }
-      h += 1;
     }
-    // otherwise put a for loop down here for reducing it down to about 65% length;
     return arr2;
   }, []);
   // console.log(rgbFreqArr);
   return rgbFreqArr;
 }
 
-// TODO: check to make sure that the function is updating the end array
-// FIXME: refactor so that the function finds most frequent colors, AFTER data reduction? (slower)
-// OR alternatively, refactor so that we get a general top 100 colors and then reduce it from there
-
 function findMost(rgbSorted) {
-  const rgb = rgbSorted;
-
-  // FIXME: break up the reduce callback into smaller functions
-  const mostFrequent = rgb.reduce((acc, item) => {
-  // let mostFrequent = rgb.reduce((acc, item, i) => {
-    if (item[1] === 0) { item[1] = 1; }
-    if (acc.length === 0) {
-      acc = sliceUtil(item, acc);
-      return acc;
-    }
-    const currAvg = colorReduceUtil(item[0]);
-    const isSimilar = acc.some((arr) => {
-      const eleAvg = colorReduceUtil(arr[0]);
-      const checkPct = checkIfSimUtil(currAvg, eleAvg);
-      return checkPct;
-    });
-    if ((acc.length < 200) && (isSimilar === false)) {
-      acc = sliceUtil(item, acc);
-    // TODO:  CHECK TO SEE IF LIMITING THE ACCUMULATOR LENGTH MAKES SENSE
-    } else if (acc.length === 200) {
-      for (let j = 0; j === 200; j += 1) {
-        // if (j === 10) console.log(acc);
-        const jAvg = colorReduceUtil(acc[j][0]);
-        const toMerge = acc.findIndex((ele, k) => {
-          if (j === k) { return false; }
-          const eleAvg = colorReduceUtil(ele[0]);
-
-          const checkPct = checkIfSimUtil(eleAvg, jAvg);
-          return checkPct;
-        });
-        acc = sliceUtil(acc[j], acc, true, toMerge);
-      }
-      return acc;
-    }
-    if (isSimilar === true) {
-      // if similar & diff between biggest val inside [r,g,b] and small val isn't beyond expectation
-      const toPop = acc.findIndex((val) => {
-        const lastAvg = colorReduceUtil(val[0]);
-
-        const checkPct = checkIfSimUtil(currAvg, lastAvg);
-        return checkPct;
-      });
-      acc = sliceUtil(item, acc, true, toPop);
-      return acc;
-    }
-    return acc;
-  }, []);
-
-  // let h = 0;
-  // while ((mostFrequent.length !== 6) || (h > 1000000)) {
-  //   const arrLength = mostFrequent.length;
-  //   for (let i = 0; i < arrLength; i += 1) {
-  //     const current = mostFrequent[i];
-  //     const currentAvg = colorReduceUtil(current[0]);
-  //     const toMerge = mostFrequent.findIndex((ele, j) => {
-  //       if (i === j) { return false; }
-  //       const eleAvg = colorReduceUtil(ele[0]);
-
-  //       const checkPct = checkIfSimUtil(eleAvg, currentAvg);
-  //       return checkPct;
-  //     });
-  //     mostFrequent = [...sliceUtil(current, mostFrequent, true, toMerge)];
-  //   }
-  //   h += 1;
-  // }
-
-  // console.log(mostFrequent);
+  const rgb = [...rgbSorted];
+  rgb.sort((a, b) => {
+    if (a[1] < b[1]) return 1;
+    if (a[1] > b[1]) return -1;
+    return 0;
+  });
+  const mostFrequent = rgb.slice(0, 6);
+  console.log(mostFrequent);
   return mostFrequent;
 }
 

@@ -3,6 +3,8 @@ import DomHelper from './DomHelper';
 class Uploader {
   // TODO: Add dropeffect to the drag and drop
 
+  // FIXME: move this to Controller.js
+
   fileWarn(string = '') {
     const intro = DomHelper.setEle('.intro');
     const warnUpload = document.createElement('p');
@@ -64,7 +66,7 @@ class Uploader {
     const img = imageEle;
     this.fileWarn('empty');
     // check file type
-    // FIXME: move this to Controller.js
+    // FIXME: make it return a string instead
     if (!selectedFile.type.startsWith('image')) {
       this.fileWarn('wrongType');
       return;

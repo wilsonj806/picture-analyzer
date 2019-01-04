@@ -11,8 +11,6 @@ import DomHelper from './scripts/DomHelper';
 
 require('@babel/polyfill');
 
-// TODO: make sure there's a handler for checking input types for constructors
-
 const uploader = new Uploader();
 const imgHandler = new PixelData();
 const displayControl = new Controller(
@@ -41,6 +39,8 @@ async function uploadHandler(e) {
   const imgEle = await asyncUpload(e).then(val => val);
   // console.dir(imgEle);
   displayControl.populateComponents(imgEle);
+  /* FIXME: not super DRY since `ctx` and `canvas` is repeated in the below
+  and in the above imgHandler method */
   imgHandler.setPixels(ctx, canvas.width, canvas.height)
     .parsePixels();
 }

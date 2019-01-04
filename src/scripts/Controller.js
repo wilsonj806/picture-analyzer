@@ -1,5 +1,4 @@
 // TODO: Implement a rate limiter for button presses
-// TODO: Remove certain DOM element selectors and replace with DomHelper
 
 import DomHelper from './DomHelper';
 

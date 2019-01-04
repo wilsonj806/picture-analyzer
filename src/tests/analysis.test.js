@@ -1,6 +1,6 @@
 // Import of functions to test
 import {
-  sliceUtil,
+  spliceUtil,
   getNthLength,
   findMost,
   findClipping,
@@ -33,13 +33,13 @@ describe('A utility function that determines if two values are similar', functio
 
     expect((typeof result)).toEqual('boolean');
   });
-  it('should return false when called with 2 equal values', function() {
-    const result = checkIfSimUtil(3,3);
-    expect(result).toBe(false);
+  it('should return true when called with 2 equal values', function() {
+    const result = checkIfSimUtil(150,124);
+    expect(result).toBe(true);
   })
 })
 
-describe('A utility function that returns an average value', function() {
+describe('A utility function that reduces an rgb value to an average value', function() {
   // NOTE for colorReduceUtil
   xit('should return an integer when called', function() {
     expect().nothing();
@@ -60,8 +60,8 @@ describe('A utility function that returns an average value', function() {
   })
 })
 
-describe('A utility function for changing parts of a array with a replacement', function() {
-  // NOTE for sliceUtil
+describe('A utility function for slicing or splicing parts of a array with a replacement', function() {
+  // NOTE for spliceUtil
 
   xit('should return an array of equal length to the input when called', function() {
     // NOTE  should share setup with the below spec

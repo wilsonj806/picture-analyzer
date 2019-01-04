@@ -1,9 +1,7 @@
 // TODO: import RGB2HSL ONLY from convert colors
 import convert from '@csstools/convert-colors';
 
-// TODO: Optimize image data sorting for performance
 // TODO: Set a time out for array processing operations
-// TODO: Set array values using setters and getters
 
 class PixelData {
   constructor() {
@@ -35,7 +33,7 @@ class PixelData {
       const red = pixels.data[i + 0];
       const green = pixels.data[i + 1];
       const blue = pixels.data[i + 2];
-      const entry = [].concat(red, green, blue); // can technically turn this into one line
+      const entry = [].concat(red, green, blue);
       this.rgbArr.push(entry);
     }
     this.pixelCount = this.rgbArr.length;
