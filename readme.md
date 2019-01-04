@@ -36,7 +36,7 @@ My goal for this project was to develop something that required some complex Jav
 - Proper colors for the UI
 
 **Version 1.0.0 should have the following done**
-- Tests for every component
+- Tests for relevant units/ whatever service and end to end tests needed
 - Any necessary refactoring
 - Make the page fully responsive
 
@@ -54,12 +54,14 @@ The below features are more intended to be extra features to be implemented **af
 
 ## Known Issues
 
-- Some functionality isn't performing as expected on Macs
+- Some functionality isn't performing as expected on MacOS
   - probably a color profile issue
   - need to check the [Canvas/ Rendering Context docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
   - also should look into the ImageBitmap API/ `self.createImageBitmap()
     - [Applicable Can I Use for the above](https://caniuse.com/#search=createImageBitmap)
 - Data reduction algorithm is flawed, it stops once it has its 6 values and more or less doesn't bother updating them
+- Data analysis behaves incorrectly when analysis buttons are clicked multiple times
+  - i.e they concatenate the new values ontop of the already computed values
 
 ## Dependencies
 
@@ -70,9 +72,14 @@ Runtime Dependencies:
 - [Convert Colors](https://www.npmjs.com/package/@csstools/convert-colors)
 
 Development Dependencies:
-- [Webpack](https://webpack.js.org/)
+
+Note: this list only includes major development dependencies
+
+- [Babel](https://babeljs.io/)
 - [ES Lint](https://eslint.org/)
 - [Jasmine](https://jasmine.github.io/)
+- [Karma](http://karma-runner.github.io/latest/index.html)
+- [Webpack](https://webpack.js.org/)
 
 ## Cloning instructions
 
@@ -84,8 +91,6 @@ git clone https://github.com/wilsonj806/picture-analyzer.git
 ```
 
 Change your working directory to the folder of the newly cloned repo and run ```npm install``` in your command line interface.
-
-
 
 ## License
 

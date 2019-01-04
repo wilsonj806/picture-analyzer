@@ -5,6 +5,7 @@ import {
   findMost,
   findClipping,
   checkIfSimUtil,
+  colorReduceUtil,
 } from '../scripts/Data.analysis';
 
 // Mock imports
@@ -42,6 +43,20 @@ describe('A utility function that returns an average value', function() {
   // NOTE for colorReduceUtil
   xit('should return an integer when called', function() {
     expect().nothing();
+  });
+  it('should return 15 when called with [0,0,0]', function() {
+    expect(colorReduceUtil([0,0,0])).toEqual(15);
+  });
+  it('should return something when called with a nested array as an input', function() {
+    const arr = [
+      [
+        [1,2,3],
+        4
+      ]
+    ]
+    const result = colorReduceUtil(arr, true, 1);
+    console.log(result);
+    expect(result).toBeTruthy();
   })
 })
 

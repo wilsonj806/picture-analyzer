@@ -92,5 +92,4 @@ class Uploader {
   }
 }
 
-
 export default Uploader;

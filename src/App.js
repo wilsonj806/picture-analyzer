@@ -41,7 +41,8 @@ async function uploadHandler(e) {
   const imgEle = await asyncUpload(e).then(val => val);
   // console.dir(imgEle);
   displayControl.populateComponents(imgEle);
-  imgHandler.setPixels(ctx, canvas.width, canvas.height).parsePixels();
+  imgHandler.setPixels(ctx, canvas.width, canvas.height)
+    .parsePixels();
 }
 
 DomHelper.setEle('.drop__target').addEventListener('dragenter', (e) => {
@@ -52,6 +53,7 @@ DomHelper.setEle('.drop__target').addEventListener('dragover', (e) => {
   e.stopPropagation();
   e.preventDefault();
 });
+
 DomHelper.setEle('.drop__target').addEventListener('drop', uploadHandler);
 
 DomHelper.setEle('[type="file"]').addEventListener('change', uploadHandler);

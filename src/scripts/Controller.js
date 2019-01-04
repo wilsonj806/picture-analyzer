@@ -24,9 +24,6 @@ class Controller {
     imageEle.classList.add('strip__img');
     li.classList.add('strip__item');
     li.dataset.index = strip.childElementCount + 1;
-    imageEle.classList.add('strip__img');
-    li.classList.add('strip__item');
-    li.dataset.index = strip.childElementCount + 1;
     li.appendChild(imageEle);
     strip.appendChild(li);
 
