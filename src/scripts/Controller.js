@@ -10,6 +10,50 @@ class Controller {
     this.ctx = this.canvas.getContext('2d');
   }
 
+  fileWarn(string = '') {
+    const intro = DomHelper.setEle('.intro');
+    const warnUpload = document.createElement('p');
+    warnUpload.classList.add('js-danger-popup');
+    switch (string) {
+      case 'wrongType':
+        warnUpload.innerText = 'Warning, you are trying to upload an unrecognized image file type. Accepted file types are (.png,.jpg,.bmp,.tiff,.svg, etc)';
+        break;
+
+      case 'wrongSize':
+        warnUpload.innerText = 'Warning, image too big. Please limit file size to less than 1 Mb';
+        break;
+
+      case 'tooMany':
+        warnUpload.innerText = 'Warning, you are trying to upload more than one file. The app does not process more than one image at a time.';
+        break;
+
+      case 'empty':
+        intro.childNodes.forEach((node) => {
+          if (node.nodeType !== 1) {
+            return;
+          }
+          if (node.classList.contains('js-danger-popup') === true) {
+            intro.removeChild(node);
+          }
+        });
+        break;
+      default:
+        throw new Error(`
+        Expecting one of the following string values(case-sensitive):
+        "wrongType",
+        "wrongSize",
+        "tooMany",
+        "empty"
+      `);
+    }
+
+    if (!warnUpload.innerText) {
+      return this;
+    }
+    intro.appendChild(warnUpload);
+    return this;
+  }
+
   populateComponents(imageEle) {
     const {
       canvas,
@@ -87,6 +131,13 @@ class Controller {
   }
 
   makeTable(arr) {
+    // TODO: Make the CSS line up
+    let pxSize;
+    if (window.innerWidth <= 1280) {
+      pxSize = '25px';
+    } else {
+      pxSize = '50px';
+    }
     arr.forEach((val, i) => {
       if (i > 6) return;
       const entry = document.createElement('div');
@@ -94,8 +145,8 @@ class Controller {
       const label = document.createElement('p');
       entry.classList.add('display__entry');
 
-      card.style.height = '50px';
-      card.style.width = '50px';
+      card.style.height = pxSize;
+      card.style.width = pxSize;
       card.style.backgroundColor = `rgb(${val[0]})`;
       card.classList.add('card', 'card--color');
 
@@ -123,6 +174,11 @@ class Controller {
     p1.classList.add('display__text');
     p2.classList.add('display__text');
 
+    if ((p1.innerText !== '') || (p2.innerText !== '')) {
+      document.getElementsByClassName('display__text').forEach((ele) => {
+        ele.innerText = '';
+      });
+    }
 
     [p1.innerText, p2.innerText] = arr;
 

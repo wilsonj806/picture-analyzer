@@ -1,6 +1,5 @@
 import Uploader from './scripts/Upload';
 import PixelData from './scripts/Data';
-// TODO: move the below import into .scripts/Data and make getter/ setter functions
 import {
   rgbFreq,
   findMost,
@@ -11,7 +10,6 @@ import DomHelper from './scripts/DomHelper';
 
 require('@babel/polyfill');
 
-const uploader = new Uploader();
 const imgHandler = new PixelData();
 const displayControl = new Controller(
   '.display',
@@ -21,11 +19,10 @@ const displayControl = new Controller(
 
 // For uploads
 
-function asyncUpload(e) {
+function asyncUpload(file) {
   return new Promise((resolve, reject) => {
     const imgEle = document.createElement('img');
-    // TODO: make uploader return a string to pass into controller if it fails???
-    uploader.handleFile(e, imgEle);
+    Uploader.parseImage(file, imgEle);
     imgEle.onload = () => {
       resolve(imgEle);
     };
@@ -36,11 +33,19 @@ function asyncUpload(e) {
 async function uploadHandler(e) {
   const canvas = DomHelper.setEle('#canvas');
   const ctx = canvas.getContext('2d');
-  const imgEle = await asyncUpload(e).then(val => val);
-  // console.dir(imgEle);
+  const precheckVals = Uploader.fileCheck(e);
+  console.log(precheckVals);
+  if (precheckVals[0] !== 'success') {
+    const errStr = precheckVals[0];
+    displayControl.fileWarn(errStr);
+    return;
+  }
+  const selectedFile = precheckVals[1];
+  const imgEle = await asyncUpload(selectedFile).then(val => val);
   displayControl.populateComponents(imgEle);
   /* FIXME: not super DRY since `ctx` and `canvas` is repeated in the below
   and in the above imgHandler method */
+  // FIXME image quality is bad when rendered into the canvas on a 1024px screen
   imgHandler.setPixels(ctx, canvas.width, canvas.height)
     .parsePixels();
 }
@@ -60,11 +65,8 @@ DomHelper.setEle('[type="file"]').addEventListener('change', uploadHandler);
 
 // For analysis
 
-// FIXME: make sure values are reset if you click the button again
-
 DomHelper.setEle('.btn--color').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
-  // console.log(imgHandler.rgbCount);
   const arr = findMost(imgHandler.rgbCount);
   // TODO: stick the array into Local Storage at some point for later downloading
   displayControl.dumpContents(arr);
@@ -90,7 +92,6 @@ DomHelper.setEle('.btn--clip').addEventListener('click', () => {
 
 DomHelper.setEle('.btn--dl-arr').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
-  // console.log(imgHandler.rgbCount);
   const arr = findMost(imgHandler.rgbCount);
   displayControl.downloadArr('color-1', arr);
 });
