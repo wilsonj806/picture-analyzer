@@ -5,8 +5,6 @@
   <title>Picture Analyzer</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
 </head>
 <body>
 <main>
@@ -19,8 +17,8 @@
   </div>
 
   <form class="upload__row">
-    <label name="upload-img" class="upload__label">Upload manually</label>
-    <input type="file" name="upload-img" accept="image/*" class="btn--upload"> <!-- the value att can't be used with inputs -->
+    <input type="file" name="upload-img" id="upload-img" accept="image/*" class="input--upload"> <!-- the value att can't be used with inputs -->
+    <label for="upload-img" class="btn btn--upload">Choose file</label>
   </form>
 </section>
 <section class="img-handling">
