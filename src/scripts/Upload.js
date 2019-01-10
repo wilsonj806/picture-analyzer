@@ -15,6 +15,9 @@ class Uploader {
 
   static fileCheck(event) {
     const uploadedFile = this.handleFile(event);
+    if (uploadedFile === null) {
+      return ['wrongType', null];
+    }
     const selectedFile = uploadedFile[0];
     if (!selectedFile.type.startsWith('image')) {
       return ['wrongType', null];

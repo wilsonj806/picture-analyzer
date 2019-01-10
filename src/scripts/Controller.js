@@ -10,8 +10,10 @@ class Controller {
     this.ctx = this.canvas.getContext('2d');
   }
 
-  fileWarn(string = '') {
-    const intro = DomHelper.setEle('.intro');
+  // TODO determine whether or not fileWarn() should return a DOM Element
+
+  fileWarn(string = '', targetEleSelector = '.intro') {
+    const intro = DomHelper.setEle(targetEleSelector);
     const warnUpload = document.createElement('p');
     warnUpload.classList.add('js-danger-popup');
     switch (string) {
