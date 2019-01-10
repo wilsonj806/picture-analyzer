@@ -17,7 +17,17 @@ main {
 .drop__target {
   width: 200px;
   height: 200px;
-  border: 3px dashed grey; }
+  border: 3px dashed grey;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.prgh--drop {
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
 
 .upload__row {
   display: flex;
@@ -72,7 +82,8 @@ main {
   align-items: center; }
 
 .card {
-  border: 1px solid black; }
+  border: 1px solid black;
+  padding: 5px; }
 
 .button-group {
   grid-area: button;
@@ -113,7 +124,7 @@ main {
 
 @media (min-width: 1024px) {
   main {
-    grid-template-columns: 1fr 2fr 1fr 2fr; } }
+    grid-template-columns: 1fr 1fr 1fr 2fr; } }
 
 @media (min-width: 1440px) {
   main {
