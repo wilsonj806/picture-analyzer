@@ -3,7 +3,17 @@
 import DomHelper from './DomHelper';
 
 class Controller {
-  constructor(displayTgt, entryClass, canvas) {
+  constructor(displayTgt = '.display', entryClass = '.entry', canvas = '#canvas') {
+    /* NOTE the entryClass input argument is chosen by the user
+    for adding classes to the created cards */
+    const isNotAllStrings = [...arguments].some((val) => {
+      const valType = typeof val;
+      return valType !== 'string';
+    });
+    if (isNotAllStrings === true) {
+      throw new Error('Expecting strings as input arguments for the contstructor');
+    }
+    // TODO  make sure the constructor throws an error if you pass a non-HTMLCanvasElement in
     this.target = document.querySelector(displayTgt);
     this.entryClass = entryClass;
     this.canvas = document.querySelector(canvas);
@@ -100,40 +110,9 @@ class Controller {
     return this;
   }
 
-  downloadCSV(name, arr) {
-    let csv = `${name}
-    `;
-    csv += 'val; count \n';
-    arr.forEach((row) => {
-      csv += row.join(';');
-      csv += '\n';
-    });
-    const newEle = document.createElement('a');
-    newEle.href = `data:text/csv;charset=utf-8, ${encodeURI(csv)}`;
-    newEle.target = '_blank';
-    newEle.download = `${name}.csv`;
-    newEle.click();
-    return this;
-  }
-
-  downloadArr(name, arr) {
-    let csv = `[
-    `;
-    arr.forEach((row) => {
-      csv += `["${row[0]}", ${row[1]}],`;
-      csv += '\n';
-    });
-    csv += ']';
-    const newEle = document.createElement('a');
-    newEle.href = `data:text/csv;charset=utf-8, ${encodeURI(csv)}`;
-    newEle.target = '_blank';
-    newEle.download = `${name}.csv`;
-    newEle.click();
-    return this;
-  }
+  // FIXME rename, makeTable() does not accurately describe the purpose of the function
 
   makeTable(arr) {
-    // TODO: Make the CSS line up
     let pxSize;
     if (window.innerWidth <= 1280) {
       pxSize = '25px';
@@ -187,6 +166,40 @@ class Controller {
     card.appendChild(p1);
     card.appendChild(p2);
     this.target.appendChild(card);
+    return this;
+  }
+
+  // NOTE Helper functions for downloading test data
+
+  downloadCSV(name, arr) {
+    let csv = `${name}
+    `;
+    csv += 'val; count \n';
+    arr.forEach((row) => {
+      csv += row.join(';');
+      csv += '\n';
+    });
+    const newEle = document.createElement('a');
+    newEle.href = `data:text/csv;charset=utf-8, ${encodeURI(csv)}`;
+    newEle.target = '_blank';
+    newEle.download = `${name}.csv`;
+    newEle.click();
+    return this;
+  }
+
+  downloadArr(name, arr) {
+    let csv = `[
+    `;
+    arr.forEach((row) => {
+      csv += `["${row[0]}", ${row[1]}],`;
+      csv += '\n';
+    });
+    csv += ']';
+    const newEle = document.createElement('a');
+    newEle.href = `data:text/csv;charset=utf-8, ${encodeURI(csv)}`;
+    newEle.target = '_blank';
+    newEle.download = `${name}.csv`;
+    newEle.click();
     return this;
   }
 }

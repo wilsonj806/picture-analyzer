@@ -14,7 +14,6 @@ const imgHandler = new PixelData();
 const displayControl = new Controller(
   '.display',
   'display__entry',
-  '#canvas',
 );
 
 // For uploads
