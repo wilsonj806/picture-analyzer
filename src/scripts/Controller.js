@@ -10,8 +10,12 @@ class Controller {
       const valType = typeof val;
       return valType !== 'string';
     });
+    const isCanvasTest = document.querySelector(canvas) instanceof HTMLCanvasElement;
     if (isNotAllStrings === true) {
       throw new Error('Expecting strings as input arguments for the contstructor');
+    }
+    if (isCanvasTest === false) {
+      throw new Error(`Expecting value of ${canvas} to lead to a valid HTMLCanvasElement in the DOM`);
     }
     // TODO  make sure the constructor throws an error if you pass a non-HTMLCanvasElement in
     this.target = document.querySelector(displayTgt);
@@ -67,12 +71,15 @@ class Controller {
   }
 
   populateComponents(imageEle) {
+    /* NOTE This method expects a wrapper element to encapsulate
+    the <canvas> element for additional functionality */
     const {
       canvas,
       ctx,
     } = this;
 
     // Populate strip
+    // FIXME Make it user defined somehow?
     const strip = DomHelper.setEle('.strip');
     const li = document.createElement('li');
 
@@ -89,7 +96,7 @@ class Controller {
     } else {
       pct = 0.9;
     }
-    const wrapper = document.querySelector('.canvas-wrapper');
+    const wrapper = canvas.parentNode;
     const wrapperHeight = wrapper.clientHeight;
     const scaleFactor = (wrapperHeight / imageEle.naturalHeight) * pct;
     const newWidth = imageEle.naturalWidth * scaleFactor;

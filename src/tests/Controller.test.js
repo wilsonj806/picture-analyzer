@@ -1,27 +1,47 @@
 import Controller from '../scripts/Controller';
+// import DomHelper from '../scripts/DomHelper';
 
 fdescribe('A class object that deals with DOM manipulation', function() {
 
   beforeAll(function() {
-    // NOTE Speedy DOM set up
+    // Speedy DOM set up
     const body = document.body;
+    const main = document.createElement('main');
+    main.classList.add('main');
+
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
+
     const canvas = document.createElement('canvas');
     canvas.id = 'test-canvas';
+
     const display = document.createElement('div');
     display.classList.add('test-display');
-    body.appendChild(canvas);
-    body.appendChild(display);
+
+    const fakeCanvas = document.createElement('div');
+    fakeCanvas.classList.add('canvas');
+
+    const strip = document.createElement('ul');
+    strip.classList.add('strip');
+
+    body.appendChild(main);
+    wrapper.appendChild(canvas);
+    main.appendChild(wrapper);
+    main.appendChild(display);
+    main.appendChild(strip);
   })
 
   afterAll(function() {
     // DOM element teardown
     const body = document.body;
-    body.removeChild(document.getElementById('test-canvas'));
-    body.removeChild(document.querySelector('.test-display'));
+    body.removeChild(document.querySelector('main'));
   })
 
-  it('should return when called with inputs that aren\'t strings', function() {
+  it('should throw when called with inputs that aren\'t strings', function() {
     expect(function() { return new Controller(1,2,3); }).toThrow();
+  })
+  it('should throw when called with an invalid Canvas Element selector', function() {
+    expect(function() { return new Controller('.test-display', 'entry', '.canvas'); }).toThrow();
   })
 
   it('should return a DOM element when called with Controller.target', function() {
@@ -31,18 +51,13 @@ fdescribe('A class object that deals with DOM manipulation', function() {
   })
   it('should return a DOM element when called with Controller.canvas', function() {
     const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
-    console.dir(testController.canvas);
     const isHTMLELe = testController.canvas instanceof HTMLCanvasElement;
     expect(isHTMLELe).toBe(true);
   })
   it('should return a context object when called with Controller.ctx', function() {
     const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
-    console.dir(testController.ctx);
     const isHTMLELe = testController.ctx instanceof CanvasRenderingContext2D;
     expect(isHTMLELe).toBe(true);
-  })
-  xit('should return a string when called with Controller.entryClass', function() {
-
   })
 
   xdescribe('A method that does stuff about array inputs', function() {
@@ -58,9 +73,30 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     })
   })
 
-  xdescribe('A method that manipulates a canvas element', function() {
-    it('should manipulate a canvas element when called with a image element input', function() {
+  describe('A method that manipulates a canvas element', function() {
+    beforeAll(function() {
+      const testImg = document.createElement('img');
+      testImg.classList.add('test-img');
+      testImg.src = 'https://i.imgur.com/XiyeGgN.jpg';
+      document.querySelector('main').appendChild(testImg);
+    })
 
+    it('should render an image into a rendering context when called with a image element input', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const testImg = document.querySelector('.test-img');
+      const ctx = testController.canvas.getContext('2d');
+      const spy = spyOn(ctx, 'drawImage');
+      // testController.populateComponents(testImg);
+      expect(() => {testController.populateComponents(testImg)}).not.toThrow();
+      expect(spy).toHaveBeenCalled();
+    })
+    it('should manipulate canvas properties when called', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const initWidth = document.getElementById('test-canvas').width;
+      const testImg = document.querySelector('.test-img');
+      testController.populateComponents(testImg);
+      const isNotEqualToInit = (testController.canvas.width !== initWidth);
+      expect(isNotEqualToInit).toBe(true)
     })
   })
 
