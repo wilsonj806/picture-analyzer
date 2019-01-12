@@ -15,7 +15,7 @@ class Controller {
       throw new Error('Expecting strings as input arguments for the contstructor');
     }
     if (isCanvasTest === false) {
-      throw new Error(`Expecting value of ${canvas} to lead to a valid HTMLCanvasElement in the DOM`);
+      throw new Error('Expecting canvas to be an instance of HTMLCanvasElement in the DOM');
     }
     // TODO  make sure the constructor throws an error if you pass a non-HTMLCanvasElement in
     this.target = document.querySelector(displayTgt);
@@ -24,7 +24,20 @@ class Controller {
     this.ctx = this.canvas.getContext('2d');
   }
 
-  // TODO determine whether or not fileWarn() should return a DOM Element
+  populateStrip(imageEle, stripEle = '.strip') {
+    const strip = DomHelper.setEle(stripEle);
+    const li = document.createElement('li');
+
+    imageEle.classList.add('strip__img');
+    li.classList.add('strip__item');
+    li.dataset.index = strip.childElementCount + 1;
+    li.appendChild(imageEle);
+    strip.appendChild(li);
+    return this;
+  }
+
+  /* TODO determine whether or not fileWarn() should return a DOM Element
+  Also turn this into a modal at some point */
 
   fileWarn(string = '', targetEleSelector = '.intro') {
     const intro = DomHelper.setEle(targetEleSelector);
@@ -70,24 +83,13 @@ class Controller {
     return this;
   }
 
-  populateComponents(imageEle) {
+  renderToCanvas(imageEle) {
     /* NOTE This method expects a wrapper element to encapsulate
     the <canvas> element for additional functionality */
     const {
       canvas,
       ctx,
     } = this;
-
-    // Populate strip
-    // FIXME Make it user defined somehow?
-    const strip = DomHelper.setEle('.strip');
-    const li = document.createElement('li');
-
-    imageEle.classList.add('strip__img');
-    li.classList.add('strip__item');
-    li.dataset.index = strip.childElementCount + 1;
-    li.appendChild(imageEle);
-    strip.appendChild(li);
 
     // Populate canvas
     let pct;
@@ -113,13 +115,11 @@ class Controller {
         this.target.removeChild(node);
       });
     }
-    this.makeTable(arr);
+    this.makeSwatch(arr);
     return this;
   }
 
-  // FIXME rename, makeTable() does not accurately describe the purpose of the function
-
-  makeTable(arr) {
+  makeSwatch(arr) {
     let pxSize;
     if (window.innerWidth <= 1280) {
       pxSize = '25px';

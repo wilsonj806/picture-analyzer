@@ -33,7 +33,6 @@ async function uploadHandler(e) {
   const canvas = DomHelper.setEle('#canvas');
   const ctx = canvas.getContext('2d');
   const precheckVals = Uploader.fileCheck(e);
-  console.log(precheckVals);
   if (precheckVals[0] !== 'success') {
     const errStr = precheckVals[0];
     displayControl.fileWarn(errStr);
@@ -41,7 +40,8 @@ async function uploadHandler(e) {
   }
   const selectedFile = precheckVals[1];
   const imgEle = await asyncUpload(selectedFile).then(val => val);
-  displayControl.populateComponents(imgEle);
+  displayControl.populateStrip(imgEle);
+  displayControl.renderToCanvas(imgEle);
   /* FIXME: not super DRY since `ctx` and `canvas` is repeated in the below
   and in the above imgHandler method */
   // FIXME image quality is bad when rendered into the canvas on a 1024px screen

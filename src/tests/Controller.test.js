@@ -49,11 +49,6 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     const isHTMLELe = testController.target instanceof HTMLElement;
     expect(isHTMLELe).toBe(true);
   })
-  it('should return a DOM element when called with Controller.canvas', function() {
-    const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
-    const isHTMLELe = testController.canvas instanceof HTMLCanvasElement;
-    expect(isHTMLELe).toBe(true);
-  })
   it('should return a context object when called with Controller.ctx', function() {
     const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
     const isHTMLELe = testController.ctx instanceof CanvasRenderingContext2D;
@@ -85,24 +80,29 @@ fdescribe('A class object that deals with DOM manipulation', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const testImg = document.querySelector('.test-img');
       const ctx = testController.canvas.getContext('2d');
+
+      // NOTE This is a working spy, it doesn't return anything though
       const spy = spyOn(ctx, 'drawImage');
-      // testController.populateComponents(testImg);
-      expect(() => {testController.populateComponents(testImg)}).not.toThrow();
+      expect(() => {testController.renderToCanvas(testImg)}).not.toThrow();
       expect(spy).toHaveBeenCalled();
     })
     it('should manipulate canvas properties when called', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const initWidth = document.getElementById('test-canvas').width;
+      const canvas = document.querySelector('#test-canvas');
       const testImg = document.querySelector('.test-img');
-      testController.populateComponents(testImg);
+      const spy = spyOnProperty(canvas, 'parentNode').and.callThrough();
+
+      testController.renderToCanvas(testImg);
       const isNotEqualToInit = (testController.canvas.width !== initWidth);
-      expect(isNotEqualToInit).toBe(true)
+      expect(spy).toHaveBeenCalled();
+      expect(isNotEqualToInit).toBe(true);
     })
   })
 
   xdescribe('A method that makes cards', function() {
 
-    it('should generate several palette cards when called with an input array', function() {
+    it('should generate several swatch cards when called with an input array', function() {
 
     })
   })
