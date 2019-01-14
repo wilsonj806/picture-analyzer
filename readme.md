@@ -63,7 +63,7 @@ The below features are more intended to be extra features to be implemented **af
 - Data analysis behaves incorrectly when analysis buttons are clicked multiple times
   - i.e they concatenate the new values ontop of the already computed values
 
-## Dependencies
+## Tooling/ Primary Libraries Used
 
 SCM:
 - [Git](https://www.git-scm.com/about)
@@ -71,9 +71,7 @@ SCM:
 Runtime Dependencies:
 - [Convert Colors](https://www.npmjs.com/package/@csstools/convert-colors)
 
-Development Dependencies:
-
-Note: this list only includes major development dependencies
+Tooling:
 
 - [Babel](https://babeljs.io/)
 - [ES Lint](https://eslint.org/)

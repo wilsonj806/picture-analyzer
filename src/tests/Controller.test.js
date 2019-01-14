@@ -1,5 +1,4 @@
 import Controller from '../scripts/Controller';
-// import DomHelper from '../scripts/DomHelper';
 
 fdescribe('A class object that deals with DOM manipulation', function() {
 
@@ -56,7 +55,7 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     })
   })
 
-  xdescribe('A method that does stuff about array inputs', function() {
+  xdescribe('A method that resets a display and then calls a method for rendering swatches', function() {
     it('should dump the contents of an input array when called with said input', function() {
 
     })
@@ -83,7 +82,7 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     })
     it('should manipulate canvas properties when called', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
-      const initWidth = document.getElementById('test-canvas').width;
+      // const initWidth = document.getElementById('test-canvas').width;
       const canvas = document.querySelector('#test-canvas');
       const testImg = document.querySelector('.test-img');
       const spyCanv = spyOnProperty(canvas, 'parentNode').and.callThrough();
@@ -95,14 +94,17 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     })
   })
 
-  xdescribe('A method that makes swatches', function() {
-
+  describe('A method that makes swatches', function() {
 
     it('should throw when called with an input array that isn\'t in the right format', function() {
-      expect().nothing()
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const wrongInput = {1:3, appleSauce: false};
+      const wrongArr = ['potato', 'peanut', 'pineapple'];
+      expect(() => { testController.makeSwatch(wrongInput); }).toThrow();
+      expect(() => { testController.makeSwatch(wrongArr); }).toThrow()
     })
 
-    it('should generate several swatch cards when called with an input array', function() {
+    xit('should generate several swatch cards when called with an input array', function() {
 
     })
   })
