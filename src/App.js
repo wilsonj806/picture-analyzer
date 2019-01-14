@@ -40,8 +40,8 @@ async function uploadHandler(e) {
   }
   const selectedFile = precheckVals[1];
   const imgEle = await asyncUpload(selectedFile).then(val => val);
-  displayControl.populateStrip(imgEle);
-  displayControl.renderToCanvas(imgEle);
+  displayControl.populateStrip(imgEle)
+    .renderToCanvas(imgEle);
   /* FIXME: not super DRY since `ctx` and `canvas` is repeated in the below
   and in the above imgHandler method */
   // FIXME image quality is bad when rendered into the canvas on a 1024px screen
@@ -85,7 +85,7 @@ DomHelper.setEle('.btn--clip').addEventListener('click', () => {
     const string = `This is percent of ${choice} clipping: ${val} %`;
     return string;
   });
-  displayControl.presentStrings(clipAsStrings);
+  displayControl.renderStrings(clipAsStrings);
   // displayControl.downloadArr('lightness', lightness);
 });
 

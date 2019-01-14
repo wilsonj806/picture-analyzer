@@ -49,21 +49,15 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     const isHTMLELe = testController.target instanceof HTMLElement;
     expect(isHTMLELe).toBe(true);
   })
-  it('should return a context object when called with Controller.ctx', function() {
-    const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
-    const isHTMLELe = testController.ctx instanceof CanvasRenderingContext2D;
-    expect(isHTMLELe).toBe(true);
-  })
 
-  xdescribe('A method that does stuff about array inputs', function() {
-    it('should dump the contents of an input array when called with said input', function() {
+  xdescribe('A method that dumps an image element into a list', function() {
+    it('should update stuff', function() {
 
     })
   })
 
-  xdescribe('A method that does more array content dumping', function() {
-
-    it('should dump the contents of an array into stuff when called', function() {
+  xdescribe('A method that does stuff about array inputs', function() {
+    it('should dump the contents of an input array when called with said input', function() {
 
     })
   })
@@ -82,30 +76,71 @@ fdescribe('A class object that deals with DOM manipulation', function() {
       const ctx = testController.canvas.getContext('2d');
 
       // NOTE This is a working spy, it doesn't return anything though
-      const spy = spyOn(ctx, 'drawImage');
+      const spyCtx = spyOn(ctx, 'drawImage');
       expect(() => {testController.renderToCanvas(testImg)}).not.toThrow();
-      expect(spy).toHaveBeenCalled();
+      // expect(spy).toHaveBeenCalledWith(testImg);
+      expect(spyCtx).toHaveBeenCalled();
     })
     it('should manipulate canvas properties when called', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const initWidth = document.getElementById('test-canvas').width;
       const canvas = document.querySelector('#test-canvas');
       const testImg = document.querySelector('.test-img');
-      const spy = spyOnProperty(canvas, 'parentNode').and.callThrough();
+      const spyCanv = spyOnProperty(canvas, 'parentNode').and.callThrough();
 
       testController.renderToCanvas(testImg);
-      const isNotEqualToInit = (testController.canvas.width !== initWidth);
-      expect(spy).toHaveBeenCalled();
-      expect(isNotEqualToInit).toBe(true);
+      // const isNotEqualToInit = (testController.canvas.width !== initWidth);
+      expect(spyCanv).toHaveBeenCalled();
+      // expect(isNotEqualToInit).toBe(true);
     })
   })
 
-  xdescribe('A method that makes cards', function() {
+  xdescribe('A method that makes swatches', function() {
+
+
+    it('should throw when called with an input array that isn\'t in the right format', function() {
+      expect().nothing()
+    })
 
     it('should generate several swatch cards when called with an input array', function() {
 
     })
   })
+
+  describe('A method that creates DOM elements from an array of 2 strings', function() {
+
+    it('should throw if the array consists of elements that aren\'t strings when called', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const arrWrong = [1,'2'];
+      expect(() => { testController.renderStrings(arrWrong)}).toThrow();
+    })
+
+    it('should create two paragraph elements when called', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const arrStr = ['hi', 'hello'];
+      testController.renderStrings(arrStr);
+      const generatedChild = document.querySelector('.card--text');
+      const isPrghEle = Array.from(generatedChild.children).every((ele) => { return (ele.tagName === 'P') });
+
+      expect(generatedChild.childElementCount).toBe(2);
+      expect(isPrghEle).toBe(true);
+    })
+
+    it('should fill the created paragraph elements with the contents of the input array when called', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const arrStr = ['hi', 'hello'];
+      testController.renderStrings(arrStr);
+      const generatedPrghEle = document.querySelectorAll('.display__text');
+
+      const matchesInputArr = Array.from(generatedPrghEle).map((ele, i) => {
+        return ele.innerText === arrStr[i];
+      });
+      const isAllTrue = matchesInputArr.every(val => { return val=== true });
+
+      expect(isAllTrue).toBe(true);
+    })
+  })
+
 })
 
 

@@ -5,19 +5,19 @@ import DomHelper from './DomHelper';
 class Controller {
   constructor(displayTgt = '.display', entryClass = '.entry', canvas = '#canvas') {
     /* NOTE the entryClass input argument is chosen by the user
-    for adding classes to the created cards */
+    and is for adding classes to the created cards */
     const isNotAllStrings = [...arguments].some((val) => {
       const valType = typeof val;
       return valType !== 'string';
     });
-    const isCanvasTest = document.querySelector(canvas) instanceof HTMLCanvasElement;
+    const isCanvasEle = document.querySelector(canvas) instanceof HTMLCanvasElement;
     if (isNotAllStrings === true) {
       throw new Error('Expecting strings as input arguments for the contstructor');
     }
-    if (isCanvasTest === false) {
+    if (isCanvasEle === false) {
       throw new Error('Expecting canvas to be an instance of HTMLCanvasElement in the DOM');
     }
-    // TODO  make sure the constructor throws an error if you pass a non-HTMLCanvasElement in
+
     this.target = document.querySelector(displayTgt);
     this.entryClass = entryClass;
     this.canvas = document.querySelector(canvas);
@@ -148,11 +148,19 @@ class Controller {
     return this;
   }
 
-  presentStrings(arr) {
+  renderStrings(arr) {
     if (this.target.childElementCount > 0) {
       Array.from(this.target.children).forEach((node) => {
         this.target.removeChild(node);
       });
+    }
+    const hasStrings = arr.every((val) => {
+      const valType = typeof val;
+      const isString = (valType === 'string');
+      return isString;
+    });
+    if (hasStrings === false) {
+      throw new Error('Expecting input array to consist entirely of strings');
     }
     const card = document.createElement('div');
     card.classList.add('card', 'card--text');
@@ -173,7 +181,6 @@ class Controller {
     card.appendChild(p1);
     card.appendChild(p2);
     this.target.appendChild(card);
-    return this;
   }
 
   // NOTE Helper functions for downloading test data
