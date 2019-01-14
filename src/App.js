@@ -6,7 +6,6 @@ import {
   findClipping,
 } from './scripts/Data.analysis';
 import Controller from './scripts/Controller';
-import DomHelper from './scripts/DomHelper';
 
 require('@babel/polyfill');
 
@@ -30,7 +29,7 @@ function asyncUpload(file) {
 }
 
 async function uploadHandler(e) {
-  const canvas = DomHelper.setEle('#canvas');
+  const canvas = document.querySelector('#canvas');
   const ctx = canvas.getContext('2d');
   const precheckVals = Uploader.fileCheck(e);
   if (precheckVals[0] !== 'success') {
@@ -49,29 +48,29 @@ async function uploadHandler(e) {
     .parsePixels();
 }
 
-DomHelper.setEle('.drop__target').addEventListener('dragenter', (e) => {
+document.querySelector('.drop__target').addEventListener('dragenter', (e) => {
   e.stopPropagation();
   e.preventDefault();
 });
-DomHelper.setEle('.drop__target').addEventListener('dragover', (e) => {
+document.querySelector('.drop__target').addEventListener('dragover', (e) => {
   e.stopPropagation();
   e.preventDefault();
 });
 
-DomHelper.setEle('.drop__target').addEventListener('drop', uploadHandler);
+document.querySelector('.drop__target').addEventListener('drop', uploadHandler);
 
-DomHelper.setEle('[type="file"]').addEventListener('change', uploadHandler);
+document.querySelector('[type="file"]').addEventListener('change', uploadHandler);
 
 // For analysis
 
-DomHelper.setEle('.btn--color').addEventListener('click', () => {
+document.querySelector('.btn--color').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   const arr = findMost(imgHandler.rgbCount);
   // TODO: stick the array into Local Storage at some point for later downloading
   displayControl.dumpContents(arr);
 });
 
-DomHelper.setEle('.btn--clip').addEventListener('click', () => {
+document.querySelector('.btn--clip').addEventListener('click', () => {
   imgHandler.rgb2Hsl();
   const lightness = imgHandler.getLightness();
   const clip = findClipping(lightness);
@@ -89,7 +88,7 @@ DomHelper.setEle('.btn--clip').addEventListener('click', () => {
   // displayControl.downloadArr('lightness', lightness);
 });
 
-DomHelper.setEle('.btn--dl-arr').addEventListener('click', () => {
+document.querySelector('.btn--dl-arr').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   const arr = findMost(imgHandler.rgbCount);
   displayControl.downloadArr('color-1', arr);

@@ -1,7 +1,5 @@
 // TODO: Implement a rate limiter for button presses
 
-import DomHelper from './DomHelper';
-
 class Controller {
   constructor(displayTgt = '.display', entryClass = '.entry', canvas = '#canvas') {
     /* NOTE the entryClass input argument is chosen by the user
@@ -25,7 +23,7 @@ class Controller {
   }
 
   populateStrip(imageEle, stripEle = '.strip') {
-    const strip = DomHelper.setEle(stripEle);
+    const strip = document.querySelector(stripEle);
     const li = document.createElement('li');
 
     imageEle.classList.add('strip__img');
@@ -40,7 +38,7 @@ class Controller {
   Also turn this into a modal at some point */
 
   fileWarn(string = '', targetEleSelector = '.intro') {
-    const intro = DomHelper.setEle(targetEleSelector);
+    const intro = document.querySelector(targetEleSelector);
     const warnUpload = document.createElement('p');
     warnUpload.classList.add('js-danger-popup');
     switch (string) {
@@ -148,6 +146,7 @@ class Controller {
     return this;
   }
 
+  // TODO Determine if renderStrings() should also be allowed to render an input string
   renderStrings(arr) {
     if (this.target.childElementCount > 0) {
       Array.from(this.target.children).forEach((node) => {

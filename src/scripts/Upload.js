@@ -1,5 +1,3 @@
-import DomHelper from './DomHelper';
-
 class Uploader {
   static handleFile(event) {
     if (event.type === 'drop') {
@@ -38,7 +36,7 @@ class Uploader {
   static parseImage(file, imageEle) {
     const img = imageEle;
 
-    const btnUpload = DomHelper.setEle('[type="file"]');
+    const btnUpload = document.querySelector('[type="file"]');
     btnUpload.value = '';
     img.dataset.name = file.name;
     img.src = window.URL.createObjectURL(file);
