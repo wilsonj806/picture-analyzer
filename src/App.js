@@ -15,7 +15,7 @@ const displayControl = new Controller(
   'display__entry',
 );
 
-// For uploads
+// NOTE For uploads
 
 function asyncUpload(file) {
   return new Promise((resolve, reject) => {
@@ -45,29 +45,16 @@ async function uploadHandler(e) {
     .parsePixels();
 }
 
-document.querySelector('.drop__target').addEventListener('dragenter', (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-});
-document.querySelector('.drop__target').addEventListener('dragover', (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-});
+// NOTE For event listener callbacks
 
-document.querySelector('.drop__target').addEventListener('drop', uploadHandler);
-
-document.querySelector('[type="file"]').addEventListener('change', uploadHandler);
-
-// For analysis
-
-document.querySelector('.btn--color').addEventListener('click', () => {
+function btnColorHandler() {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   const arr = findMost(imgHandler.rgbCount);
   // TODO: stick the array into Local Storage at some point for later downloading
-  displayControl.dumpContents(arr);
-});
+  displayControl.renderSwatch(arr);
+}
 
-document.querySelector('.btn--clip').addEventListener('click', () => {
+function btnClipHandler() {
   imgHandler.rgb2Hsl();
   const lightness = imgHandler.getLightness();
   const clip = findClipping(lightness);
@@ -83,7 +70,26 @@ document.querySelector('.btn--clip').addEventListener('click', () => {
   });
   displayControl.renderStrings(clipAsStrings);
   // displayControl.downloadArr('lightness', lightness);
+}
+
+document.querySelector('.drop__target').addEventListener('dragenter', (e) => {
+  e.stopPropagation();
+  e.preventDefault();
 });
+document.querySelector('.drop__target').addEventListener('dragover', (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+});
+
+document.querySelector('.drop__target').addEventListener('drop', uploadHandler);
+
+document.querySelector('[type="file"]').addEventListener('change', uploadHandler);
+
+// For analysis
+
+document.querySelector('.btn--color').addEventListener('click', btnColorHandler);
+
+document.querySelector('.btn--clip').addEventListener('click', btnClipHandler);
 
 document.querySelector('.btn--dl-arr').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);

@@ -107,17 +107,16 @@ class Controller {
     ctx.drawImage(imageEle, 0, 0, newWidth, newHeight);
   }
 
-  dumpContents(arr) {
+  clearCurrentDisplay() {
     if (this.target.childElementCount > 0) {
       Array.from(this.target.children).forEach((node) => {
         this.target.removeChild(node);
       });
     }
-    this.makeSwatch(arr);
-    return this;
   }
 
-  makeSwatch(arr) {
+  renderSwatch(arr) {
+    this.clearCurrentDisplay();
     const entriesAreRightLength = arr.every(val => val.length === 3);
     const entriesAreNumbers = arr.every((val) => {
       if (val.some(entry => (typeof entry === 'string'))) return false;
@@ -158,11 +157,7 @@ class Controller {
 
   // TODO Determine if renderStrings() should also be allowed to render an input string
   renderStrings(arr) {
-    if (this.target.childElementCount > 0) {
-      Array.from(this.target.children).forEach((node) => {
-        this.target.removeChild(node);
-      });
-    }
+    this.clearCurrentDisplay();
     const hasStrings = arr.every((val) => {
       const valType = typeof val;
       const isString = (valType === 'string');

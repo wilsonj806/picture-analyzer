@@ -51,6 +51,7 @@ The below features are more intended to be extra features to be implemented **af
   - if the uploaded images cannot be displayed all at once in the strip, provide a carousel to scroll through
 - Model dynamic range of an image with a polynomial instead of using array methods
 - Implement the data-analysis in Node instead
+- Make a RGB to HSL conversion function so that `@csstools/convert-colors` can be removed from dependencies
 
 ## Known Issues
 

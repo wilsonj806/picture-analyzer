@@ -2,24 +2,29 @@
 
 import Uploader from '../scripts/Upload';
 
-describe('A method for handling file uploads', function() {
+describe('A class object that handles file uploads', function () {
 
 
-  xit('does a thing', function() {
-    // dab
+  describe('A method for handling file uploads', function() {
+
+
+    xit('does a thing', function() {
+      // dab
+    })
   })
-})
 
-describe('A method for checking the uploaded file(s)', function() {
+  describe('A method for checking the uploaded file(s)', function() {
 
-  xit('does a thing', function() {
-    // dab
+    xit('does a thing', function() {
+      // dab
+    })
   })
-})
 
-describe('A method for parsing image files', function() {
+  describe('A method for parsing image files', function() {
 
-  xit('does a thing', function() {
-    // dab
+    xit('does a thing', function() {
+      // dab
+    })
   })
+
 })

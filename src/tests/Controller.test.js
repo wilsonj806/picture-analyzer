@@ -1,6 +1,6 @@
 import Controller from '../scripts/Controller';
 
-fdescribe('A class object that deals with DOM manipulation', function() {
+describe('A class object that deals with DOM manipulation', function() {
 
   beforeAll(function() {
     // Speedy DOM set up
@@ -39,7 +39,7 @@ fdescribe('A class object that deals with DOM manipulation', function() {
   it('should throw when instanced with inputs that aren\'t strings', function() {
     expect(function() { return new Controller(1,2,3); }).toThrow();
   })
-  it('should throw when instaced with an invalid Canvas Element selector', function() {
+  it('should throw when instanced with an invalid Canvas Element selector', function() {
     expect(function() { return new Controller('.test-display', 'entry', '.canvas'); }).toThrow();
   })
 
@@ -51,12 +51,6 @@ fdescribe('A class object that deals with DOM manipulation', function() {
 
   xdescribe('A method that dumps an image element into a list', function() {
     it('should update stuff', function() {
-
-    })
-  })
-
-  xdescribe('A method that resets a display and then calls a method for rendering swatches', function() {
-    it('should dump the contents of an input array when called with said input', function() {
 
     })
   })
@@ -112,16 +106,16 @@ fdescribe('A class object that deals with DOM manipulation', function() {
       const wrongArr2 = [['a','b','c'], ['a','b','c'], ['a','b','c']];
       const rightArr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
 
-      expect(() => { testController.makeSwatch(wrongInput); }).toThrow();
-      expect(() => { testController.makeSwatch(wrongArr); }).toThrow();
-      expect(() => { testController.makeSwatch(wrongArr2); }).toThrow();
-      expect(() => { testController.makeSwatch(rightArr); }).not.toThrow();
+      expect(() => { testController.renderSwatch(wrongInput); }).toThrow();
+      expect(() => { testController.renderSwatch(wrongArr); }).toThrow();
+      expect(() => { testController.renderSwatch(wrongArr2); }).toThrow();
+      expect(() => { testController.renderSwatch(rightArr); }).not.toThrow();
     })
 
     it('should generate the same amount of swatch cards as the input array calls for when called with an array of rgb values', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const arr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
-      testController.makeSwatch(arr);
+      testController.renderSwatch(arr);
       const target = document.querySelectorAll('.card--color');
 
       console.dir(target);
@@ -131,7 +125,7 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     it('should set the background color of each generated card when called with an array of rgb values', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const arr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
-      testController.makeSwatch(arr);
+      testController.renderSwatch(arr);
       const target = document.querySelectorAll('.card--color');
       // console.dir(target);
       const style = Array.from(target).map((card) => {
@@ -151,7 +145,7 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     it('should add labels to each generated card when called with an array of rgb values', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const arr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
-      testController.makeSwatch(arr);
+      testController.renderSwatch(arr);
       const target = document.querySelectorAll('.display__label');
       const hasLabel = Array.from(target).every((card) => {
         return (card.tagName === 'P');
