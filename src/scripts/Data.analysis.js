@@ -147,7 +147,12 @@ function findMost(rgbSorted) {
   });
   const mostFrequent = rgb.slice(0, 6);
   console.log(mostFrequent);
-  return mostFrequent;
+  const topSixColors = mostFrequent.map((val) => {
+    const rgbVal = [...val[0]];
+    return rgbVal;
+  });
+  console.log(topSixColors);
+  return topSixColors;
 }
 
 function findClipping(arr) {

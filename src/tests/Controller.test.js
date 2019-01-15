@@ -36,14 +36,14 @@ fdescribe('A class object that deals with DOM manipulation', function() {
     body.removeChild(document.querySelector('main'));
   })
 
-  it('should throw when called with inputs that aren\'t strings', function() {
+  it('should throw when instanced with inputs that aren\'t strings', function() {
     expect(function() { return new Controller(1,2,3); }).toThrow();
   })
-  it('should throw when called with an invalid Canvas Element selector', function() {
+  it('should throw when instaced with an invalid Canvas Element selector', function() {
     expect(function() { return new Controller('.test-display', 'entry', '.canvas'); }).toThrow();
   })
 
-  it('should return a DOM element when called with Controller.target', function() {
+  it('should return a DOM element when it tries calling Controller.target', function() {
     const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
     const isHTMLELe = testController.target instanceof HTMLElement;
     expect(isHTMLELe).toBe(true);
@@ -96,16 +96,72 @@ fdescribe('A class object that deals with DOM manipulation', function() {
 
   describe('A method that makes swatches', function() {
 
+    afterEach(function() {
+      const target = document.querySelector('.test-display');
+      if (target.childElementCount > 0) {
+        Array.from(target.children).forEach((node) => {
+          target.removeChild(node);
+        });
+      }
+    })
+
     it('should throw when called with an input array that isn\'t in the right format', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const wrongInput = {1:3, appleSauce: false};
-      const wrongArr = ['potato', 'peanut', 'pineapple'];
+      const wrongArr = ['potato', 'peanut', 'pineapple', 'pear', 'papaya', 'parsnip'];
+      const wrongArr2 = [['a','b','c'], ['a','b','c'], ['a','b','c']];
+      const rightArr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
+
       expect(() => { testController.makeSwatch(wrongInput); }).toThrow();
-      expect(() => { testController.makeSwatch(wrongArr); }).toThrow()
+      expect(() => { testController.makeSwatch(wrongArr); }).toThrow();
+      expect(() => { testController.makeSwatch(wrongArr2); }).toThrow();
+      expect(() => { testController.makeSwatch(rightArr); }).not.toThrow();
     })
 
-    xit('should generate several swatch cards when called with an input array', function() {
+    it('should generate the same amount of swatch cards as the input array calls for when called with an array of rgb values', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const arr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
+      testController.makeSwatch(arr);
+      const target = document.querySelectorAll('.card--color');
 
+      console.dir(target);
+      expect(target.length).toBe(arr.length);
+    })
+
+    it('should set the background color of each generated card when called with an array of rgb values', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const arr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
+      testController.makeSwatch(arr);
+      const target = document.querySelectorAll('.card--color');
+      // console.dir(target);
+      const style = Array.from(target).map((card) => {
+        return card.attributes[1].nodeValue;
+      });
+      console.log(style);
+      const hasColorChanged = Array.from(target).every((card) => {
+        const regex = /(background\-color\: rgb)/i;
+        const cardStyle = card.attributes[1];
+        const hasBckgndClrAtt = regex.test(cardStyle.value);
+        return hasBckgndClrAtt;
+      })
+
+      expect(hasColorChanged).toBe(true);
+    })
+
+    it('should add labels to each generated card when called with an array of rgb values', function() {
+      const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
+      const arr = [[1, 2, 3], [1, 2, 4], [3, 2, 1]];
+      testController.makeSwatch(arr);
+      const target = document.querySelectorAll('.display__label');
+      const hasLabel = Array.from(target).every((card) => {
+        return (card.tagName === 'P');
+      });
+      const hasInnerText = Array.from(target).every((card) => {
+        return (card.innerText !== '');
+      });
+
+      expect(hasLabel).toBe(true);
+      expect(hasInnerText).toBe(true);
     })
   })
 
@@ -122,7 +178,7 @@ fdescribe('A class object that deals with DOM manipulation', function() {
       const arrStr = ['hi', 'hello'];
       testController.renderStrings(arrStr);
       const generatedChild = document.querySelector('.card--text');
-      const isPrghEle = Array.from(generatedChild.children).every((ele) => { return (ele.tagName === 'P') });
+      const isPrghEle = Array.from(generatedChild.children).every(ele => ele.tagName === 'P');
 
       expect(generatedChild.childElementCount).toBe(2);
       expect(isPrghEle).toBe(true);

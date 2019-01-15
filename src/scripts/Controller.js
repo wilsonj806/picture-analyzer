@@ -118,6 +118,16 @@ class Controller {
   }
 
   makeSwatch(arr) {
+    const entriesAreRightLength = arr.every(val => val.length === 3);
+    const entriesAreNumbers = arr.every((val) => {
+      if (val.some(entry => (typeof entry === 'string'))) return false;
+      const sum = val.reduce((acc, item) => acc + parseInt(item, 10), 0);
+      const type = typeof sum;
+      return ((type === 'number'));
+    });
+    if ((entriesAreRightLength === false) || (entriesAreNumbers === false)) {
+      throw new Error('Expecting an array of format [[1,2,3]... [1,2,3]]');
+    }
     let pxSize;
     if (window.innerWidth <= 1280) {
       pxSize = '25px';
@@ -133,10 +143,10 @@ class Controller {
 
       card.style.height = pxSize;
       card.style.width = pxSize;
-      card.style.backgroundColor = `rgb(${val[0]})`;
+      card.style.backgroundColor = `rgb(${val})`;
       card.classList.add('card', 'card--color');
 
-      label.innerText = `rgb(${val[0]})`;
+      label.innerText = `rgb(${val})`;
       label.classList.add('display__label');
 
       entry.appendChild(card);
