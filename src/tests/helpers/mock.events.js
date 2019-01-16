@@ -1,12 +1,16 @@
+import MockFile from './mock.file';
+
 class MockEvent {
-  constructor(eventType = 'change') {
+  constructor(eventType = 'change', toReturnFiles = false, file = '') {
     const whatType = typeof eventType;
     if (typeof whatType !== 'string') {
       throw new Error(`Expecting eventType to be a string not a ${whatType}`);
     }
     // TODO mock the files object
+    this.toReturnFiles = toReturnFiles;
     this.eventType = eventType;
-    this.file = `Returning files from ${this.eventType} event`;
+    this.stubbedFile = `Returning files from ${this.eventType} event`;
+    this.file = file;
   }
 
   stopPropagation() {
@@ -22,14 +26,24 @@ class MockEvent {
   }
 
   get dataTransfer() {
+    if (this.toReturnFiles === true) {
+      return {
+        files: [...this.file],
+      }
+    }
     return {
-      files: this.file,
+      files: this.stubbedFile,
     }
   }
 
   get target() {
+    if (this.toReturnFiles === true) {
+      return {
+        files: [this.file],
+      }
+    }
     return {
-      files: this.file,
+      files: this.stubbedFile,
     }
   }
 }

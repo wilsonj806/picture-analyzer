@@ -1,5 +1,6 @@
 import Uploader from '../scripts/Upload';
 import MockEvent from './helpers/mock.events';
+import MockFile from './helpers/mock.file';
 
 fdescribe('A class object that handles file uploads', function () {
 
@@ -34,7 +35,7 @@ fdescribe('A class object that handles file uploads', function () {
       expect(result).toBe('Returning files from drop event');
     })
 
-    it('should return a file with the appropriate method when called with a drop event', function() {
+    it('should return a file with the appropriate method when called with a change event', function() {
       const mockChange = new MockEvent('change');
 
       const spyChange = spyOnProperty(mockChange, 'target', 'get').and.callThrough();
@@ -47,8 +48,36 @@ fdescribe('A class object that handles file uploads', function () {
 
   describe('A method for checking the uploaded file(s)', function() {
 
-    xit('does a thing', function() {
-      // dab
+    it('should try checking the input event when called', function() {
+      const mockFile = new MockFile('mock.png', 555, 'image/png');
+      const mockChange = new MockEvent('change', true, mockFile);
+
+      const spyMethod = spyOn(Uploader, 'handleFile').and.callThrough();
+      Uploader.fileCheck(mockChange);
+
+      expect(spyMethod).toHaveBeenCalled();
+    })
+
+    it('should check the file type when called', function() {
+      const mockFile = new MockFile('mock.png', 555, 'image/png');
+      const mockChange = new MockEvent('change', true, mockFile);
+
+      const spyStringCheck = spyOnProperty(mockFile, 'type', 'get').and.callThrough();
+      Uploader.fileCheck(mockChange);
+
+      // expect().nothing();
+      expect(spyStringCheck).toHaveBeenCalled();
+    })
+
+    it('should return an array with a string and a file inside when called with an event with a mock image file', function() {
+      const mockFile = new MockFile('mock.png', 555, 'image/png');
+      const mockChange = new MockEvent('change', true, mockFile);
+      const result = Uploader.fileCheck(mockChange);
+      const string = result[0];
+      const file = result[1];
+
+      expect(typeof string).toBe('string');
+      expect(file instanceof MockFile).toBe(true);
     })
   })
 

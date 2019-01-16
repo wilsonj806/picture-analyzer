@@ -13,16 +13,22 @@ class Uploader {
 
   static fileCheck(event) {
     const uploadedFile = this.handleFile(event);
+    // console.dir(uploadedFile);
     if (uploadedFile === null) {
       return ['wrongType', null];
     }
     const selectedFile = uploadedFile[0];
-    if (!selectedFile.type.startsWith('image')) {
+    const { type, size } = selectedFile;
+    const isImg = type.startsWith('image');
+    // console.dir(selectedFile);
+
+    // TODO add if (selectedFile instanceof File) { throw ... }
+    if (isImg === false) {
       return ['wrongType', null];
     }
 
     // check file size (1 Mb maximum)
-    if (selectedFile.size > 1000000) {
+    if (size > 1000000) {
       return ['wrongSize', null];
     }
 
