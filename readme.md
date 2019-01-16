@@ -52,17 +52,6 @@ The below features are more intended to be extra features to be implemented **af
 - Model dynamic range of an image with a polynomial instead of using array methods
 - Implement the data-analysis in Node instead
 
-## Known Issues
-
-- Some functionality isn't performing as expected on MacOS
-  - probably a color profile issue
-  - need to check the [Canvas/ Rendering Context docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
-  - also should look into the ImageBitmap API/ `self.createImageBitmap()
-    - [Applicable Can I Use for the above](https://caniuse.com/#search=createImageBitmap)
-- Data reduction algorithm is flawed, it stops once it has its 6 values and more or less doesn't bother updating them
-- Data analysis behaves incorrectly when analysis buttons are clicked multiple times
-  - i.e they concatenate the new values ontop of the already computed values
-
 ## Dependencies
 
 SCM:
