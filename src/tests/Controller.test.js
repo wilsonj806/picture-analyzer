@@ -63,7 +63,7 @@ describe('A class object that deals with DOM manipulation', function() {
       document.querySelector('main').appendChild(testImg);
     })
 
-    it('should render an image into a rendering context when called with a image element input', function() {
+    it('should render an image into a rendering context when called with an image element input', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const testImg = document.querySelector('.test-img');
       const ctx = testController.canvas.getContext('2d');

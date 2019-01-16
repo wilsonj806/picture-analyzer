@@ -11,8 +11,12 @@ class Uploader {
     return null;
   }
 
+  /* TODO Check to see if the ['string', File obj or null] is necessary or reformat it
+  At the very least change the output to be an object instead */
+
   static fileCheck(event) {
     const uploadedFile = this.handleFile(event);
+    // TODO add if (selectedFile instanceof File) { throw ... }
     // console.dir(uploadedFile);
     if (uploadedFile === null) {
       return ['wrongType', null];
@@ -22,7 +26,6 @@ class Uploader {
     const isImg = type.startsWith('image');
     // console.dir(selectedFile);
 
-    // TODO add if (selectedFile instanceof File) { throw ... }
     if (isImg === false) {
       return ['wrongType', null];
     }

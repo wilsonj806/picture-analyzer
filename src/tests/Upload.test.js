@@ -48,7 +48,7 @@ fdescribe('A class object that handles file uploads', function () {
 
   describe('A method for checking the uploaded file(s)', function() {
 
-    it('should try checking the input event when called', function() {
+    it('should try checking the type of input event when called with an event', function() {
       const mockFile = new MockFile('mock.png', 555, 'image/png');
       const mockChange = new MockEvent('change', true, mockFile);
 
@@ -58,18 +58,24 @@ fdescribe('A class object that handles file uploads', function () {
       expect(spyMethod).toHaveBeenCalled();
     })
 
-    it('should check the file type when called', function() {
+    xit('should throw when called with an invalid File object', function() {
+
+
+
+      expect().nothing();
+    })
+
+    it('should check the file type when called with an event', function() {
       const mockFile = new MockFile('mock.png', 555, 'image/png');
       const mockChange = new MockEvent('change', true, mockFile);
 
       const spyStringCheck = spyOnProperty(mockFile, 'type', 'get').and.callThrough();
       Uploader.fileCheck(mockChange);
 
-      // expect().nothing();
       expect(spyStringCheck).toHaveBeenCalled();
     })
 
-    it('should return an array with a string and a file inside when called with an event with a mock image file', function() {
+    it('should return an array with a string and a file inside when called with an event with an image file', function() {
       const mockFile = new MockFile('mock.png', 555, 'image/png');
       const mockChange = new MockEvent('change', true, mockFile);
       const result = Uploader.fileCheck(mockChange);

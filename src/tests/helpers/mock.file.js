@@ -1,5 +1,6 @@
 // TODO Make the MockFile object an extension of the File object
 
+// class MockFile extends File{
 class MockFile {
   constructor(name, size, fileType) {
     if (typeof name !== 'string') throw new Error(`Expecting name to be a string not ${typeof name}`);
