@@ -6,7 +6,7 @@ This is a list of things learned throughout the project. Every entry is liable t
 
 ## List
 
-- Check to make sure your class names aren't being used by another prototype
+- Check to make sure your class names aren't being used by another object
   - i.e ImageData is already taken
   - see commit d790ce7
 - Prefer using declared variables in a for loop over an object property like below:
