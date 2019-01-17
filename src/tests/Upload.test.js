@@ -75,15 +75,16 @@ fdescribe('A class object that handles file uploads', function () {
       expect(spyStringCheck).toHaveBeenCalled();
     })
 
-    it('should return an array with a string and a file inside when called with an event with an image file', function() {
+    it('should return an object with a string and a file inside when called with an event with an image file', function() {
       const mockFile = new MockFile('mock.png', 555, 'image/png');
       const mockChange = new MockEvent('change', true, mockFile);
       const result = Uploader.fileCheck(mockChange);
-      const string = result[0];
-      const file = result[1];
+      const string = result.status;
+      const file = result.file;
 
       expect(typeof string).toBe('string');
       expect(file instanceof MockFile).toBe(true);
+      expect(result instanceof Object).toBe(true);
     })
   })
 

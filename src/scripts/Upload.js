@@ -19,7 +19,10 @@ class Uploader {
     // TODO add if (selectedFile instanceof File) { throw ... }
     // console.dir(uploadedFile);
     if (uploadedFile === null) {
-      return ['wrongType', null];
+      return {
+        status: 'wrongType',
+        file: null,
+      };
     }
     const selectedFile = uploadedFile[0];
     const { type, size } = selectedFile;
@@ -27,19 +30,31 @@ class Uploader {
     // console.dir(selectedFile);
 
     if (isImg === false) {
-      return ['wrongType', null];
+      return {
+        status: 'wrongType',
+        file: null,
+      };
     }
 
     // check file size (1 Mb maximum)
     if (size > 1000000) {
-      return ['wrongSize', null];
+      return {
+        status: 'wrongSize',
+        file: null,
+      };
     }
 
     // check number of files
     if (uploadedFile.length > 1) {
-      return ['wrongQty', null];
+      return {
+        status: 'wrongQty',
+        file: null,
+      };
     }
-    return ['success', selectedFile];
+    return {
+      status: 'success',
+      file: selectedFile,
+    };
   }
 
   static parseImage(file, imageEle) {

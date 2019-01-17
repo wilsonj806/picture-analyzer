@@ -31,12 +31,12 @@ function asyncUpload(file) {
 async function uploadHandler(e) {
   const { canvas, ctx } = displayControl;
   const precheckVals = Uploader.fileCheck(e);
-  if (precheckVals[0] !== 'success') {
-    const errStr = precheckVals[0];
+  if (precheckVals.status !== 'success') {
+    const errStr = precheckVals.status;
     displayControl.fileWarn(errStr);
     return;
   }
-  const selectedFile = precheckVals[1];
+  const selectedFile = precheckVals.file;
   const imgEle = await asyncUpload(selectedFile).then(val => val);
   displayControl.populateStrip(imgEle)
     .renderToCanvas(imgEle);
