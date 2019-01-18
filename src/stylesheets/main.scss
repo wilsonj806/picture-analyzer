@@ -1,22 +1,27 @@
 body{
   margin: 0;
+  // background-color: rgb(43, 43, 43);
 }
 
 main{
-  margin: 5px;
+  margin: 5px 5px 0px 5px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr;
-  grid-template-rows: 3fr 2fr 1.75rem 3fr;
+  grid-template-rows: 3fr 3fr 2.5fr;
   grid-template-areas:
     "intro img img img"
     "intro img img img"
-    ". button button button"
     "strip strip strip strip";
   min-height: 100vh;
 }
 
 .intro{
   grid-area: intro;
+  border: 1px solid black;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .js-danger-popup{
@@ -65,18 +70,20 @@ main{
 }
 
 .img-handling{
-  margin-right: 10px;
+  margin-right: 0px;
   margin-left: 10px;
-  margin-bottom: 10px;
-  border-radius: 15px;
-  border: 1px solid #f7f7f7;
+  // margin-bottom: 10px;
+  border: 1px solid black;
   grid-area: img;
   display: grid;
   grid-template-columns: 1fr 1fr .75fr;
+  grid-template-rows: 3fr 3fr 3fr .60fr;
   grid-template-areas:
-    "canvas canvas data";
+    "canvas canvas data"
+    "canvas canvas data"
+    "canvas canvas data"
+    "button button data";
 }
-
 
 .canvas-wrapper{
   grid-area: canvas;
@@ -87,7 +94,7 @@ main{
 
 .data{
   grid-area: data;
-  border-left: 1px solid #f7f7f7;
+  border-left: 1px solid black;
 }
 
 .heading--md{
@@ -96,7 +103,6 @@ main{
   padding: 20px 0;
   text-align: center;
   background-color: #e8e8e8;
-  border-radius: 0px 15px 0px 0px;
 }
 
 .display{
@@ -121,7 +127,7 @@ main{
 
 .button-group{
   grid-area: button;
-  margin-left: 15px;
+  margin-left: 5px;
   margin-right: 20px;
 }
 
@@ -139,9 +145,9 @@ main{
   }
 }
 
-.wrapper--strip{
+.img-browsing{
   grid-area: strip;
-  margin: 0 10px;
+  margin: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,8 +157,9 @@ main{
   list-style: none;
   display: flex;
   align-items: center;
-  height: 85%;
-  width: 85%;
+  justify-content: flex-start;
+  height: 80%;
+  width: 100%;
   padding: 0;
   margin: 0;
   border: 1px solid black;
