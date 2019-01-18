@@ -76,6 +76,7 @@ function checkIfSimUtil(valA, valB, range = 0.5) {
 
 /* FIXME: need to have a catch for both averages being equal
 Also, the reduction converges at some point and stops reducing when it shouldn't be */
+// TODO Figure out if recursive search is appropriate here
 function rgbFreq(rgbArr) {
   const { length } = rgbArr;
   const rgbFreqArr = rgbArr.reduce((arr2, item, i) => {
@@ -146,7 +147,12 @@ function findMost(rgbSorted) {
   });
   const mostFrequent = rgb.slice(0, 6);
   console.log(mostFrequent);
-  return mostFrequent;
+  const topSixColors = mostFrequent.map((val) => {
+    const rgbVal = [...val[0]];
+    return rgbVal;
+  });
+  console.log(topSixColors);
+  return topSixColors;
 }
 
 function findClipping(arr) {
