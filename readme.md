@@ -15,6 +15,8 @@ This is a picture-analyzer that is meant to be a small app/ page to run in a web
 
 My goal for this project was to develop something that required some complex JavaScript and testing, the latter of which I've never handled. In addition, I wanted to use this project to practice using Git, npm, and Webpack since these technologies were fairly predominant in web development nowadays.
 
+As this is meant to push and challenge my JavaScript skills, **a bare minimum amount of UI elements were added** in order to get to programming faster and was intended to be refactored heavily at the end.
+
 ### Roadmap to v1.0.0
 
 **Currently implemented features**
