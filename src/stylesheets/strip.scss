@@ -9,21 +9,24 @@
   width: 100%;
   padding: 0 2rem;
   margin: 0;
-  border: 1px solid black;
+  border: 3px solid rgb(21, 21, 21);
   background: #C4C3C3;
 }
 
 .strip__item{
-  padding: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border: 1px solid grey;
+  height: 100%;
+  padding: 0px 15px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
+.strip__item + .strip__item{
+  border-left: 1.5px solid rgba(84, 84, 84, 0.438);
+}
+
 .strip__img{
   max-height: 7.5rem;
   width: auto;
+  border: 5px solid white;
 }
