@@ -104,6 +104,7 @@ class Controller {
 
     canvas.width = newWidth;
     canvas.height = newHeight;
+    canvas.classList.add('js-rendering');
     ctx.drawImage(imageEle, 0, 0, newWidth, newHeight);
   }
 
@@ -135,29 +136,32 @@ class Controller {
     } else {
       pxSize = '50px';
     }
-    arr.forEach((val, i) => {
-      if (i > 6) return;
-      const entry = document.createElement('div');
+    const entry = document.createElement('div');
+    entry.classList.add('display__entry');
+    const entryLabel = document.createElement('div');
+    entryLabel.classList.add('display__label');
+    const swatches = arr.map((val) => {
+      // if (i > 6) return;
       const card = document.createElement('div');
-      const label = document.createElement('p');
-      entry.classList.add('display__entry');
-
+      // const label = document.createElement('p');
+      const darkerRgb = val.map(color => color * 0.5);
       card.style.height = pxSize;
       card.style.width = pxSize;
       card.style.backgroundColor = `rgb(${val})`;
+      card.style.border = `1px solid rgb(${darkerRgb})`;
       card.classList.add('card', 'card--color');
 
-      label.innerText = `rgb(${val})`;
-      label.classList.add('label');
+      // label.innerText = `rgb(${val})`;
+      // label.classList.add('label');
 
-      entry.appendChild(card);
-      entry.appendChild(label);
-      // const entryLabel = document.createElement('div');
-      // entryLabel.appendChild(label);
-      // entryLabel.classList.add('display__label');
-      // this.target.appendChild(entryLabel);
-      this.target.appendChild(entry);
+      // entry.appendChild(label);
+      return card;
     });
+
+    swatches.forEach(swatch => entry.appendChild(swatch));
+    // entryLabel.appendChild(label);
+    this.target.appendChild(entry);
+    this.target.appendChild(entryLabel);
     return this;
   }
 

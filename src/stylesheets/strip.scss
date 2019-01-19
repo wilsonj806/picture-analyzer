@@ -1,6 +1,7 @@
 // SCSS for the Image Strip
 
 .strip{
+  overflow: hidden;
   list-style: none;
   display: flex;
   align-items: center;

@@ -1,4 +1,5 @@
 // Base SCSS
+// For standard components, headings, footer, body/ main tags etc
 
 body{
   margin: 0;
@@ -18,6 +19,37 @@ main{
   min-height: 100vh;
 }
 
+.heading--lg{
+  width: calc(100% - 10px);
+  margin: 5px 0;
+  padding: 16px 0px;
+  color: white;
+  background-color: #000000;
+  text-align: center;
+}
+
+.heading--md{
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 20px 0px 20px 20px;
+  color: #dbdbdb;
+  background-color: #000000;
+  box-shadow: 0 2px 0px rgba(180, 180, 180, 0.35);
+  font-size: 20px;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.heading--sm{
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding: 10px 0px 10px 20px;
+  color: #dbdbdb;
+  background-color: #000000;
+  box-shadow: 0 2px 0px rgba(180, 180, 180, 0.35);
+  font-size: 1rem;
+  text-align: left;
+}
 
 @media (min-width: 1024px) {
   main{

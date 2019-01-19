@@ -8,8 +8,9 @@
 </head>
 <body>
 <main>
+  <!-- NOTE Intro section -->
   <section class="intro">
-      <h1 class="heading--lg">Picture Analyzer</h1>
+      <h1 class="heading heading--lg">Picture Analyzer</h1>
   <div class="drop-ctr">
       <div class="drop__target">
         <p class="prgh prgh--drop">Drop image here</p>
@@ -21,22 +22,29 @@
     <label for="upload-img" class="btn btn--upload">Choose file</label>
   </form>
 </section>
+  <!-- NOTE Image Hanlding -->
+
 <section class="img-handling">
   <div class="wrapper__canvas">
     <canvas class="canvas" id="canvas"></canvas>
   </div>
+
+  <!-- NOTE Data Display -->
+
   <div class="data">
-    <h2 class="heading--md">Image Data</h2>
+    <h2 class="heading heading--md">Image Data</h2>
     <ul class="wrapper__metadata">
       <li class="metadata__item">File Name: </li>
-      <li class="metadata__item">Size: </li>
+      <li class="metadata__item">Size(Mb): </li>
       <li class="metadata__item">Date Last Modified: </li>
     </ul>
-    <h4 class="heading--sm">Color Data</h4>
+    <h4 class="heading heading--sm">Color Data</h4>
     <div class="display">
 
     </div>
   </div>
+
+  <!-- NOTE Button Group -->
 
   <div class="button-group">
     <button class="btn btn--color">Grab Colors</button>
@@ -45,11 +53,13 @@
     <button class="btn btn--dl-clip btn--disabled" disabled style="background-color:grey">Download Clipping</button>
   </div>
 </section>
+
+  <!-- NOTE Image Browsing-->
+
 <section class="img-browsing">
   <ul class="strip">
   </ul>
 </section>
-
 
 </main>
 
