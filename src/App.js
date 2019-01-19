@@ -11,6 +11,7 @@ require('@babel/polyfill');
 
 const imgHandler = new PixelData();
 const displayControl = new Controller(
+  // '.display--dynamic',
   '.display',
   'display__entry',
 );

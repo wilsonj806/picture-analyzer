@@ -115,6 +115,8 @@ class Controller {
     }
   }
 
+  // TODO Make renderSwatch() render the label AND swatch plate in separate divs
+
   renderSwatch(arr) {
     this.clearCurrentDisplay();
     const entriesAreRightLength = arr.every(val => val.length === 3);
@@ -146,10 +148,14 @@ class Controller {
       card.classList.add('card', 'card--color');
 
       label.innerText = `rgb(${val})`;
-      label.classList.add('display__label');
+      label.classList.add('label');
 
       entry.appendChild(card);
       entry.appendChild(label);
+      // const entryLabel = document.createElement('div');
+      // entryLabel.appendChild(label);
+      // entryLabel.classList.add('display__label');
+      // this.target.appendChild(entryLabel);
       this.target.appendChild(entry);
     });
     return this;

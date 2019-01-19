@@ -1,0 +1,29 @@
+// SCSS for the Image Strip
+
+.strip{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 80%;
+  width: 100%;
+  padding: 0 2rem;
+  margin: 0;
+  border: 1px solid black;
+  background: #C4C3C3;
+}
+
+.strip__item{
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 1px solid grey;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.strip__img{
+  max-height: 7.5rem;
+  width: auto;
+}

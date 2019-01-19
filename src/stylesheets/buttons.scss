@@ -1,0 +1,29 @@
+// SCSS for the Buttons
+
+.button-group{
+  grid-area: button;
+  margin-left: 0px;
+  background: #C4C3C3;
+}
+
+.btn{
+  padding: 5px 8px;
+  margin: 0px 5px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  background-color: #255C69;
+  color: white;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: .75rem;
+  &:hover, :focus {
+    background-color: darken(#255C69, 15%);
+  }
+}
+
+.btn--upload{
+  margin:0;
+  text-align: center;
+  width: 5rem;
+  display: inline-block;
+  user-select: none;
+}
