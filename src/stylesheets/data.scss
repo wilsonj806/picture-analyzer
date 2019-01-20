@@ -21,13 +21,14 @@
 
 .metadata__item{
   color : #dbdbdb;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
 }
 
 
 .display--dynamic{
   width: 100%;
 }
-
+// TODO fix naming for swatches, cards, displays
 .display__entry{
   width: 65%;
   padding: 5px;

@@ -130,12 +130,7 @@ class Controller {
     if ((entriesAreRightLength === false) || (entriesAreNumbers === false)) {
       throw new Error('Expecting an array of format [[1,2,3]... [1,2,3]]');
     }
-    let pxSize;
-    if (window.innerWidth <= 1280) {
-      pxSize = '25px';
-    } else {
-      pxSize = '50px';
-    }
+    const pxSize = '30px';
     const entry = document.createElement('div');
     entry.classList.add('display__entry');
     const entryLabel = document.createElement('div');
