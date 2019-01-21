@@ -164,13 +164,13 @@ describe('A class object that deals with DOM manipulation', function() {
     it('should throw if the array consists of elements that aren\'t strings when called', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const arrWrong = [1,'2'];
-      expect(() => { testController.renderStrings(arrWrong)}).toThrow();
+      expect(() => { testController.renderClippingText(arrWrong)}).toThrow();
     })
 
     it('should create two paragraph elements when called', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const arrStr = ['hi', 'hello'];
-      testController.renderStrings(arrStr);
+      testController.renderClippingText(arrStr);
       const generatedChild = document.querySelector('.card--text');
       const isPrghEle = Array.from(generatedChild.children).every(ele => ele.tagName === 'P');
 
@@ -181,7 +181,7 @@ describe('A class object that deals with DOM manipulation', function() {
     it('should fill the created paragraph elements with the contents of the input array when called', function() {
       const testController = new Controller('.test-display', 'test-entry', '#test-canvas');
       const arrStr = ['hi', 'hello'];
-      testController.renderStrings(arrStr);
+      testController.renderClippingText(arrStr);
       const generatedPrghEle = document.querySelectorAll('.display__text');
 
       const matchesInputArr = Array.from(generatedPrghEle).map((ele, i) => {

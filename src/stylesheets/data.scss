@@ -4,11 +4,12 @@
   grid-area: data;
   border-left: 1px solid black;
   background: #282828;
+
 }
 
 
 .display{
-  margin: 5px 0;
+  padding-left: 5px 0;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -16,12 +17,16 @@
 }
 
 .wrapper__metadata{
+  width:75%;
+  margin-left: 2rem;
+  padding-left: 0rem;
   list-style-type: none;
 }
 
 .metadata__item{
   color : #dbdbdb;
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
+  font-size: 0.875rem;
 }
 
 
@@ -30,7 +35,7 @@
 }
 // TODO fix naming for swatches, cards, displays
 .card{
-  width: 65%;
+  width: 75%;
   padding: 5px;
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid #909090;

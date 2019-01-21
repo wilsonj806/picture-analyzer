@@ -29,9 +29,11 @@ function asyncUpload(file) {
   });
 }
 
-async function uploadHandler(e) {
+async function uploadHandler(event) {
+  displayControl.clearCurrentDisplay();
+  displayControl.resetList('.wrapper__metadata');
   const { canvas, ctx } = displayControl;
-  const precheckVals = Uploader.fileCheck(e);
+  const precheckVals = Uploader.fileCheck(event);
   if (precheckVals.status !== 'success') {
     const errStr = precheckVals.status;
     displayControl.fileWarn(errStr);
@@ -39,6 +41,9 @@ async function uploadHandler(e) {
   }
   const selectedFile = precheckVals.file;
   const imgEle = await asyncUpload(selectedFile).then(val => val);
+  Controller.renderMetadata(selectedFile, '.wrapper__metadata');
+  // console.log(selectedFile);
+  // console.dir(new Date(selectedFile.lastModified));
   displayControl.populateStrip(imgEle)
     .renderToCanvas(imgEle);
   // FIXME image quality is bad when rendered into the canvas on a 1024px screen
@@ -67,7 +72,7 @@ function btnClipHandler() {
     const string = `% ${choice} clipping: ${val} %`;
     return string;
   });
-  displayControl.renderStrings(clipAsStrings);
+  displayControl.renderClippingText(clipAsStrings);
   // displayControl.downloadArr('lightness', lightness);
 }
 // !SECTION

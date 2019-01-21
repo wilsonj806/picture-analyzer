@@ -20,6 +20,7 @@ class Controller {
     this.entryClass = entryClass;
     this.canvas = document.querySelector(canvas);
     this.ctx = this.canvas.getContext('2d');
+    this.metadataLabels = ['File Name: ', 'Size(Mb): ', 'Last Modified: '];
   }
 
   populateStrip(imageEle, stripEle = '.strip') {
@@ -107,6 +108,7 @@ class Controller {
     canvas.classList.add('js-rendering');
     ctx.drawImage(imageEle, 0, 0, newWidth, newHeight);
   }
+  // TODO merge this with the new one
 
   clearCurrentDisplay() {
     if (this.target.childElementCount > 0) {
@@ -114,6 +116,37 @@ class Controller {
         this.target.removeChild(node);
       });
     }
+  }
+
+  resetList(metadataEleSelector = '') {
+    const metadataDisplay = document.querySelector(metadataEleSelector).children;
+    Array.from(metadataDisplay).forEach((node, index) => {
+      node.innerText = this.metadataLabels[index];
+    });
+  }
+
+  /* TODO Change format of the Date Last Modified entry from milliseconds
+  to something less ridiculous */
+
+  static renderMetadata(file, metadataEleSelector = '') {
+    if (typeof metadataEleSelector !== 'string') throw new Error(`Expecting ${metadataEleSelector} to be a String!`);
+    const metadataDisplay = document.querySelector(metadataEleSelector).children;
+    const date = new Date(file.lastModified);
+    Array.from(metadataDisplay).forEach((child, index) => {
+      switch (index) {
+        case 0:
+          child.innerText += ` ${file.name}`;
+          break;
+        case 1:
+          child.innerText += ` ${Math.round(file.size / 1000)} kb`;
+          break;
+        case 2:
+          child.innerText += ` ${date.getMonth() + 1}/${date.getUTCDate()}/${date.getFullYear()}`;
+          break;
+        default:
+          throw new Error('Expecting numbers from 0-2');
+      }
+    });
   }
 
   // TODO Make renderSwatch() render the label AND swatch plate in separate divs
@@ -159,8 +192,8 @@ class Controller {
     return this;
   }
 
-  // TODO Determine if renderStrings() should also be allowed to render an input string
-  renderStrings(arr) {
+  // TODO Determine if renderClippingText() should also be allowed to render an input string
+  renderClippingText(arr) {
     this.clearCurrentDisplay();
     const hasStrings = arr.every((val) => {
       const valType = typeof val;
