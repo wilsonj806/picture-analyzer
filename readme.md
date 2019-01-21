@@ -15,6 +15,8 @@ This is a picture-analyzer that is meant to be a small app/ page to run in a web
 
 My goal for this project was to develop something that required some complex JavaScript and testing, the latter of which I've never handled. In addition, I wanted to use this project to practice using Git, npm, and Webpack since these technologies were fairly predominant in web development nowadays.
 
+As this is meant to push and challenge my JavaScript skills, **a bare minimum amount of UI elements were added** in order to get to programming faster and was intended to be refactored heavily at the end.
+
 ### Roadmap to v1.0.0
 
 **Currently implemented features**
@@ -53,17 +55,6 @@ The below features are more intended to be extra features to be implemented **af
 - Implement the data-analysis in Node instead
 - Make a RGB to HSL conversion function so that `@csstools/convert-colors` can be removed from dependencies
 
-## Known Issues
-
-- Some functionality isn't performing as expected on MacOS
-  - probably a color profile issue
-  - need to check the [Canvas/ Rendering Context docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
-  - also should look into the ImageBitmap API/ `self.createImageBitmap()
-    - [Applicable Can I Use for the above](https://caniuse.com/#search=createImageBitmap)
-- Data reduction algorithm is flawed, it stops once it has its 6 values and more or less doesn't bother updating them
-- Data analysis behaves incorrectly when analysis buttons are clicked multiple times
-  - i.e they concatenate the new values ontop of the already computed values
-
 ## Tooling/ Primary Libraries Used
 
 SCM:
@@ -79,6 +70,13 @@ Tooling:
 - [Jasmine](https://jasmine.github.io/)
 - [Karma](http://karma-runner.github.io/latest/index.html)
 - [Webpack](https://webpack.js.org/)
+
+## Additional Documentation
+
+- [Issues](ISSUES.md)
+- [Development Process](doc/development-process.md)
+- [Testing](doc/TESTING.md)
+- [Things Learned](doc/things-learned.md)
 
 ## Cloning instructions
 
