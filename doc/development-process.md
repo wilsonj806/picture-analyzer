@@ -4,6 +4,14 @@
 
 This document is to outline the general development process for this project. The goals section of the [Read Me](../README.md) does go into it a bit in the road map, but isn't really the section to go into the actual development process.
 
+## Current Phase of Development
+
+Testing and branding/ UI styling.
+
+Current design to update towards:
+![Mock Up Image](img/current-mock.png)
+
+
 ## Goals
 
 My goal for this project was to develop something that required some complex JavaScript and testing, the latter of which I've never handled. In addition, I wanted to use this project to practice using Git, npm, and Webpack since these technologies were fairly predominant in web development nowadays.
