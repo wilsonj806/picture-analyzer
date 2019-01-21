@@ -16,7 +16,7 @@ const displayControl = new Controller(
   'display__entry',
 );
 
-// NOTE For uploads
+// SECTION Callback Function
 
 function asyncUpload(file) {
   return new Promise((resolve, reject) => {
@@ -46,8 +46,6 @@ async function uploadHandler(e) {
     .parsePixels();
 }
 
-// NOTE For event listener callbacks
-
 function btnColorHandler() {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   const arr = findMost(imgHandler.rgbCount);
@@ -66,12 +64,15 @@ function btnClipHandler() {
     } else {
       choice = 'white';
     }
-    const string = `This is percent of ${choice} clipping: ${val} %`;
+    const string = `% ${choice} clipping: ${val} %`;
     return string;
   });
   displayControl.renderStrings(clipAsStrings);
   // displayControl.downloadArr('lightness', lightness);
 }
+// !SECTION
+
+// SECTION Event Listeners
 
 document.querySelector('.drop__target').addEventListener('dragenter', (e) => {
   e.stopPropagation();
@@ -92,8 +93,10 @@ document.querySelector('.btn--color').addEventListener('click', btnColorHandler)
 
 document.querySelector('.btn--clip').addEventListener('click', btnClipHandler);
 
-document.querySelector('.btn--dl-arr').addEventListener('click', () => {
+/* document.querySelector('.btn--dl-arr').addEventListener('click', () => {
   imgHandler.rgbCount = rgbFreq(imgHandler.rgbArr);
   const arr = findMost(imgHandler.rgbCount);
   displayControl.downloadArr('color-1', arr);
-});
+}); */
+
+// !SECTION

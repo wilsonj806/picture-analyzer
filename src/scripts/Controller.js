@@ -130,33 +130,32 @@ class Controller {
     if ((entriesAreRightLength === false) || (entriesAreNumbers === false)) {
       throw new Error('Expecting an array of format [[1,2,3]... [1,2,3]]');
     }
-    const pxSize = '30px';
+    const swatchSize = '30px';
     const entry = document.createElement('div');
-    entry.classList.add('display__entry');
-    const entryLabel = document.createElement('div');
-    entryLabel.classList.add('display__label');
+    entry.classList.add('card', 'card--palette');
+    // const entryLabel = document.createElement('div');
+    // entryLabel.classList.add('display__label');
     const swatches = arr.map((val) => {
-      // if (i > 6) return;
-      const card = document.createElement('div');
+      const swatch = document.createElement('div');
       // const label = document.createElement('p');
       const darkerRgb = val.map(color => color * 0.5);
-      card.style.height = pxSize;
-      card.style.width = pxSize;
-      card.style.backgroundColor = `rgb(${val})`;
-      card.style.border = `1px solid rgb(${darkerRgb})`;
-      card.classList.add('card', 'card--color');
+      swatch.style.height = swatchSize;
+      swatch.style.width = swatchSize;
+      swatch.style.backgroundColor = `rgb(${val})`;
+      swatch.style.border = `1px solid rgb(${darkerRgb})`;
+      swatch.classList.add('swatch');
 
       // label.innerText = `rgb(${val})`;
       // label.classList.add('label');
 
       // entry.appendChild(label);
-      return card;
+      return swatch;
     });
 
     swatches.forEach(swatch => entry.appendChild(swatch));
     // entryLabel.appendChild(label);
     this.target.appendChild(entry);
-    this.target.appendChild(entryLabel);
+    // this.target.appendChild(entryLabel);
     return this;
   }
 
@@ -176,8 +175,8 @@ class Controller {
 
     const p1 = document.createElement('p');
     const p2 = document.createElement('p');
-    p1.classList.add('display__text');
-    p2.classList.add('display__text');
+    p1.classList.add('card__prgh');
+    p2.classList.add('card__prgh');
 
     if ((p1.innerText !== '') || (p2.innerText !== '')) {
       document.getElementsByClassName('display__text').forEach((ele) => {
