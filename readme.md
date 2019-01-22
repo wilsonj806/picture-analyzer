@@ -2,8 +2,10 @@
 
 ## Status
 
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/wilsonj806/picture-analyzer.svg)](https://github.com/wilsonj806/picture-analyzer)
-[![devDependencies Status](https://david-dm.org/wilsonj806/picture-analyzer/dev-status.svg)](https://david-dm.org/wilsonj806/picture-analyzer?type=dev)
+[![Latest release](https://img.shields.io/github/tag/wilsonj806/picture-analyzer.svg)](https://github.com/wilsonj806/picture-analyzer)
+![Current package.json version](https://img.shields.io/github/package-json/v/wilsonj806/picture-analyzer.svg?label=current%20version)
+![Top language](https://img.shields.io/github/languages/top/wilsonj806/picture-analyzer.svg)
+
 
 - [**Live Site**](https://wilsonj806.github.io/picture-analyzer/)
 

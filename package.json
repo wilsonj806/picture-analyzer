@@ -1,6 +1,6 @@
 {
   "name": "picture-analyzer",
-  "version": "0.8.0",
+  "version": "0.8.5",
   "description": "This is a picture-analyzer that is meant to be a small app to run in your browser. Functionally it's supposed to take in user-uploaded pictures, parse it and send some very simplistic properties back.",
   "private": true,
   "scripts": {
