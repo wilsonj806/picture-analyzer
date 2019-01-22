@@ -2,6 +2,7 @@
 
 // import webpack config
 var webpackConfig = require('./webpack.dev.js');
+const path = require('path');
 
 module.exports = function(config) {
   config.set({
@@ -15,7 +16,7 @@ module.exports = function(config) {
 
     // preprocessor loading
     // its pointing to the wrong directory, should be picture-analyzer in there
-    files: ['./picture-analyzer/config/webpack.test.js'], // replace with __dirname__ and concat with the other stuff
+    files: [path.join(__dirname, 'webpack.test.js')], // replace with __dirname__ and concat with the other stuff
     preprocessors: {
       // Run this through webpack
       './picture-analyzer/config/webpack.test.js': ['webpack'],

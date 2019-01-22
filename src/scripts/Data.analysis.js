@@ -56,7 +56,7 @@ function colorReduceUtil(arr, isNested = false, nestedLayers = 0) {
       return acc;
     }, 0);
     let average = sum / arr.length;
-    if (average < 15) { average = 15; }
+    if (average < 5) { average = 5; }
     return average;
   }
   const sum = arr.reduce((acc, item) => {

@@ -1,0 +1,10 @@
+// SCSS for Typography
+// Mostly mixins
+
+@mixin Lucida {
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
+}
+
+@mixin Helvetica {
+  font-family: 'Helvetica', sans-serif;
+}

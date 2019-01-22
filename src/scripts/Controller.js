@@ -1,4 +1,4 @@
-// TODO: Implement a rate limiter for button presses
+// FIXME Change rendering so that the card element is made/ added before or on page load
 
 class Controller {
   constructor(displayTgt = '.display', entryClass = '.entry', canvas = '#canvas') {
@@ -20,6 +20,31 @@ class Controller {
     this.entryClass = entryClass;
     this.canvas = document.querySelector(canvas);
     this.ctx = this.canvas.getContext('2d');
+    this.metadataLabels = ['File Name: ', 'Size(Mb): ', 'Last Modified: '];
+  }
+
+  /* TODO Change format of the Date Last Modified entry from milliseconds
+  to something less ridiculous */
+
+  static renderMetadata(file, metadataEleSelector = '') {
+    if (typeof metadataEleSelector !== 'string') throw new Error(`Expecting ${metadataEleSelector} to be a String!`);
+    const metadataDisplay = document.querySelector(metadataEleSelector).children;
+    const date = new Date(file.lastModified);
+    Array.from(metadataDisplay).forEach((child, index) => {
+      switch (index) {
+        case 0:
+          child.innerText += ` ${file.name}`;
+          break;
+        case 1:
+          child.innerText += ` ${Math.round(file.size / 1000)} kb`;
+          break;
+        case 2:
+          child.innerText += ` ${date.getMonth() + 1}/${date.getUTCDate()}/${date.getFullYear()}`;
+          break;
+        default:
+          throw new Error('Expecting numbers from 0-2');
+      }
+    });
   }
 
   populateStrip(imageEle, stripEle = '.strip') {
@@ -104,8 +129,10 @@ class Controller {
 
     canvas.width = newWidth;
     canvas.height = newHeight;
+    canvas.classList.add('js-rendering');
     ctx.drawImage(imageEle, 0, 0, newWidth, newHeight);
   }
+  // TODO merge this with the new one
 
   clearCurrentDisplay() {
     if (this.target.childElementCount > 0) {
@@ -114,6 +141,15 @@ class Controller {
       });
     }
   }
+
+  resetList(metadataEleSelector = '') {
+    const metadataDisplay = document.querySelector(metadataEleSelector).children;
+    Array.from(metadataDisplay).forEach((node, index) => {
+      node.innerText = this.metadataLabels[index];
+    });
+  }
+
+  // TODO Make renderSwatch() render the label AND swatch plate in separate divs
 
   renderSwatch(arr) {
     this.clearCurrentDisplay();
@@ -127,36 +163,37 @@ class Controller {
     if ((entriesAreRightLength === false) || (entriesAreNumbers === false)) {
       throw new Error('Expecting an array of format [[1,2,3]... [1,2,3]]');
     }
-    let pxSize;
-    if (window.innerWidth <= 1280) {
-      pxSize = '25px';
-    } else {
-      pxSize = '50px';
-    }
-    arr.forEach((val, i) => {
-      if (i > 6) return;
-      const entry = document.createElement('div');
-      const card = document.createElement('div');
-      const label = document.createElement('p');
-      entry.classList.add('display__entry');
+    const swatchSize = '30px';
+    const entry = document.createElement('div');
+    entry.classList.add('card', 'card--palette');
+    // const entryLabel = document.createElement('div');
+    // entryLabel.classList.add('display__label');
+    const swatches = arr.map((val) => {
+      const swatch = document.createElement('div');
+      // const label = document.createElement('p');
+      const darkerRgb = val.map(color => color * 0.5);
+      swatch.style.height = swatchSize;
+      swatch.style.width = swatchSize;
+      swatch.style.backgroundColor = `rgb(${val})`;
+      swatch.style.border = `1px solid rgb(${darkerRgb})`;
+      swatch.classList.add('swatch');
 
-      card.style.height = pxSize;
-      card.style.width = pxSize;
-      card.style.backgroundColor = `rgb(${val})`;
-      card.classList.add('card', 'card--color');
+      // label.innerText = `rgb(${val})`;
+      // label.classList.add('label');
 
-      label.innerText = `rgb(${val})`;
-      label.classList.add('display__label');
-
-      entry.appendChild(card);
-      entry.appendChild(label);
-      this.target.appendChild(entry);
+      // entry.appendChild(label);
+      return swatch;
     });
+
+    swatches.forEach(swatch => entry.appendChild(swatch));
+    // entryLabel.appendChild(label);
+    this.target.appendChild(entry);
+    // this.target.appendChild(entryLabel);
     return this;
   }
 
-  // TODO Determine if renderStrings() should also be allowed to render an input string
-  renderStrings(arr) {
+  // TODO Determine if renderClippingText() should also be allowed to render an input string
+  renderClippingText(arr) {
     this.clearCurrentDisplay();
     const hasStrings = arr.every((val) => {
       const valType = typeof val;
@@ -171,8 +208,8 @@ class Controller {
 
     const p1 = document.createElement('p');
     const p2 = document.createElement('p');
-    p1.classList.add('display__text');
-    p2.classList.add('display__text');
+    p1.classList.add('card__prgh');
+    p2.classList.add('card__prgh');
 
     if ((p1.innerText !== '') || (p2.innerText !== '')) {
       document.getElementsByClassName('display__text').forEach((ele) => {

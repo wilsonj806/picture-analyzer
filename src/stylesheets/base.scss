@@ -1,0 +1,72 @@
+// Base SCSS
+// For standard components, headings, footer, body/ main tags etc
+
+body{
+  margin: 0;
+  background-color: #181818;
+}
+
+main{
+  margin: 5px 5px 0px 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-template-rows: 3fr 3fr 2.5fr;
+  column-gap: 5px;
+  grid-template-areas:
+    "intro img img img"
+    "intro img img img"
+    "strip strip strip strip";
+  min-height: 100vh;
+}
+
+.heading{
+  @include Helvetica;
+}
+
+.heading--lg{
+  width: calc(100% - 10px);
+  margin: 5px 0;
+  padding: 16px 0px;
+  color: white;
+  background-color: #000000;
+  text-align: center;
+}
+
+.heading--md{
+  width: calc(100% - 20px);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 20px 0px 20px 20px;
+  color: #dbdbdb;
+  background-color: #000000;
+  box-shadow: 0 2px 0px rgba(180, 180, 180, 0.35);
+  font-size: 20px;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.heading--sm{
+  width: calc(100% - 20px);
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding: 10px 0px 10px 20px;
+  color: #dbdbdb;
+  background-color: #000000;
+  box-shadow: 0 2px 0px rgba(180, 180, 180, 0.35);
+  font-size: 1rem;
+  text-align: left;
+}
+
+@media screen and (min-width: 1024px) {
+  main{
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main{
+    grid-template-columns: 1fr 2fr 2fr 2fr;
+  }
+}

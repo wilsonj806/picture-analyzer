@@ -1,0 +1,57 @@
+// SCSS for the Intro
+
+.intro{
+  grid-area: intro;
+  background-color: #282828;
+  border: 1px solid black;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.js-danger-popup{
+  padding: 10px;
+  color:white;
+  background:red;
+  font-weight:bold;
+}
+
+.drop__target{
+  width: 200px;
+  height: 200px;
+  margin: 10px 0;
+  border: 3px dashed white;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prgh--drop{
+  @include Lucida;
+  color: black;
+  text-align: center;
+  user-select: none;
+}
+
+.upload__row{
+  padding: 10px 0;
+  width: 206px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.upload__label{
+  display: block;
+}
+
+.input--upload{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}

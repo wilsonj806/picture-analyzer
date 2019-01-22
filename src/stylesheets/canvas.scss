@@ -1,0 +1,36 @@
+// SCSS for the Canvas
+
+.img-handling{
+  margin-right: 0px;
+  // margin-bottom: 10px;
+  border: 1px solid black;
+  grid-area: img;
+  display: grid;
+  grid-template-columns: 1fr 1fr .75fr;
+  grid-template-rows: 3fr 3fr 3fr 2rem;
+  column-gap: 7.5px;
+  grid-template-areas:
+    "canvas canvas data"
+    "canvas canvas data"
+    "canvas canvas data"
+    "button button data";
+}
+
+.wrapper__canvas{
+  grid-area: canvas;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C4C3C3;
+}
+
+.js-rendering#canvas{
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.25);
+}
+
+
+@media screen and (min-width: 1440px) {
+  .img-handling{
+    grid-template-columns: 2fr 2fr 1fr;
+  }
+}

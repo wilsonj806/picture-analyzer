@@ -1,0 +1,90 @@
+// SCSS for the Data display
+
+.data{
+  grid-area: data;
+  border-left: 1px solid black;
+  background: #282828;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+.display{
+  padding-left: 5px 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.ul__metadata{
+  width: 13rem;
+  padding-left: 0rem;
+  list-style-type: none;
+}
+
+.metadata__item{
+  color : #dbdbdb;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+
+.display--dynamic{
+  width: 100%;
+}
+// TODO fix naming for swatches, cards, displays
+.card{
+  width: 11.75rem;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid #909090;
+}
+
+.card--palette{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items:center;
+}
+
+.card--text{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__prgh{
+  @include Lucida;
+  font-size: 0.875rem;
+  color: #dbdbdb;
+  width: 90%;
+}
+
+.swatch{
+  margin: 10px;
+}
+
+.img-browsing{
+  grid-area: strip;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 1440px) {
+  .ul__metadata{
+    width: 16rem;
+    padding-left: 2rem;
+  }
+
+  .card{
+    width: 11rem;
+    padding: 0 2rem;
+  }
+}
