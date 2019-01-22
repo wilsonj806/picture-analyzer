@@ -31,7 +31,7 @@ function asyncUpload(file) {
 
 async function uploadHandler(event) {
   displayControl.clearCurrentDisplay();
-  displayControl.resetList('.wrapper__metadata');
+  displayControl.resetList('.ul__metadata');
   const { canvas, ctx } = displayControl;
   const precheckVals = Uploader.fileCheck(event);
   if (precheckVals.status !== 'success') {
@@ -41,7 +41,7 @@ async function uploadHandler(event) {
   }
   const selectedFile = precheckVals.file;
   const imgEle = await asyncUpload(selectedFile).then(val => val);
-  Controller.renderMetadata(selectedFile, '.wrapper__metadata');
+  Controller.renderMetadata(selectedFile, '.ul__metadata');
   // console.log(selectedFile);
   // console.dir(new Date(selectedFile.lastModified));
   displayControl.populateStrip(imgEle)
