@@ -27,3 +27,10 @@
 .js-rendering#canvas{
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.25);
 }
+
+
+@media screen and (min-width: 1440px) {
+  .img-handling{
+    grid-template-columns: 2fr 2fr 1fr;
+  }
+}

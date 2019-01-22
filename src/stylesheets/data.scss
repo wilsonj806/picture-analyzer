@@ -76,3 +76,14 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (min-width: 1440px) {
+  .ul__metadata{
+    width: 16rem;
+  }
+
+  .card{
+    width: 11rem;
+    padding: 0 2rem;
+  }
+}

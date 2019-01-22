@@ -1,4 +1,4 @@
-// TODO: Implement a rate limiter for button presses
+// FIXME Change rendering so that the card element is made/ added before or on page load
 
 class Controller {
   constructor(displayTgt = '.display', entryClass = '.entry', canvas = '#canvas') {
