@@ -21,8 +21,8 @@
 
 
 .ul__metadata{
-  width: 75%;
-  padding-left: 2rem;
+  width: 13rem;
+  padding-left: 0rem;
   list-style-type: none;
 }
 
@@ -38,7 +38,7 @@
 }
 // TODO fix naming for swatches, cards, displays
 .card{
-  width: 75%;
+  width: 11.75rem;
   padding: 5px;
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid #909090;
@@ -51,10 +51,18 @@
   align-items:center;
 }
 
+.card--text{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .card__prgh{
   @include Lucida;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: #dbdbdb;
+  width: 90%;
 }
 
 .swatch{
@@ -67,14 +75,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media screen and (min-width: 1440px) {
-  .ul__metadata{
-    width: 45%;
-  }
-
-  .card{
-    width: 45%;
-  }
 }
