@@ -7,8 +7,8 @@ Testing for this project was done with a combination of Jasmine, Karma, and Webp
 
 Tests are written in the style of Behavior Driven Development with suites following the "Given, when, then" format as much as possible.
 - For example:
-  - Given 'a method that manipulates a canvas element'
-    - it 'should render an image into a rendering context when called with an image element input'
+  - Given *'a method that manipulates a canvas element'*
+    - it *'should render an image into a rendering context when called with an image element input'*
 
 ## Test Expectations
 
