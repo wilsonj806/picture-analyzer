@@ -9,6 +9,13 @@
 
 - [**Live Site**](https://wilsonj806.github.io/picture-analyzer/)
 
+## Additional Documentation
+
+- [Issues](ISSUES.md)
+- [Development Process](doc/development-process.md)
+- [Testing](doc/TESTING.md)
+- [Things Learned](doc/things-learned.md)
+
 ## Description
 
 This is a picture-analyzer that is meant to be a small app/ page to run in a web browser. It's supposed to take in user-uploaded pictures, parse it and send some very simplistic properties back. Functionally, the app is a very stripped down version of how Adobe Lightroom or even Adobe Photoshop presents image information.
@@ -43,6 +50,7 @@ As this is meant to push and challenge my JavaScript skills, **a bare minimum am
 - Tests for relevant units/ whatever service and end to end tests needed
 - Any necessary refactoring
 - Make the page fully responsive
+- Modals for prompts/ warning messages/ etc
 
 ### Post v1.0.0 support
 
@@ -72,13 +80,6 @@ Tooling:
 - [Jasmine](https://jasmine.github.io/)
 - [Karma](http://karma-runner.github.io/latest/index.html)
 - [Webpack](https://webpack.js.org/)
-
-## Additional Documentation
-
-- [Issues](ISSUES.md)
-- [Development Process](doc/development-process.md)
-- [Testing](doc/TESTING.md)
-- [Things Learned](doc/things-learned.md)
 
 ## Cloning instructions
 

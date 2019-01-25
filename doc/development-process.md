@@ -6,10 +6,10 @@ This document is to outline the general development process for this project. Th
 
 ## Current Phase of Development
 
-Testing and branding/ UI styling.
-
-Current design to update towards:
-![Mock Up Image](img/current-mock.png)
+- Testing and branding/ UI styling.
+- Scripting necessary for vanilla JS Modals
+- Current design to update towards:
+  - ![Mock Up Image](./img/current-mock.png)
 
 
 ## Goals
